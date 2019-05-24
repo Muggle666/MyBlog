@@ -25,7 +25,7 @@
 >产品等级：产品等级结构即产品的继承结构
 产品族：在抽象工厂模式中，产品族是指由同一个工厂生产的，位于不同产品等级结构中的一组产品
 
-
+![产品族与产品等级图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/%E4%BA%A7%E5%93%81%E6%97%8F%E4%B8%8E%E4%BA%A7%E5%93%81%E7%AD%89%E7%BA%A7%E5%9B%BE.png)
 抽象工厂有以下几个角色：
 抽象工厂（Abstract Factory）：提供了创建产品的接口，它包含多个创建产品的方法 newProduct()，可以创建多个不同等级的产品。
 具体工厂（Concrete Factory）：主要是实现抽象工厂中的多个抽象方法，完成具体产品的创建。
