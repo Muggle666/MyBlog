@@ -34,7 +34,7 @@
 
 示例：模拟家用电器制造，每种电器都有多种品牌，每个品牌也有多种电器，而客户端不需要知道创建的细节，只需要创建对应的品牌工厂就可以获取对应的电器。
 
-
+![示例UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/AbstarctFactory--Sample.png)
 AirConditioner、Refrigerator、WashingMachine（抽象产品）：
 ```java
 public interface AirConditioner {
