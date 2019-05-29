@@ -41,4 +41,5 @@ Test:测试类
 # 总结</a>
 
 参考资料:
-《Java设计模式精讲 Debug方式+内存分析》
+
+[《Java设计模式精讲 Debug方式+内存分析》](https://coding.imooc.com/class/270.html)
