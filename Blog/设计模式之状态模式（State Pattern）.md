@@ -50,6 +50,43 @@ public abstract class FlowState {
 
 ```
 ```java
+public class Audit extends FlowState{
+    @Override
+    void audit() {
+        System.out.println("审核中...");
+    }
+
+    @Override
+    void pass() {
+        super.context.setState(Context.PASS);
+        super.context.getState().pass();
+    }
+
+    @Override
+    void noPass() {
+        super.context.setState(Context.NO_PASS);
+        super.context.getState().noPass();
+    }
+}
+public class Pass extends FlowState{
+
+    @Override
+    void audit() {
+        super.context.setState(Context.AUDIT);
+        super.context.getState().audit();
+    }
+
+    @Override
+    void pass() {
+        System.out.println("通过啦...");
+    }
+
+    @Override
+    void noPass() {
+        super.context.setState(Context.NO_PASS);
+        super.context.getState().noPass();
+    }
+}
 
 ```
 
