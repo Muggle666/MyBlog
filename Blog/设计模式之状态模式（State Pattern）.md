@@ -50,7 +50,7 @@ public abstract class FlowState {
 
 ```
 
-Audit、Pass、Nopass
+Audit、Pass、NoPass类（具体状态类）：
 ```java
 public class Audit extends FlowState{
     @Override
