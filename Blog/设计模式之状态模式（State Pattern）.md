@@ -34,7 +34,7 @@ ConcreteState（具体状态类）: 实现抽象状态定义的接口。
 
 示例：模拟一个请假流程。员工需要提交申请，等到领导审核后通过或者不通过。
 
-
+![StatePattern-SampleUml](https://raw.githubusercontent.com/MuggleLee/PicGo/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/StatePattern-Sample.png)
 
 FlowState（抽象状态类）：
 ```java
@@ -185,6 +185,6 @@ public class Apply {
 
 参考资料:
 
-[《Java设计模式精讲 Debug方式+内存分析》](https://coding.imooc.com/class/270.html)
+视频：[《Java设计模式精讲 Debug方式+内存分析》](https://coding.imooc.com/class/270.html)
 
 [http://c.biancheng.net/view/1388.html](http://c.biancheng.net/view/1388.html)
