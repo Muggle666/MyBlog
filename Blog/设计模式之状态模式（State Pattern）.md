@@ -32,9 +32,23 @@ ConcreteState（具体状态类）: 实现抽象状态定义的接口。
 
 
 
-Test:测试类
+Apply:测试类
 ```java
-
+public class Apply {
+    public static void main(String[] args){
+        try {
+            //下属申请
+            System.out.println("提交申请...");
+            Context context  = new Context(new Audit());
+            context.audit();
+            Thread.sleep(100);
+            //模拟上级看到申请后的动作
+            context.pass();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
 ```
 输出结果：
 ```java
