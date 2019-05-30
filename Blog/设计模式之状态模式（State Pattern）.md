@@ -29,8 +29,9 @@ Context（环境类）：它定义了客户程序需要的接口并维护一个�
 State（抽象状态类）: 定义一个接口以封装使用上下文环境的的一个特定状态相关的行为。
 ConcreteState（具体状态类）: 实现抽象状态定义的接口。
 
+示例：模拟一个请假流程。
 
-FlowState类：
+FlowState（抽象状态类）：
 ```java
 public abstract class FlowState {
 
