@@ -49,6 +49,8 @@ public abstract class FlowState {
 }
 
 ```
+
+Audit、Pass、Nopass
 ```java
 public class Audit extends FlowState{
     @Override
@@ -68,6 +70,7 @@ public class Audit extends FlowState{
         super.context.getState().noPass();
     }
 }
+
 public class Pass extends FlowState{
 
     @Override
@@ -88,6 +91,24 @@ public class Pass extends FlowState{
     }
 }
 
+public class NoPass extends FlowState{
+    @Override
+    void audit() {
+        super.context.setState(Context.AUDIT);
+        super.context.getState().audit();
+    }
+
+    @Override
+    void pass() {
+        super.context.setState(Context.PASS);
+        super.context.getState().pass();
+    }
+
+    @Override
+    void noPass() {
+        System.out.println("不通过...");
+    }
+}
 ```
 
 
