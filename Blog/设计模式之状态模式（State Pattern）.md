@@ -27,7 +27,7 @@
 状态模式包括以下几种角色：
 Context（环境类）：
 State（抽象状态类）: 
-ConcreteState: 具体状态类
+ConcreteState（具体状态类）: 
 
 
 
