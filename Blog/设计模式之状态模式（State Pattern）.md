@@ -47,3 +47,5 @@ Test:测试类
 参考资料:
 
 [《Java设计模式精讲 Debug方式+内存分析》](https://coding.imooc.com/class/270.html)
+
+[http://c.biancheng.net/view/1388.html](http://c.biancheng.net/view/1388.html)
