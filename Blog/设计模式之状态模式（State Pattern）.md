@@ -30,6 +30,24 @@ State（抽象状态类）: 定义一个接口以封装使用上下文环境的�
 ConcreteState（具体状态类）: 实现抽象状态定义的接口。
 
 
+FlowState类：
+```java
+public abstract class FlowState {
+
+    protected Context context;
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    abstract void audit();
+
+    abstract void pass();
+
+    abstract void noPass();
+}
+
+```
 
 
 Apply:测试类
