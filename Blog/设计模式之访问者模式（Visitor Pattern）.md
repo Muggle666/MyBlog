@@ -169,7 +169,7 @@ Marry 工程师，月薪为：11000.0
 Tim 经理，月薪为：22000.0
 ```
 
-
+![VisitorPattern-SampleUml](https://raw.githubusercontent.com/MuggleLee/PicGo/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/VisitorPattern-SampleUml.png)
 
 
 # 总结
