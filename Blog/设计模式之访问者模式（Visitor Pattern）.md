@@ -35,6 +35,10 @@ public interface Staff {
     void accept(Department department);
 }
 ```
+Manager、Engineer（具体元素）：
+```java
+
+```
 
 
 
