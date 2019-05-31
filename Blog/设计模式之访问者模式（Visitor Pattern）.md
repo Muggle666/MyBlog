@@ -75,7 +75,7 @@ public class Manager implements Staff {
     //省略get、set方法
 }
 ```
-Department（Visitor）：
+Department（抽象访问者）：
 ```java
 public interface Department {
     void visit(Engineer engineer);
@@ -83,7 +83,8 @@ public interface Department {
     void visit(Manager manager);
 }
 ```
-AccountingDepartment、PersonnelDepartment
+AccountingDepartment、PersonnelDepartment（具体访问者）：
+
 
 
 
