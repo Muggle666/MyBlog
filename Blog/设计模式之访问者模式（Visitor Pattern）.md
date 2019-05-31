@@ -182,4 +182,5 @@ Tim 经理，月薪为：22000.0
 参考资料:
 
 [http://c.biancheng.net/view/1397.html](http://c.biancheng.net/view/1397.html)
+
 [https://www.runoob.com/design-pattern/visitor-pattern.html](https://www.runoob.com/design-pattern/visitor-pattern.html)
