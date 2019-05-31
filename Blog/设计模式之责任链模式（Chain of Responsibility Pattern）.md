@@ -43,6 +43,28 @@ public abstract class ReviewPerson {
 ```
 Tester、CTO、Boss（具体处理者角色）：
 ```java
+public class Tester extends ReviewPerson{
+    @Override
+    void handle(String program) {
+        if("没有Bug的功能！".equals(program)){
+            System.out.println("测试人员测试后没问题，提交给技术总监...");
+            getPerson().handle(program);
+        }else {
+            System.out.println("有Bug呀，再改改！");
+        }
+    }
+}
+public class CTO extends ReviewPerson{
+    @Override
+    void handle(String program) {
+        if("没有Bug的功能！".equals(program)){
+            System.out.println("技术总监测试后没问题，提交给老板...");
+            getPerson().handle(program);
+        }else {
+            System.out.println("有Bug呀，再改改！");
+        }
+    }
+}
 public class Boss extends ReviewPerson{
     @Override
     void handle(String program) {
@@ -54,15 +76,26 @@ public class Boss extends ReviewPerson{
     }
 }
 ```
-
-
-
-Test:测试类
+Programmer（客户类角色）：
 ```java
+public class Programmer {
+    public static void main(String[] args) {
+        ReviewPerson tester = new Tester();
+        ReviewPerson cto = new CTO();
+        ReviewPerson boss = new Boss();
 
+        tester.setPerson(cto);
+        cto.setPerson(boss);
+
+        tester.handle("没有Bug的功能！");
+    }
+}
 ```
 输出结果：
 ```java
+测试人员测试后没问题，提交给技术总监...
+技术总监测试后没问题，提交给老板...
+功能完成，可以上线了！
 
 ```
 
