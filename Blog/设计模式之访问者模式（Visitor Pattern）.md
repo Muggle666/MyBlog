@@ -29,13 +29,13 @@
 
 **对象结构（Object Structure）角色：** 是一个包含元素角色的容器，提供让访问者对象遍历容器中的所有元素的方法，通常由 List、Set、Map 等聚合类实现。
 
-Staff（抽象元素）：
+Staff（抽象元素角色）：
 ```java
 public interface Staff {
     void accept(Department department);
 }
 ```
-Manager、Engineer（具体元素）：
+Manager、Engineer（具体元素角色）：
 ```java
 public class Engineer implements Staff {
 
@@ -75,7 +75,7 @@ public class Manager implements Staff {
     //省略get、set方法
 }
 ```
-Department（抽象访问者）：
+Department（抽象访问者角色）：
 ```java
 public interface Department {
     void visit(Engineer engineer);
@@ -83,7 +83,7 @@ public interface Department {
     void visit(Manager manager);
 }
 ```
-AccountingDepartment、PersonnelDepartment（具体访问者）：
+AccountingDepartment、PersonnelDepartment（具体访问者角色）：
 
 ```java
 public class AccountingDepartment implements Department{
