@@ -139,19 +139,35 @@ public class StaffContainer {
 }
 ```
 
-
-
-
-
-
 Test:测试类
 ```java
-
+public class Test {
+    public static void main(String[] args) {
+        Staff engineer = new Engineer("Marry");
+        Staff manager = new Manager("Tim");
+        Department personnelDepartment = new PersonnelDepartment();
+        Department accountingDepartment = new AccountingDepartment();
+        StaffContainer container = new StaffContainer();
+        container.addStaff(engineer);
+        container.addStaff(manager);
+        System.out.println("----------人事部统计员工上班天数----------");
+        container.accept(personnelDepartment);
+        System.out.println("----------财务部计算员工工资----------");
+        container.accept(accountingDepartment);
+    }
+}
 ```
 输出结果：
 ```java
-
+----------人事部统计员工上班天数----------
+Marry 工程师，上个月工作天数为：22.0
+Tim 经理，上个月工作天数为：22.0
+----------财务部计算员工工资----------
+Marry 工程师，月薪为：11000.0
+Tim 经理，月薪为：22000.0
 ```
+
+
 
 
 # 总结
