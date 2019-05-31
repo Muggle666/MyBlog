@@ -44,24 +44,26 @@ public abstract class ReviewPerson {
 Tester、CTO、Boss（具体处理者角色）：
 ```java
 public class Tester extends ReviewPerson{
+    private final String NAME = "测试人员";
     @Override
     void handle(String program) {
         if("没有Bug的功能！".equals(program)){
-            System.out.println("测试人员测试后没问题，提交给技术总监...");
+            System.out.println(NAME + "：没问题，提交给技术总监...");
             getPerson().handle(program);
         }else {
-            System.out.println("有Bug呀，再改改！");
+            System.out.println(NAME + "：有Bug呀，再改改！");
         }
     }
 }
 public class CTO extends ReviewPerson{
+    private final String NAME = "技术总监";
     @Override
     void handle(String program) {
         if("没有Bug的功能！".equals(program)){
-            System.out.println("技术总监测试后没问题，提交给老板...");
+            System.out.println(NAME + "：没问题，提交给老板...");
             getPerson().handle(program);
         }else {
-            System.out.println("有Bug呀，再改改！");
+            System.out.println(NAME + "：有Bug呀，再改改！");
         }
     }
 }
