@@ -41,7 +41,20 @@ public abstract class ReviewPerson {
     }
 }
 ```
-Tester、CTO、Boss（）：
+Tester、CTO、Boss（具体处理者角色）：
+```java
+public class Boss extends ReviewPerson{
+    @Override
+    void handle(String program) {
+        if("没有Bug的功能！".equals(program)){
+            System.out.println("功能完成，可以上线了！");
+        }else {
+            System.out.println("有Bug呀，再改改！");
+        }
+    }
+}
+```
+
 
 
 Test:测试类
