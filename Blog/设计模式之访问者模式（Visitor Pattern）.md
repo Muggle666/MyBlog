@@ -37,7 +37,24 @@ public interface Staff {
 ```
 Manager、Engineer（具体元素）：
 ```java
+public class Engineer implements Staff {
 
+    private String staffName;
+
+    private double workTime;
+
+    public Engineer(String staffName) {
+        this.staffName = staffName;
+    }
+
+
+    @Override
+    public void accept(Department department) {
+        department.visit(this);
+    }
+
+    /
+}
 ```
 
 
