@@ -77,9 +77,13 @@ public class Manager implements Staff {
 ```
 Department（Visitor）：
 ```java
+public interface Department {
+    void visit(Engineer engineer);
 
+    void visit(Manager manager);
+}
 ```
-
+AccountingDepartment、PersonnelDepartment
 
 
 
