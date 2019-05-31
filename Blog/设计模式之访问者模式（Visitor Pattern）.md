@@ -17,7 +17,8 @@
 3.访问者类visit方法参数为类对象，违背了依赖倒置转原则，应该面向接口编程而不是类。
 
 ## Where:
-
+1.对象结构中对象对应的类很少改变，但经常需要在此对象结构上定义新的操作。 
+2.需要对一个对象结构中的对象进行很多不同的并且不相关的操作，而需要避免让这些操作"污染"这些对象的类，也不希望在增加新操作时修改这些类。
 
 ## How:
 
@@ -181,3 +182,4 @@ Tim 经理，月薪为：22000.0
 参考资料:
 
 [http://c.biancheng.net/view/1397.html](http://c.biancheng.net/view/1397.html)
+[https://www.runoob.com/design-pattern/visitor-pattern.html](https://www.runoob.com/design-pattern/visitor-pattern.html)
