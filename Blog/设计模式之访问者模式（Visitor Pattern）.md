@@ -53,7 +53,26 @@ public class Engineer implements Staff {
         department.visit(this);
     }
 
-    /
+    //省略get、set方法
+}
+
+public class Manager implements Staff {
+
+    private String staffName;
+
+    private double workTime;
+
+    public Manager(String staffName) {
+        this.staffName = staffName;
+    }
+
+
+    @Override
+    public void accept(Department department) {
+        department.visit(this);
+    }
+
+   
 }
 ```
 
