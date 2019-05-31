@@ -68,12 +68,15 @@ public class CTO extends ReviewPerson{
     }
 }
 public class Boss extends ReviewPerson{
+
+    private final String NAME = "老板";
+
     @Override
     void handle(String program) {
         if("没有Bug的功能！".equals(program)){
-            System.out.println("功能完成，可以上线了！");
+            System.out.println(NAME + "：功能完成，可以上线了！");
         }else {
-            System.out.println("有Bug呀，再改改！");
+            System.out.println(NAME + "：有Bug呀，再改改！");
         }
     }
 }
@@ -95,10 +98,9 @@ public class Programmer {
 ```
 输出结果：
 ```java
-测试人员测试后没问题，提交给技术总监...
-技术总监测试后没问题，提交给老板...
-功能完成，可以上线了！
-
+测试人员：没问题，提交给技术总监...
+技术总监：没问题，提交给老板...
+老板：功能完成，可以上线了！
 ```
 
 
