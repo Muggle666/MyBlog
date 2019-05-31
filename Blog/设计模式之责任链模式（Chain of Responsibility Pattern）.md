@@ -27,8 +27,21 @@
 
 ReviewPerson（抽象处理者角色）：
 ```java
+public abstract class ReviewPerson {
+    protected ReviewPerson person;
 
+    abstract void handle(String program);
+
+    public ReviewPerson getPerson() {
+        return person;
+    }
+
+    public void setPerson(ReviewPerson person) {
+        this.person = person;
+    }
+}
 ```
+Tester、CTO、Boss（）：
 
 
 Test:测试类
