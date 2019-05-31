@@ -72,8 +72,12 @@ public class Manager implements Staff {
         department.visit(this);
     }
 
-   
+    //省略get、set方法
 }
+```
+Department（Visitor）：
+```java
+
 ```
 
 
