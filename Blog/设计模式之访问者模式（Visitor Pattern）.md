@@ -29,6 +29,8 @@
 
 **对象结构（Object Structure）角色：** 是一个包含元素角色的容器，提供让访问者对象遍历容器中的所有元素的方法，通常由 List、Set、Map 等聚合类实现。
 
+![VisitorPattern-UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/VisitorPattern-UML.png)
+
 Staff（抽象元素角色）：
 ```java
 public interface Staff {
