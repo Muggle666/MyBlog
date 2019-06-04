@@ -158,18 +158,9 @@ Hulk：Yes,Cap!
 IronMan：Yes,Cap!
 ```
 
-
-
-
 ![命令模式示例UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/CommandPattern-Sample.png)
 
 
-
-
-
 # 总结
-
-命令模式使请求的调用者和请求的接受者解耦，方便增加或删除命令。可以与备忘录模式结合实现撤销\重做的动作。
-
 参考资料:
 [http://c.biancheng.net/view/1380.html](http://c.biancheng.net/view/1380.html)
