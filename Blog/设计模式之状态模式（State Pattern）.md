@@ -26,9 +26,12 @@
 ## How:
 
 状态模式包括以下几种角色：
-Context（环境类）：它定义了客户程序需要的接口并维护一个具体状态角色的实例，将与状态相关的操作委托给当前的Concrete State对象来处理。
-State（抽象状态类）: 定义一个接口以封装使用上下文环境的的一个特定状态相关的行为。
-ConcreteState（具体状态类）: 实现抽象状态定义的接口。
+
+**Context（环境类）：** 它定义了客户程序需要的接口并维护一个具体状态角色的实例，将与状态相关的操作委托给当前的Concrete State对象来处理。
+
+**State（抽象状态类）:** 定义一个接口以封装使用上下文环境的的一个特定状态相关的行为。
+
+**ConcreteState（具体状态类）:** 实现抽象状态定义的接口。
 
 ![StatePattern-UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/StatePatternUml.png)
 
