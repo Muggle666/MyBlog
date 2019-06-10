@@ -189,7 +189,7 @@ x当前值是否为10：true ，X的当前值为20
 ```
 **getAndAccumulate()** 和**accumulateAndGet()** 第二个参数是通过传入function函数计算，我们可以自定义计算的过程。
 
-
+jiexia
 
 
 
