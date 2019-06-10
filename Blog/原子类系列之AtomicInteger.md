@@ -163,8 +163,7 @@ x当前值是否为10：true ，X的当前值为20
         return prev;
     }
 
-    public final int accumulateAndGet(int x,
-                                      IntBinaryOperator accumulatorFunction) {
+    public final int accumulateAndGet(int x,IntBinaryOperator accumulatorFunction) {
         int prev, next;
         do {
             prev = get();
