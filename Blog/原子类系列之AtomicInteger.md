@@ -116,16 +116,18 @@ public class Test {
 31.         //CAS操作，如果x当前值为10则设置x值为20并返回true，否则返回false
 32.         System.out.println("weakCompareAndSet()判断x当前值是否为10：" + x.weakCompareAndSet(10, 20) + " ，X的当前值为" + x.get());
 33. 
-34.         Object intObj = x.intValue();
-35.         System.out.println("intValue()将当前值转为int类型：" + (intObj instanceof Integer));
-36.         Object longObj =  x.longValue();
-37.         System.out.println("longValue()将当前值转为long类型：" + (longObj instanceof Long));
-38.         Object doubleObj =  x.doubleValue();
-39.         System.out.println("doubleValue()将当前值转为double类型：" + (doubleObj instanceof Double));
-40.         Object floatObj =  x.floatValue();
-41.         System.out.println("floatValue()将当前值转为float类型：" + (floatObj instanceof Float));
-42.     }
-43. }
+34.         Object shortObj = x.shortValue();;
+35.         System.out.println("shortValue()将当前值转为short类型：" + (shortObj instanceof Short));
+36.         Object intObj = x.intValue();
+37.         System.out.println("intValue()将当前值转为int类型：" + (intObj instanceof Integer));
+38.         Object longObj = x.longValue();
+39.         System.out.println("longValue()将当前值转为long类型：" + (longObj instanceof Long));
+40.         Object doubleObj = x.doubleValue();
+41.         System.out.println("doubleValue()将当前值转为double类型：" + (doubleObj instanceof Double));
+42.         Object floatObj = x.floatValue();
+43.         System.out.println("floatValue()将当前值转为float类型：" + (floatObj instanceof Float));
+44.     }
+45. }
 ```
 输出结果：
 ```java
