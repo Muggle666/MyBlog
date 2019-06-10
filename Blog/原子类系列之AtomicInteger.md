@@ -147,6 +147,7 @@ public class Test {
 X的当前值为20
 x当前值是否为20：true ，X的当前值为10
 x当前值是否为10：true ，X的当前值为20
+将当前值转为short类型：true
 将当前值转为int类型：true
 将当前值转为long类型：true
 将当前值转为double类型：true
