@@ -128,6 +128,16 @@ public class Test {
 43. }
 ```
 值得注意的是，17~32行的示例中的getAndAccumulate、accumulateAndGet、lazySet、compareAndSet和weakCompareAndSet方法。
+```java
+public final int getAndAccumulate(int x,IntBinaryOperator accumulatorFunction) {
+        int prev, next;
+        do {
+            prev = get();
+            next = accumulatorFunction.applyAsInt(prev, x);
+        } while (!compareAndSet(prev, next));
+        return prev;
+    }
+```
 
 
 
