@@ -83,49 +83,49 @@ public class Test {
 
 乍一看，好多方法呢！其实大多数的方法都是类似的，难度都不大。
 ```java
-public class AtomicIntegerDemo {
-    static AtomicInteger x = new AtomicInteger(0);
-
-    public static void main(String[] args) {
-
-        System.out.println("get()返回当前AtomicInteger变量的值：" + x.get());
-
-        System.out.println("getAndIncrement()返回x++的值：" + x.getAndIncrement() + " ，X的当前值为" + x.get());
-        System.out.println("incrementAndGet()返回++x的值：" + x.incrementAndGet() + " ，X的当前值为" + x.get());
-
-        System.out.println("getAndDecrement()返回x--的值：" + x.getAndDecrement() + " ，X的当前值为" + x.get());
-        System.out.println("decrementAndGet()返回--x的值：" + x.decrementAndGet() + " ，X的当前值为" + x.get());
-
-        System.out.println("getAndAdd()返回x+=10前的值：" + x.getAndAdd(10) + " ，X的当前值为" + x.get());
-        System.out.println("addAndGet()返回x+=10后的值：" + x.addAndGet(10) + " ，X的当前值为" + x.get());
-
-        System.out.println("getAndUpdate()函数的结果更新当前值，返回更新前的值：" + x.getAndUpdate(t -> 100) + " ，X的当前值为" + x.get());
-        System.out.println("updateAndGet()函数的结果更新当前值，返回更新后的值：" + x.updateAndGet(t -> 666) + " ，X的当前值为" + x.get());
-
-        System.out.println("getAndAccumulate()使用IntBinaryOperator对当前值和第一个参数进行计算，并更新当前值，返回计算前的值：" + x.getAndAccumulate(100, (s1, s2) -> s1 + s2) + " ，X的当前值为" + x.get());
-        System.out.println("accumulateAndGet()使用IntBinaryOperator对当前值和第一个参数进行计算，并更新当前值，返回计算后的值：" + x.accumulateAndGet(100, (s1, s2) -> s1 + s2) + " ，X的当前值为" + x.get());
-
-        System.out.println("getAndSet()设定当前的值，返回旧值：" + x.getAndSet(10) + " ，X的当前值为" + x.get());
-        x.set(30);
-        System.out.println("set()设定X的当前值为" + x.get());
-        x.lazySet(20);
-        System.out.println("lazySet()设定X的当前值为" + x.get());
-
-        //CAS操作，如果x当前值为20则设置x值为10并返回true，否则返回false
-        System.out.println("compareAndSet()判断x当前值是否为20：" + x.compareAndSet(20, 10) + " ，X的当前值为" + x.get());
-        //CAS操作，如果x当前值为10则设置x值为20并返回true，否则返回false
-        System.out.println("weakCompareAndSet()判断x当前值是否为10：" + x.weakCompareAndSet(10, 20) + " ，X的当前值为" + x.get());
-
-        Object intObj = x.intValue();
-        System.out.println("intValue()将当前值转为int类型：" + (intObj instanceof Integer));
-        Object longObj =  x.longValue();
-        System.out.println("longValue()将当前值转为long类型：" + (longObj instanceof Long));
-        Object doubleObj =  x.doubleValue();
-        System.out.println("doubleValue()将当前值转为double类型：" + (doubleObj instanceof Double));
-        Object floatObj =  x.floatValue();
-        System.out.println("floatValue()将当前值转为float类型：" + (floatObj instanceof Float));
-    }
-}
+1. public class AtomicIntegerDemo {
+2.     static AtomicInteger x = new AtomicInteger(0);
+3. 
+4.     public static void main(String[] args) {
+5. 
+6.         System.out.println("get()返回当前AtomicInteger变量的值：" + x.get());
+7. 
+8.         System.out.println("getAndIncrement()返回x++的值：" + x.getAndIncrement() + " ，X的当前值为" + x.get());
+9.         System.out.println("incrementAndGet()返回++x的值：" + x.incrementAndGet() + " ，X的当前值为" + x.get());
+10. 
+11.         System.out.println("getAndDecrement()返回x--的值：" + x.getAndDecrement() + " ，X的当前值为" + x.get());
+12.         System.out.println("decrementAndGet()返回--x的值：" + x.decrementAndGet() + " ，X的当前值为" + x.get());
+13. 
+14.         System.out.println("getAndAdd()返回x+=10前的值：" + x.getAndAdd(10) + " ，X的当前值为" + x.get());
+15.         System.out.println("addAndGet()返回x+=10后的值：" + x.addAndGet(10) + " ，X的当前值为" + x.get());
+16. 
+17.         System.out.println("getAndUpdate()函数的结果更新当前值，返回更新前的值：" + x.getAndUpdate(t -> 100) + " ，X的当前值为" + x.get());
+18.         System.out.println("updateAndGet()函数的结果更新当前值，返回更新后的值：" + x.updateAndGet(t -> 666) + " ，X的当前值为" + x.get());
+19. 
+20.         System.out.println("getAndAccumulate()使用IntBinaryOperator对当前值和第一个参数进行计算，并更新当前值，返回计算前的值：" + x.getAndAccumulate(100, (s1, s2) -> s1 + s2) + " ，X的当前值为" + x.get());
+21.         System.out.println("accumulateAndGet()使用IntBinaryOperator对当前值和第一个参数进行计算，并更新当前值，返回计算后的值：" + x.accumulateAndGet(100, (s1, s2) -> s1 + s2) + " ，X的当前值为" + x.get());
+22. 
+23.         System.out.println("getAndSet()设定当前的值，返回旧值：" + x.getAndSet(10) + " ，X的当前值为" + x.get());
+24.         x.set(30);
+25.         System.out.println("set()设定X的当前值为" + x.get());
+26.         x.lazySet(20);
+27.         System.out.println("lazySet()设定X的当前值为" + x.get());
+28. 
+29.         //CAS操作，如果x当前值为20则设置x值为10并返回true，否则返回false
+30.         System.out.println("compareAndSet()判断x当前值是否为20：" + x.compareAndSet(20, 10) + " ，X的当前值为" + x.get());
+31.         //CAS操作，如果x当前值为10则设置x值为20并返回true，否则返回false
+32.         System.out.println("weakCompareAndSet()判断x当前值是否为10：" + x.weakCompareAndSet(10, 20) + " ，X的当前值为" + x.get());
+33. 
+34.         Object intObj = x.intValue();
+35.         System.out.println("intValue()将当前值转为int类型：" + (intObj instanceof Integer));
+36.         Object longObj =  x.longValue();
+37.         System.out.println("longValue()将当前值转为long类型：" + (longObj instanceof Long));
+38.         Object doubleObj =  x.doubleValue();
+39.         System.out.println("doubleValue()将当前值转为double类型：" + (doubleObj instanceof Double));
+40.         Object floatObj =  x.floatValue();
+41.         System.out.println("floatValue()将当前值转为float类型：" + (floatObj instanceof Float));
+42.     }
+43. }
 ```
 输出结果：
 ```java
