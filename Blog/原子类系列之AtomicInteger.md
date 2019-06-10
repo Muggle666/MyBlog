@@ -137,6 +137,18 @@ public final int getAndAccumulate(int x,IntBinaryOperator accumulatorFunction) {
         } while (!compareAndSet(prev, next));
         return prev;
     }
+public final int accumulateAndGet(int x,
+                                      IntBinaryOperator accumulatorFunction) {
+        int prev, next;
+        do {
+            prev = get();
+            next = accumulatorFunction.applyAsInt(prev, x);
+        } while (!compareAndSet(prev, next));
+        return next;
+    }
+public final void lazySet(int newValue) {
+        unsafe.putOrderedInt(this, valueOffset, newValue);
+    }
 ```
 
 
