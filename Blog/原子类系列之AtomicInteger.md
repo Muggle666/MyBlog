@@ -149,6 +149,12 @@ public final int accumulateAndGet(int x,
 public final void lazySet(int newValue) {
         unsafe.putOrderedInt(this, valueOffset, newValue);
     }
+public final boolean compareAndSet(int expect, int update) {
+        return unsafe.compareAndSwapInt(this, valueOffset, expect, update);
+    }
+public final boolean weakCompareAndSet(int expect, int update) {
+        return unsafe.compareAndSwapInt(this, valueOffset, expect, update);
+    }
 ```
 
 
