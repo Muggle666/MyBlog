@@ -187,7 +187,7 @@ x当前值是否为10：true ，X的当前值为20
         return unsafe.compareAndSwapInt(this, valueOffset, expect, update);
     }
 ```
-getAndAccumulate()和accumulateAndGet()第二个参数是通过传入function函数计算
+**getAndAccumulate(int x, IntBinaryOperator accumulatorFunction)** 和**accumulateAndGet(int x, IntBinaryOperator accumulatorFunction)** 第二个参数是通过传入function函数计算
 
 
 
