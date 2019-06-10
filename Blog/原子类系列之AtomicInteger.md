@@ -189,7 +189,7 @@ x当前值是否为10：true ，X的当前值为20
 ```
 **getAndAccumulate()** 和**accumulateAndGet()** 第二个参数是通过传入function函数计算，我们可以自定义计算的过程。
 
-还有一点必须说明，查看Atomic包下所有类的源码，很多的方法都有用到unsafe对象，这个对象
+还有一点必须说明，查看Atomic包下所有类的源码，很多的方法都有用到unsafe对象，这个对象内部大部分方法都是使用native，
 
 
 
