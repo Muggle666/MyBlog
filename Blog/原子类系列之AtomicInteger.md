@@ -191,6 +191,7 @@ x当前值是否为10：true ，X的当前值为20
 
 譬如：
 
+
 **lazySet()、compareAndSet()、weakCompareAndSet()** 方法都是调用unsafe对象的方法。
 
 查看Atomic包下所有类的源码，很多的方法都有用到unsafe对象，这个对象内部大部分方法都是使用native，Unsafe这个类可以简单的理解为是与操作系统交互的对象。而原子类能够保证原子性，无锁机制保证线程安全就是得益于使用unsafe对象与操作系统硬件交互，通过计算机硬件保证系统安全。
