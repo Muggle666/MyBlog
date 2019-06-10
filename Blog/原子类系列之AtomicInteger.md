@@ -154,7 +154,7 @@ x当前值是否为10：true ，X的当前值为20
 
 值得注意的是，20~32行的示例中的getAndAccumulate、accumulateAndGet、lazySet、compareAndSet和weakCompareAndSet方法。
 ```java
-public final int getAndAccumulate(int x, IntBinaryOperator accumulatorFunction) {
+    public final int getAndAccumulate(int x, IntBinaryOperator accumulatorFunction) {
         int prev, next;
         do {
             prev = get();
@@ -185,6 +185,11 @@ public final int getAndAccumulate(int x, IntBinaryOperator accumulatorFunction) 
         return unsafe.compareAndSwapInt(this, valueOffset, expect, update);
     }
 ```
+
+
+
+
+
 
 
 
