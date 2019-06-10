@@ -1,4 +1,4 @@
-在日常开发中，基本数据类型的原子类最常用的可能就是AtomicInteger类了。话说回来，为什么有Integer类还需要有AtomicInteger类呢？先来看看AtomicInteger类的包是啥：**java.util.concurrent.atomic** 。看到没有，这是并发包下的类，所以Atomic肯定是在并发环境下使用的。
+在日常开发中，基本数据类型的原子类最常用的可能就是AtomicInteger类了。话说回来，为什么有Integer类还需要有AtomicInteger类呢？先来看看AtomicInteger类的包是啥：**java.util.concurrent.atomic** 。看到没有，这是并发包下的类，所以AtomicInteger类肯定是在并发环境下使用的。
 
 先看一条常见的面试题：i作为全局变量，使用 i++ 线程安全吗？
 
