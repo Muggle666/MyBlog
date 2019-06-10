@@ -190,6 +190,16 @@ x当前值是否为10：true ，X的当前值为20
 **getAndAccumulate()** 和**accumulateAndGet()** 第二个参数是通过传入function函数计算，我们可以自定义计算的过程。
 
 譬如：
+```java
+public class MethodDemo {
+    private static AtomicInteger atomic = new AtomicInteger(2);
+
+    public static void main(String[] args) {
+        atomic.getAndAccumulate(10, (s1, s2) -> (s1 + s2) * s2);
+        System.out.println(atomic.get());//计算结果：120
+    }
+}
+```
 
 
 **lazySet()、compareAndSet()、weakCompareAndSet()** 方法都是调用unsafe对象的方法。
