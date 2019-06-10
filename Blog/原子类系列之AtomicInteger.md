@@ -187,7 +187,7 @@ x当前值是否为10：true ，X的当前值为20
         return unsafe.compareAndSwapInt(this, valueOffset, expect, update);
     }
 ```
-
+getAndAccumulate
 
 
 
