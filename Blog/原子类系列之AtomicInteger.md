@@ -218,7 +218,7 @@ private volatile int value;
 因为引用类型为AtomicInteger变量的值是用volatile关键字修饰，vilatile的作用大致可以总结为：
 1.提供内存屏障
 2.防止重排序
-3.volatile关键字修饰的变量在写入的时候会强制将
+3.volatile关键字修饰的变量在写入的时候会强制将cpu写缓冲区刷新到内存；在读取的时候会强制从内存中
 
 
 
