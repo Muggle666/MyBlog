@@ -209,13 +209,13 @@ public class MethodDemo {
 观察compareAndSet()、weakCompareAndSet()两个方法的源码，惊奇的发现，两个方法的实现都一样的！查看官方文档，各种的博客都找不到准确的说法，不过大多数的说法都是weakCompareAndSet()方法可能存在happen-before的情况，也就是在执行weakCompareAndSet()方法的时候发生了指令重排序导致失败，返回false。【[歪果仁的答案](https://stackoverflow.com/questions/2443239/how-can-weakcompareandset-fail-spuriously-if-it-is-implemented-exactly-like-comp)】
 
 lazySet()和set()有什么区别呢？
-他们都是设置引用类型为AtomicInteger变量的值，但合理使用lazySet()方法可以达到性能优化！
+他们都是改变引用类型为AtomicInteger变量的值，但合理使用lazySet()方法可以达到性能优化！
 
 ```java
 private volatile int value;
 ```
 
-因为引用类型为AtomicInteger变量的值是用volatile关键字修饰，vilatile的作用大致可以总结为：
+由源码可以知道，引用类型为AtomicInteger变量的值是用volatile关键字修饰，vilatile的作用大致可以总结为：
 1.提供内存屏障。
 2.防止重排序。
 3.volatile关键字修饰的变量在写入的时候会强制将cpu写缓冲区刷新到内存；在读取的时候会强制从内存中读取最新的值。
