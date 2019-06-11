@@ -206,7 +206,7 @@ public class MethodDemo {
 
 >查看Atomic包下所有类的源码，很多的方法都有用到unsafe对象，而这个对象内部大部分方法都是使用native关键字。Unsafe这个类可以简单的理解为是与操作系统交互的对象。原子类之所以能够保证原子性，无锁情况下保证线程安全就是得益于使用unsafe对象与操作系统硬件交互，通过计算机硬件保证系统安全。
 
-compareAndSet()、weakCompareAndSet()两个方法的源码，惊奇的发现，两个方法的实现都一样的！
+观察compareAndSet()、weakCompareAndSet()两个方法的源码，惊奇的发现，两个方法的实现都一样的！至于原因
 
 
 
