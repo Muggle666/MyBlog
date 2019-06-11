@@ -211,9 +211,9 @@ public class MethodDemo {
 lazySet()和set()有什么区别呢？
 他们都是设置引用类型为AtomicInteger变量的值，但合理使用lazySet()方法可以达到性能优化！
 
-因为引用类型为AtomicInteger变量的值是用volatile关键字修饰
+因为引用类型为AtomicInteger变量的值是用volatile关键字修饰，而
 ```java
-volatile
+private volatile int value;
 ```
 
 
