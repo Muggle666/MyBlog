@@ -212,3 +212,6 @@ lazySet()和set()有什么区别呢？
 
 
 原子化的基本数据类型相关的实现有AtomicInteger、AtomicLong和AtomicBoolean。
+
+
+参考资料：
