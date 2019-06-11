@@ -220,7 +220,9 @@ private volatile int value;
 2.防止重排序。
 3.volatile关键字修饰的变量在写入的时候会强制将cpu写缓冲区刷新到内存；在读取的时候会强制从内存中读取最新的值。
 
-所以使用set()方法一定会将最新的值设置到value，但使用lazySet()方法改变共享变量的值不一定会被其它线程“看到”。所以使用lazySet()方法是线程不安全的，但为什么上面说合理使用lazySet()
+所以使用set()方法一定会将最新的值设置到value，但使用lazySet()方法改变共享变量的值不一定会被其它线程“看到”。所以使用lazySet()方法是线程不安全的，但为什么上面说合理使用lazySet()可以优化程序呢？
+
+如果在加锁的情况下，在
 
 
 原子化的基本数据类型相关的实现有AtomicInteger、AtomicLong和AtomicBoolean。
