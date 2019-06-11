@@ -215,7 +215,8 @@ lazySet()和set()有什么区别呢？
 private volatile int value;
 ```
 
-因为引用类型为AtomicInteger变量的值是用volatile关键字修饰，vilatile的作用大致可以
+因为引用类型为AtomicInteger变量的值是用volatile关键字修饰，vilatile的作用大致可以总结为：
+1.提供内存屏障
 
 
 
