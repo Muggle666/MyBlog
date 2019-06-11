@@ -130,7 +130,7 @@ X的值：100000
 45. }
 ```
 输出结果：
-```java
+```
 get()返回当前AtomicInteger变量的值：0
 getAndIncrement()返回x++的值：0 ，X的当前值为1
 incrementAndGet()返回++x的值：2 ，X的当前值为2
