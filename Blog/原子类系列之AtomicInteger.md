@@ -209,4 +209,5 @@ public class MethodDemo {
 compareAndSet()、weakCompareAndSet()两个方法的源码，惊奇的发现，两个方法的实现都一样的！
 
 
+
 原子化的基本数据类型相关的实现有AtomicInteger、AtomicLong和AtomicBoolean。
