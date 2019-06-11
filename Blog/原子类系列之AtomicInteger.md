@@ -131,27 +131,27 @@ X的值：100000
 ```
 输出结果：
 ```java
-返回当前AtomicInteger变量的值：0
-返回x++的值：0 ，X的当前值为1
-返回++x的值：2 ，X的当前值为2
-返回x--的值：2 ，X的当前值为1
-返回--x的值：0 ，X的当前值为0
-返回x+=10前的值：0 ，X的当前值为10
-返回x+=10后的值：20 ，X的当前值为20
-函数的结果更新当前值，返回更新前的值：20 ，X的当前值为100
-函数的结果更新当前值，返回更新后的值：666 ，X的当前值为666
-使用IntBinaryOperator对当前值和第一个参数进行计算，并更新当前值，返回计算前的值：666 ，X的当前值为766
-使用IntBinaryOperator对当前值和第一个参数进行计算，并更新当前值，返回计算后的值：866 ，X的当前值为866
-设定当前的值，返回旧值：866 ，X的当前值为10
-设定X的当前值为30
-X的当前值为20
-x当前值是否为20：true ，X的当前值为10
-x当前值是否为10：true ，X的当前值为20
-将当前值转为short类型：true
-将当前值转为int类型：true
-将当前值转为long类型：true
-将当前值转为double类型：true
-将当前值转为float类型：true
+get()返回当前AtomicInteger变量的值：0
+getAndIncrement()返回x++的值：0 ，X的当前值为1
+incrementAndGet()返回++x的值：2 ，X的当前值为2
+getAndDecrement()返回x--的值：2 ，X的当前值为1
+decrementAndGet()返回--x的值：0 ，X的当前值为0
+getAndAdd()返回x+=10前的值：0 ，X的当前值为10
+addAndGet()返回x+=10后的值：20 ，X的当前值为20
+getAndUpdate()函数的结果更新当前值，返回更新前的值：20 ，X的当前值为100
+updateAndGet()函数的结果更新当前值，返回更新后的值：666 ，X的当前值为666
+getAndAccumulate()使用IntBinaryOperator对当前值和第一个参数进行计算，并更新当前值，返回计算前的值：666 ，X的当前值为766
+accumulateAndGet()使用IntBinaryOperator对当前值和第一个参数进行计算，并更新当前值，返回计算后的值：866 ，X的当前值为866
+getAndSet()设定当前的值，返回旧值：866 ，X的当前值为10
+set()设定X的当前值为30
+lazySet()设定X的当前值为20
+compareAndSet()判断x当前值是否为20：true ，X的当前值为10
+weakCompareAndSet()判断x当前值是否为10：true ，X的当前值为20
+shortValue()将当前值转为short类型：true
+intValue()将当前值转为int类型：true
+longValue()将当前值转为long类型：true
+doubleValue()将当前值转为double类型：true
+floatValue()将当前值转为float类型：true
 ```
 
 
