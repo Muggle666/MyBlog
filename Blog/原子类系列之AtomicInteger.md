@@ -222,7 +222,7 @@ private volatile int value;
 
 所以使用set()方法一定会将最新的值设置到value，但使用lazySet()方法改变共享变量的值不一定会被其它线程“看到”。所以使用lazySet()方法是线程不安全的，但为什么上面说合理使用lazySet()可以优化程序呢？
 
-如果在加锁的情况下，在
+在使用显示锁的情景下，使用lazySet()
 
 
 原子化的基本数据类型相关的实现有AtomicInteger、AtomicLong和AtomicBoolean。
