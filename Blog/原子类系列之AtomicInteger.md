@@ -238,7 +238,7 @@ public void Demo() {
     }
 ```
 
-在使用显示锁的情景下，合理使用lazySet()比使用set()更好！因为加锁一定是线程安全，保证了可见性，再使用volatile修饰变量其实多余了，而使用lazySet()就可以避免内存屏障，提高程序的执行效率！
+在使用显示锁的情景下，合理使用lazySet()可能比使用set()更好！因为加锁一定是线程安全，保证了可见性，再使用volatile修饰变量其实多余了，而使用lazySet()就可以避免内存屏障，提高程序的执行效率！
 
 
 原子化的基本数据类型相关的实现有AtomicInteger、AtomicLong和AtomicBoolean。
