@@ -222,6 +222,22 @@ private volatile int value;
 
 所以使用set()方法一定会将最新的值设置到value，但使用lazySet()方法改变共享变量的值不一定会被其它线程“看到”。所以使用lazySet()方法是线程不安全的，但为什么上面说合理使用lazySet()可以优化程序呢？
 
+```java
+public void Demo() {
+        AtomicInteger atomicInteger = new AtomicInteger(10);
+
+        Lock lock = new ReentrantLock();
+
+        lock.lock();
+        try {
+//            atomicInteger.set(2333);//变量由volatile关键字修饰，会使用到内存屏障，在锁内其实是不必要的
+            atomicInteger.lazySet(2333);
+        } finally {
+            lock.unlock();
+        }
+    }
+```
+
 在使用显示锁的情景下，合理使用lazySet()可以比使用set()更好！因为加锁一定是线程安全，保证了可见性，再使用volatile修饰变量其实多余了，而使用lazySet()就可以避免内存屏障，提高程序的执行效率！
 
 
