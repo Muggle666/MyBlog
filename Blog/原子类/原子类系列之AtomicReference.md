@@ -21,17 +21,17 @@ AtomicStampedReference 实现的 CAS 方法增加了版本号参数
      * @param newStamp 将要更新对象的标志版本
      * @return
      */
-public boolean compareAndSet(V   expectedReference,
-                             V   newReference,
-                             int expectedStamp,
-                             int newStamp) {
+    public boolean compareAndSet(V   expectedReference,
+                                 V   newReference,
+                                 int expectedStamp,
+                                 int newStamp) {
         Pair<V> current = pair;
         return
-            expectedReference == current.reference &&
-            expectedStamp == current.stamp &&
-            ((newReference == current.reference &&
-              newStamp == current.stamp) ||
-             casPair(current, Pair.of(newReference, newStamp)));
+                expectedReference == current.reference &&
+                        expectedStamp == current.stamp &&
+                        ((newReference == current.reference &&
+                                newStamp == current.stamp) ||
+                                casPair(current, Pair.of(newReference, newStamp)));
     }
 ```
 
