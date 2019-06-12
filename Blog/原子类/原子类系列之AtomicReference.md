@@ -7,7 +7,8 @@ AtomicReference原子类与基本数据类型的原子类实现过程相似，�
 不过值得注意的是，使用CAS会有ABA的隐患！[什么是ABA？](https://en.wikipedia.org/wiki/ABA_problem)[知乎用户对ABA相关的提问](https://www.zhihu.com/question/23281499)
 
 
-所以AtomicStampedReference、AtomicMarkableReference两个
+所以AtomicStampedReference、AtomicMarkableReference两个原子类就大派用场啦！
+
 
 
 
