@@ -78,7 +78,7 @@ X的值：100000
 
 好了，经过前面的铺垫，接下来开始对AtomicInteger类进一步的探索！
 
-先了解AtomicInteger有哪些方法和变量吧！
+先了解AtomicInteger原子类有哪些方法和变量吧！
 ![AtomicInteger-UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/AtomicInteger/AtomicInteger-UML.jpg)
 
 乍一看，好多方法呢！其实大多数的方法都是类似的，难度都不大。
