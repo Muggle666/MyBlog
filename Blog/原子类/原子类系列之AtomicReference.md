@@ -3,4 +3,4 @@
 对象引用类型的原子类包括：**AtomicReference、AtomicStampedReference、AtomicMarkableReference**
 
 AtomicReference原子类与基本数据类型的原子类实现过程相似，故不再赘述。
-不过值得讲解的是CAS存在的ABA问题。
+不过值得注意的是CAS存在的ABA问题。
