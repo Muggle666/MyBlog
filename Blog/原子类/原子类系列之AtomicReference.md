@@ -5,6 +5,24 @@
 AtomicReference原子类与基本数据类型的原子类实现过程相似，故不再赘述。
 不过值得注意的是，使用CAS会有ABA的隐患！
 
+什么是ABA？
 
 
 举个栗子：
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+参考资料：
+https://en.wikipedia.org/wiki/ABA_problem
