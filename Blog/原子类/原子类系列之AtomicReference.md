@@ -59,4 +59,7 @@ public class ABA {
 
 
 参考资料：
-https://en.wikipedia.org/wiki/ABA_problem
+
+[https://en.wikipedia.org/wiki/ABA_problem](https://en.wikipedia.org/wiki/ABA_problem)
+
+[https://www.zhihu.com/question/23281499](https://www.zhihu.com/question/23281499)
