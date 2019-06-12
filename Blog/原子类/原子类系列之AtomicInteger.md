@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-上一篇文章详细讲解了AtomicInteger原子类，还有和AtomicInteger原子类实现原理基本一样的AtomicLong和AtomicBoolean原子类。这些都是基本数据类型的原子类，在并发情景下可以保证基本数据类型变量的原子性。但是对于引用类型，这些基本类型的原子类就无能为力了，所以就出现**对象引用类型的原子类**。
-
-对象引用类型的原子类包括：**AtomicReference、AtomicStampedReference、AtomicMarkableReference**
-
-
-<blockquote>
-<>
-=======
 在日常开发中，基本数据类型的原子类最常用的可能就是AtomicInteger类了。话说回来，为什么有Integer类还需要有AtomicInteger类呢？先来看看AtomicInteger类的包是啥：**java.util.concurrent.atomic** 。看到没有，这是并发包下的类，所以AtomicInteger类肯定是在并发环境下使用的。
 
 先看一条常见的面试题：x 作为全局变量，使用 x++ 线程安全吗？
@@ -270,7 +261,3 @@ public void Demo() {
 参考资料：
 [https://segmentfault.com/a/1190000015825207?utm_source=tag-newest](https://segmentfault.com/a/1190000015825207?utm_source=tag-newest)
 
-
-
-
->>>>>>> parent of 843d8a4... update
