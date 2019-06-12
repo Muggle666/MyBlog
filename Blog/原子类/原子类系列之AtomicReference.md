@@ -13,6 +13,19 @@ AtomicReference原子类与基本数据类型的原子类实现过程相似，�
 AtomicStampedReference 实现的 CAS 方法增加了版本号参数
 
 
+```java
+public boolean compareAndSet(V expectedReference, V newReference,
+                                 int expectedStamp,
+                                 int newStamp) {
+        Pair<V> current = pair;
+        return
+            expectedReference == current.reference &&
+            expectedStamp == current.stamp &&
+            ((newReference == current.reference &&
+              newStamp == current.stamp) ||
+             casPair(current, Pair.of(newReference, newStamp)));
+    }
+```
 
 
 
