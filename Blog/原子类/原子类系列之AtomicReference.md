@@ -19,7 +19,6 @@ AtomicStampedReference 实现的 CAS 方法增加了版本号参数
      * @param newReference 将要更新的对象
      * @param expectedStamp 原始对象的标志版本
      * @param newStamp 将要更新对象的标志版本
-     * @return
      */
     public boolean compareAndSet(V   expectedReference,
                                  V   newReference,
