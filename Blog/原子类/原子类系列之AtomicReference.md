@@ -9,8 +9,8 @@ AtomicReference原子类与基本数据类型的原子类实现过程相似，�
 
 所以AtomicStampedReference、AtomicMarkableReference两个原子类就大派用场啦！
 
+先看下AtomicStampedReference 原子类的核心源码：
 
-AtomicStampedReference 实现的 CAS 方法增加了版本号参数
 
 
 ```java
@@ -34,7 +34,7 @@ AtomicStampedReference 实现的 CAS 方法增加了版本号参数
     }
 ```
 
-
+AtomicStampedReference 实现的 CAS 方法增加了版本号参数
 
 
 参考资料：
