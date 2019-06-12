@@ -155,7 +155,7 @@ floatValue()将当前值转为float类型：true
 ```
 
 
-值得注意的是，20~32行的示例中的getAndAccumulate、accumulateAndGet、lazySet、compareAndSet和weakCompareAndSet方法。
+值得注意的是，示例中20~32行的getAndAccumulate、accumulateAndGet、lazySet、compareAndSet和weakCompareAndSet方法。
 ```java
     public final int getAndAccumulate(int x, IntBinaryOperator accumulatorFunction) {
         int prev, next;
