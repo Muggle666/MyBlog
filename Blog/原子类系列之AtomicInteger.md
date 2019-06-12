@@ -241,7 +241,7 @@ public void Demo() {
 
 在使用显式锁的情景下，合理使用lazySet()可能比使用set()更好！因为加锁一定是线程安全，保证了可见性，再使用volatile修饰变量其实多余了，而使用lazySet()就可以避免内存屏障，提高程序的执行效率！
 
-通过上面的
+通过上面的讲解，相信大家对AtomicInteger原子类都有一定的了解。
 原子化的基本数据类型相关的实现有AtomicInteger、AtomicLong和AtomicBoolean。
 
 
