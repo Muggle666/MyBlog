@@ -26,7 +26,7 @@ AtomicStampedReference 实现的 CAS 方法增加了版本号参数
                                  int newStamp) {
         Pair<V> current = pair;
         return
-                expectedReference == current.reference &&
+                expectedReference == current.reference && // 如果返回true
                         expectedStamp == current.stamp &&
                         ((newReference == current.reference &&
                                 newStamp == current.stamp) ||
