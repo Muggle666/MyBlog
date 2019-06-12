@@ -1,1 +1,1 @@
-上一篇文章详细讲解了AtomicInteger原子类，
+上一篇文章详细讲解了AtomicInteger原子类，还有和AtomicInteger
