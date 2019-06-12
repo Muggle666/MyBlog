@@ -14,6 +14,21 @@ AtomicReference原子类与基本数据类型的原子类实现过程相似，�
 
 
 ```java
+public class AtomicStampedReference<V> {
+private static class Pair<T> {
+        final T reference;
+        final int stamp;
+        private Pair(T reference, int stamp) {
+            this.reference = reference;
+            this.stamp = stamp;
+        }
+        static <T> Pair<T> of(T reference, int stamp) {
+            return new Pair<T>(reference, stamp);
+        }
+    }
+
+    private volatile Pair<V> pair;
+
     /**
      * @param expectedReference 期待的原始对象
      * @param newReference      将要更新的对象
@@ -32,6 +47,7 @@ AtomicReference原子类与基本数据类型的原子类实现过程相似，�
                                 newStamp == current.stamp) ||
                                 casPair(current, Pair.of(newReference, newStamp)));
     }
+}
 ```
 
 AtomicStampedReference 实现的 CAS 方法增加了版本号参数
