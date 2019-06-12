@@ -14,7 +14,7 @@ AtomicStampedReference 实现的 CAS 方法增加了版本号参数
 
 
 ```java
-/**
+    /**
      * @param expectedReference 原始对象
      * @param newReference 将要更新的对象
      * @param expectedStamp 原始对象的标志版本
