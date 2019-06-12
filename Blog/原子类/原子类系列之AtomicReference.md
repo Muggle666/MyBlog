@@ -126,14 +126,14 @@ public class AtomicStampedReferenceDemo {
         new Thread(() -> {
             int value = (int) atomicStampedReference.getReference();
             int stamp = atomicStampedReference.getStamp();
-            System.out.println(Thread.currentThread().getName() + " : 当前值为：" + value + "版本号为：" + stamp);
+            System.out.println(Thread.currentThread().getName() + " : 当前值为：" + value + " 版本号为：" + stamp);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             if(atomicStampedReference.compareAndSet(value, UPDATE_NUM, stamp, stamp + 1)){
-                System.out.println(Thread.currentThread().getName() + " : 当前值为：" + atomicStampedReference.getReference() + "版本号为：" + atomicStampedReference.getStamp());
+                System.out.println(Thread.currentThread().getName() + " : 当前值为：" + atomicStampedReference.getReference() + " 版本号为：" + atomicStampedReference.getStamp());
             }else{
                 System.out.println("版本号不同，更新失败！");
             }
@@ -143,11 +143,11 @@ public class AtomicStampedReferenceDemo {
             Thread.yield();// 确保线程A先执行
             int value = (int) atomicStampedReference.getReference();
             int stamp = atomicStampedReference.getStamp();
-            System.out.println(Thread.currentThread().getName() + " : 当前值为：" + value + "版本号为：" + stamp);
+            System.out.println(Thread.currentThread().getName() + " : 当前值为：" + value + " 版本号为：" + stamp);
             atomicStampedReference.compareAndSet(atomicStampedReference.getReference(), TEM_NUM, stamp, stamp + 1);
-            System.out.println(Thread.currentThread().getName() + " : 当前值为：" + atomicStampedReference.getReference() + "版本号为：" + atomicStampedReference.getStamp());
+            System.out.println(Thread.currentThread().getName() + " : 当前值为：" + atomicStampedReference.getReference() + " 版本号为：" + atomicStampedReference.getStamp());
             atomicStampedReference.compareAndSet(atomicStampedReference.getReference(), INIT_NUM, stamp, stamp + 1);
-            System.out.println(Thread.currentThread().getName() + " : 当前值为：" + atomicStampedReference.getReference() + "版本号为：" + atomicStampedReference.getStamp());
+            System.out.println(Thread.currentThread().getName() + " : 当前值为：" + atomicStampedReference.getReference() + " 版本号为：" + atomicStampedReference.getStamp());
         }, "线程B").start();
     }
 }
@@ -155,10 +155,10 @@ public class AtomicStampedReferenceDemo {
 
 输出结果：
 ```java
-线程A : 当前值为：1000版本号为：1
-线程B : 当前值为：1000版本号为：1
-线程B : 当前值为：200版本号为：2
-线程B : 当前值为：200版本号为：2
+线程A : 当前值为：1000 版本号为：1
+线程B : 当前值为：1000 版本号为：1
+线程B : 当前值为：200 版本号为：2
+线程B : 当前值为：200 版本号为：2
 版本号不同，更新失败！
 ```
 
