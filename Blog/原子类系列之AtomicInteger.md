@@ -208,7 +208,7 @@ public class MethodDemo {
 
 观察compareAndSet()、weakCompareAndSet()两个方法的源码，惊奇的发现，两个方法的实现都一样的！查看官方文档，各种的博客都找不到准确的说法，不过大多数的说法都是说使用weakCompareAndSet()方法可能存在happen-before的情况，也就是在执行weakCompareAndSet()方法的时候发生了指令重排序导致失败，返回false。【[歪果仁的答案](https://stackoverflow.com/questions/2443239/how-can-weakcompareandset-fail-spuriously-if-it-is-implemented-exactly-like-comp)】
 
-lazySet()和set()有什么区别呢？
+#### lazySet()和set()有什么区别呢？
 他们都是改变引用类型为AtomicInteger变量的值，但合理使用lazySet()方法可以达到性能优化！
 
 ```java
