@@ -201,6 +201,8 @@ AtomicMarkableReference对象是否有被修改。
 
 
 
+
+
 参考资料：
 
 [https://en.wikipedia.org/wiki/ABA_problem](https://en.wikipedia.org/wiki/ABA_problem)
