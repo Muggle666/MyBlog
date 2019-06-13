@@ -9,7 +9,7 @@ AtomicReference原子类与基本数据类型的原子类实现过程相似，�
 
 所以AtomicStampedReference、AtomicMarkableReference两个原子类就大派用场啦！
 
-AtomicStampedReference 
+## AtomicStampedReference 的使用
 
 先看下AtomicStampedReference 原子类的核心源码：
 
@@ -163,6 +163,7 @@ public class AtomicStampedReferenceDemo {
 版本号不同，更新失败！
 ```
 
+## AtomicStampedReference 的使用
 而AtomicMarkableReference原子类与AtomicStampedReference原子类源码实现相似，区别在于AtomicMarkableReference的标记是Boolean类型，只有两种状态true和false，适用在只需要知道
 AtomicMarkableReference对象是否有被修改。
 
