@@ -165,7 +165,23 @@ public class AtomicStampedReferenceDemo {
 而AtomicMarkableReference原子类与AtomicStampedReference原子类源码实现相似，区别在于AtomicMarkableReference的标志是Boolean类型，只有两种状态true和false，适用在只需要知道
 AtomicMarkableReference对象是否有被修改。
 
-AtomicMarkableReference类的方法与AtomicStampedReference类一样，
+```java
+// Pair对象维护对象的引用和对象标记
+    private static class Pair<T> {
+        final T reference;
+        final boolean mark;// 通过标记的
+
+        private Pair(T reference, boolean mark) {
+            this.reference = reference;
+            this.mark = mark;
+        }
+
+        static <T> Pair<T> of(T reference, boolean mark) {
+            return new Pair<T>(reference, mark);
+        }
+    }
+```
+
 
 
 参考资料：
