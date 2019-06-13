@@ -165,6 +165,7 @@ public class AtomicStampedReferenceDemo {
 而AtomicMarkableReference原子类与AtomicStampedReference原子类源码实现相似，区别在于AtomicMarkableReference的标志是Boolean类型，只有两种状态true和false，适用在只需要知道
 AtomicMarkableReference对象是否有被修改。
 
+AtomicMarkableReference类的方法名与AtomicStampedReference类
 
 
 参考资料：
