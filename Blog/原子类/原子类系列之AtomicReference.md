@@ -191,10 +191,10 @@ AtomicMarkableReference对象是否有被修改。
                                  boolean newMark) {
         Pair<V> current = pair;
         return
-                expectedReference == current.reference &&
-                        expectedMark == current.mark &&
+                expectedReference == current.reference && // 如果期待的原始对象与Pair的reference一样则返回true
+                        expectedMark == current.mark && // 如果期待的原始对象的标记与Pair的mark一样则返回true
                         ((newReference == current.reference &&
-                                newMark == current.mark) ||
+                                newMark == current.mark) || // 如果要更新的对象和对象标记与Pair的refernce和mark一样的话直接返回true，否则执行CAS操作
                                 casPair(current, Pair.of(newReference, newMark)));
     }
 ```
