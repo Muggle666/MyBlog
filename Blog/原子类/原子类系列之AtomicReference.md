@@ -98,7 +98,6 @@ public class AtomicStampedReference<V> {
         try {
             return UNSAFE.objectFieldOffset(klazz.getDeclaredField(field));
         } catch (NoSuchFieldException e) {
-            // Convert Exception to corresponding Error
             NoSuchFieldError error = new NoSuchFieldError(field);
             error.initCause(e);
             throw error;
