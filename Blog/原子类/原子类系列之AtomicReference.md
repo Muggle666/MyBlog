@@ -107,7 +107,7 @@ public class AtomicStampedReference<V> {
 }
 ```
 
-AtomicStampedReference 实现的 CAS 方法**增加版本号参数stamp**，通过版本号就能够解决“ABA”问题。AtomicStampedReference类中大部分方法都可以根据方法名推测方法是有什么用。getXXX()方法无非就是从Pair对象属性中获取值，set
+AtomicStampedReference 实现的 CAS 方法**增加版本号参数stamp**，通过版本号就能够解决“ABA”问题。AtomicStampedReference类中大部分方法都可以根据方法名推测方法是有什么用。getXXX()方法无非就是从Pair对象属性中获取值，set方法将对象
 
 示例：
 ```java
