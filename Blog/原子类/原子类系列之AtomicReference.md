@@ -115,7 +115,7 @@ AtomicStampedReference 实现的 CAS 方法**增加版本号参数stamp**，通�
 
 ##### ps.因为出现ABA的几率小，实现想不出怎么用代码实现，姑且的当线程A执行sleep()方法当作线程执行CAS方法过程遇到的一些阻碍吧~
 
-
+![ABA例子](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/ABA/ABA_Sample.png)
 
 
 ```java
