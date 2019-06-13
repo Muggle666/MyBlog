@@ -180,6 +180,24 @@ AtomicMarkableReference对象是否有被修改。
             return new Pair<T>(reference, mark);
         }
     }
+    /**
+     * @param expectedReference 期待的原始对象
+     * @param newReference      将要更新的对象
+     * @param expectedMark      期待原始对象的标记
+     * @param newMark           将要更新对象的标记
+     */
+    public boolean compareAndSet(V expectedReference,
+                                 V newReference,
+                                 boolean expectedMark,
+                                 boolean newMark) {
+        Pair<V> current = pair;
+        return
+                expectedReference == current.reference &&
+                        expectedMark == current.mark &&
+                        ((newReference == current.reference &&
+                                newMark == current.mark) ||
+                                casPair(current, Pair.of(newReference, newMark)));
+    }
 ```
 
 
