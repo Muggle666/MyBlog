@@ -261,7 +261,7 @@ public class AtomicMarkableReferenceDemo {
 由于线程B修改了对象，标记有false改为true，所以当上下文切换为线程A的时候，如果标记不一致CAS方法就会返回false。
 
 ## 总结：
-日常开发中需要对象原子化操作可以从AtomicReference、AtomicStampedReference和AtomicMarkableReference类中考虑，如果担心出现ABA隐患则从AtomicStampedReference和AtomicMarkableReference两个原子类中
+日常开发中需要对象原子化操作可以使用AtomicReference、AtomicStampedReference和AtomicMarkableReference类；如果担心出现ABA隐患则从AtomicStampedReference和AtomicMarkableReference两个原子类中选取。
 
 参考资料：
 
