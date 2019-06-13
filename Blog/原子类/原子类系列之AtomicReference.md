@@ -208,7 +208,7 @@ AtomicMarkableReference对象是否有被修改的情景。
     }
 ```
 
-示例：依旧
+示例：依旧引用上面的例子
 
 ```java
 public class AtomicMarkableReferenceDemo {
