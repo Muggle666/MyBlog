@@ -1,4 +1,4 @@
-## 简介
+# 简介
 上一篇文章详细讲解了AtomicInteger原子类，还有和AtomicInteger原子类实现原理基本一样的AtomicLong和AtomicBoolean原子类。这些都是基本数据类型的原子类，在并发情景下可以保证基本数据类型变量的原子性。但是对于引用类型，这些基本类型的原子类就无能为力了，所以就出现**对象引用类型的原子类**。
 
 对象引用类型的原子类包括：**AtomicReference、AtomicStampedReference、AtomicMarkableReference**
@@ -10,7 +10,7 @@ AtomicReference原子类与基本数据类型的原子类实现过程相似，�
 
 所以AtomicStampedReference、AtomicMarkableReference两个原子类就大派用场啦！
 
-## AtomicStampedReference 的使用
+### AtomicStampedReference 的使用
 
 先看下AtomicStampedReference 原子类的核心源码：
 
@@ -109,7 +109,7 @@ public class AtomicStampedReference<V> {
 }
 ```
 
-### 代码模拟 AtomicStampedReference 类解决“ABA”隐患
+#### 代码模拟 AtomicStampedReference 类解决“ABA”隐患
 AtomicStampedReference 实现的 CAS 方法**增加版本号参数stamp**，通过版本号就能够解决“ABA”问题。AtomicStampedReference类中大部分方法都可以根据方法名推测方法是有什么用。getXXX()方法无非就是从Pair对象属性中获取值；set方法将不同的对象或者不同的版本号设置给Pair对象。因此对AtomicStampedReference 的源码不作过多的解释。
 
 示例：线程A和线程B同时访问同一个值为1000的Integer类型对象。假设线程A执行CAS操作的时候，由于其它的原因还没将需要更新的值赋值，线程B抢先执行完CAS操作，并且将值为1000改为200，再改为1000（模拟ABA的情景），最后线程A才执行完CAS操作。
