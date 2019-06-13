@@ -166,7 +166,7 @@ public class AtomicStampedReferenceDemo {
 AtomicMarkableReference对象是否有被修改。
 
 ```java
-// Pair对象维护对象的引用和对象标记
+    // Pair对象维护对象的引用和对象标记
     private static class Pair<T> {
         final T reference;
         final boolean mark;// 通过标记的状态区分对象是否有更改
