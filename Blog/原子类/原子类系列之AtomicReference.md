@@ -162,7 +162,7 @@ public class AtomicStampedReferenceDemo {
 版本号不同，更新失败！
 ```
 
-
+而AtomicMarkableReference
 
 
 参考资料：
