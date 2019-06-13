@@ -108,6 +108,7 @@ public class AtomicStampedReference<V> {
 }
 ```
 
+模拟 AtomicStampedReference 类解决“ABA”隐患
 AtomicStampedReference 实现的 CAS 方法**增加版本号参数stamp**，通过版本号就能够解决“ABA”问题。AtomicStampedReference类中大部分方法都可以根据方法名推测方法是有什么用。getXXX()方法无非就是从Pair对象属性中获取值；set方法将不同的对象或者不同的版本号设置给Pair对象。因此对AtomicStampedReference 的源码不作过多的解释。
 
 示例：线程A和线程B同时访问同一个值为1000的Integer类型对象。假设线程A执行CAS操作的时候，判断期待的原始对象(expectedReference)和Pair的reference一致的时候，由于其它的原因还没将需要更新的值赋值，线程B也执行CAS操作，并且将值为1000改为200，再改为1000（模拟ABA的情景），最后线程A才执行完CAS操作。
