@@ -107,7 +107,7 @@ public class AtomicStampedReference<V> {
 }
 ```
 
-AtomicStampedReference 实现的 CAS 方法**增加版本号参数stamp**，通过版本号就能够解决“ABA”问题。
+AtomicStampedReference 实现的 CAS 方法**增加版本号参数stamp**，通过版本号就能够解决“ABA”问题。AtomicStampedReference类中大部分
 
 示例：
 ```java
