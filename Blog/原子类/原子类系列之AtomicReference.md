@@ -115,7 +115,7 @@ AtomicStampedReference 实现的 CAS 方法**增加版本号参数stamp**，通�
 
 
 ##### 以下代码中的线程B使用Thread.yield()确保线程A先运行，当线程A执行sleep()之后线程上下文切换到线程B，模拟线程A执行CAS过程中遇到一些原因导致被其它线程先操作，当线程B执行完CAS操作后再继续由线程A执行完CAS方法。
-因为出现ABA的几率小，实现想不出怎么用代码实现，姑且的当线程A执行sleep()方法当作线程执行CAS方法过程遇到的一些阻碍吧~
+ps.因为出现ABA的几率小，实现想不出怎么用代码实现，姑且的当线程A执行sleep()方法当作线程执行CAS方法过程遇到的一些阻碍吧~
 
 ```java
 public class AtomicStampedReferenceDemo {
