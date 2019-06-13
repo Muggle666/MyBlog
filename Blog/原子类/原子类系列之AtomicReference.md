@@ -246,7 +246,7 @@ public class AtomicMarkableReferenceDemo {
 线程A CAS返回false
 ```
 
-由于线程B修改可
+由于线程B修改了对象，标记有false改为true，所以当
 
 参考资料：
 
