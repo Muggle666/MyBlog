@@ -114,7 +114,7 @@ AtomicStampedReference 实现的 CAS 方法**增加版本号参数stamp**，通�
 示例：线程A和线程B同时访问同一个值为1000的Integer类型对象。假设线程A执行CAS操作的时候，判断期待的原始对象(expectedReference)和Pair的reference一致的时候，由于其它的原因还没将需要更新的值赋值，线程B也执行CAS操作，并且将值为1000改为200，再改为1000（模拟ABA的情景），最后线程A才执行完CAS操作。
 
 
-##### ps.以下代码中的线程B使用Thread.yield()确保线程A先运行，当线程A执行sleep()之后线程上下文切换到线程B，模拟线程A执行CAS过程中遇到一些原因导致被其它线程先操作，当线程B执行完CAS操作后再继续由线程A执行完CAS方法。
+##### ABA的场景实现想不出怎么用代码实现，因为以下代码中的线程B使用Thread.yield()确保线程A先运行，当线程A执行sleep()之后线程上下文切换到线程B，模拟线程A执行CAS过程中遇到一些原因导致被其它线程先操作，当线程B执行完CAS操作后再继续由线程A执行完CAS方法。
 
 ```java
 public class AtomicStampedReferenceDemo {
