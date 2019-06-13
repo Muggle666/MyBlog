@@ -9,6 +9,8 @@ AtomicReference原子类与基本数据类型的原子类实现过程相似，�
 
 所以AtomicStampedReference、AtomicMarkableReference两个原子类就大派用场啦！
 
+AtomicStampedReference 
+
 先看下AtomicStampedReference 原子类的核心源码：
 
 
@@ -246,7 +248,7 @@ public class AtomicMarkableReferenceDemo {
 线程A CAS返回false
 ```
 
-由于线程B修改了对象，标记有false改为true，所以当上下文切换为线程A的时候，如果标记不一致就
+由于线程B修改了对象，标记有false改为true，所以当上下文切换为线程A的时候，如果标记不一致CAS方法就会返回false。
 
 参考资料：
 
