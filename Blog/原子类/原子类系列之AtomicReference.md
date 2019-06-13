@@ -162,7 +162,7 @@ public class AtomicStampedReferenceDemo {
 版本号不同，更新失败！
 ```
 
-而AtomicMarkableReference原子类与AtomicStampedReference原子类源码实现相似，区别在于AtomicMarkableReference的标志是Boolean类型，
+而AtomicMarkableReference原子类与AtomicStampedReference原子类源码实现相似，区别在于AtomicMarkableReference的标志是Boolean类型，只有两种状态true
 
 
 参考资料：
