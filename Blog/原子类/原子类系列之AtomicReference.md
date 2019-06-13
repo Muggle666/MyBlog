@@ -201,9 +201,47 @@ AtomicMarkableReference对象是否有被修改。
 
 示例：
 ```java
+public class AtomicMarkableReferenceDemo {
 
+    private static final Integer INIT_NUM = 10;
+
+    private static final Integer TEM_NUM = 20;
+
+    private static final Integer UPDATE_NUM = 100;
+
+    private static final Boolean INITIAL_MARK = Boolean.FALSE;
+
+    private static AtomicMarkableReference atomicMarkableReference = new AtomicMarkableReference(INIT_NUM, INITIAL_MARK);
+
+    public static void main(String[] args) {
+        new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " ： 初始值为：" + INIT_NUM + " , 标记为： " + INITIAL_MARK);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (atomicMarkableReference.compareAndSet(INIT_NUM, UPDATE_NUM, atomicMarkableReference.isMarked(), Boolean.TRUE)) {
+                System.out.println(Thread.currentThread().getName() + " ： 修改后的值为：" + atomicMarkableReference.getReference() + " , 标记为： " + atomicMarkableReference.isMarked());
+            }else{
+                System.out.println(Thread.currentThread().getName() +  " CAS返回false");
+            }
+        }, "线程A").start();
+
+        new Thread(() -> {
+            Thread.yield();
+            System.out.println(Thread.currentThread().getName() + " ： 初始值为：" + atomicMarkableReference.getReference() + " , 标记为： " + INITIAL_MARK);
+            atomicMarkableReference.compareAndSet(atomicMarkableReference.getReference(), TEM_NUM, atomicMarkableReference.isMarked(), Boolean.TRUE);
+            System.out.println(Thread.currentThread().getName() + " ： 修改后的值为：" + atomicMarkableReference.getReference() + " , 标记为： " + atomicMarkableReference.isMarked());
+        }, "线程B").start();
+    }
+}
 ```
 
+输出结果：
+```java
+
+```
 
 
 
