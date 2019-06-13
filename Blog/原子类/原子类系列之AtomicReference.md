@@ -261,7 +261,7 @@ public class AtomicMarkableReferenceDemo {
 由于线程B修改了对象，标记有false改为true，所以当上下文切换为线程A的时候，如果标记不一致CAS方法就会返回false。
 
 ## 总结：
-通过本
+通过本篇文章可以学习AtomicStampedReference原子类和AtomicMarkableReference
 
 参考资料：
 
