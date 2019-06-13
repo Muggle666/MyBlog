@@ -64,8 +64,8 @@ public class AtomicStampedReference<V> {
                                  int newStamp) {
         Pair<V> current = pair;
         return
-                expectedReference == current.reference && // 如果返回true则说明当前的
-                        expectedStamp == current.stamp &&
+                expectedReference == current.reference && // 如果返回true则说明期待的原始对象与Pair的reference对象一样
+                        expectedStamp == current.stamp && 、、
                         ((newReference == current.reference &&
                                 newStamp == current.stamp) ||
                                 casPair(current, Pair.of(newReference, newStamp)));
