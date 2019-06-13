@@ -240,10 +240,13 @@ public class AtomicMarkableReferenceDemo {
 
 输出结果：
 ```java
-
+线程A ： 初始值为：10 , 标记为： false
+线程B ： 初始值为：10 , 标记为： false
+线程B ： 修改后的值为：20 , 标记为： true
+线程A CAS返回false
 ```
 
-
+由于线程B修改可
 
 参考资料：
 
