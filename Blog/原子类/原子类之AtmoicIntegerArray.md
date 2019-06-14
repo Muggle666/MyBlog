@@ -30,7 +30,7 @@
         return byteOffset(i);
     }
 
-    // 计算元素的内存地址位置
+    // 计算元素的偏移量
     private static long byteOffset(int i) {
         return ((long) i << shift) + base;
     }
