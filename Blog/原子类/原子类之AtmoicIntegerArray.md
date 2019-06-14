@@ -36,7 +36,7 @@
     }
 ```
 
-AtomicIntegerArray原子类通过
+AtomicIntegerArray原子类通过数组可以快速
 
 
 总结
