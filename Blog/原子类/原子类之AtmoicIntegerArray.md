@@ -36,7 +36,7 @@
     }
 ```
 
-AtomicIntegerArray原子类通过数组可以快速的随机访问元素，
+AtomicIntegerArray原子类通过数组可以快速的随机访问元素，内部的方法都调用Unsafe对象的方法保证原子性
 
 
 总结
