@@ -6,6 +6,30 @@
 
 不过有一处地方与基本数据类型的原子类很不一样的地方就是数组的原子类都对数组的存储进行优化，通过位运算提高程序的效率。
 
+```java
+private static final Unsafe unsafe = Unsafe.getUnsafe();
+    private static final int base = unsafe.arrayBaseOffset(int[].class);
+    private static final int shift;
+    private final int[] array;
+
+    static {
+        int scale = unsafe.arrayIndexScale(int[].class);
+        if ((scale & (scale - 1)) != 0)
+            throw new Error("data type scale not a power of two");
+        shift = 31 - Integer.numberOfLeadingZeros(scale);
+    }
+
+    private long checkedByteOffset(int i) {
+        if (i < 0 || i >= array.length)
+            throw new IndexOutOfBoundsException("index " + i);
+
+        return byteOffset(i);
+    }
+
+    private static long byteOffset(int i) {
+        return ((long) i << shift) + base;
+    }
+```
 
 
 
