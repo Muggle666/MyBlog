@@ -36,6 +36,43 @@
     }
 ```
 
+示例：
+
+```java
+public class AtomicIntegerArrayDemo {
+    public static void main(String[] args) {
+        AtomicIntegerArray array = new AtomicIntegerArray(8);
+        array.set(0, 00);
+        array.set(1, 10);
+        array.set(2, 20);
+        array.set(3, 30);
+        array.set(4, 40);
+        array.set(5, 50);
+        for (int i = 0; i < array.length(); i++) {
+            System.out.println("索引： " + i + " ，值为：" + array.get(i));
+        }
+
+        System.out.println("getAndAdd()先获取指定索引元素的值再加参数，返回修改前的值：" + array.getAndAdd(5,5));
+        System.out.println("get()返回指定索引元素的值：" + array.get(5));
+
+        if(array.compareAndSet(5,55,500)){
+            System.out.println("compareAndSet()期待的索引值与原数组指定的索引值相同，返回true，修改后的值为：" + array.get(5));
+        }else{
+            System.out.println("期待的索引值与原数组索引值不同，返回false");
+        }
+
+        System.out.println("getAndSet()先获取指定索引元素的值再更新，返回修改前的值：" + array.getAndSet(5,50));
+        System.out.println("get()返回指定索引元素的值：" + array.get(5));
+
+        System.out.println("getAndIncrement()自增指定索引的值，返回自增前的值：" + array.getAndIncrement(5));
+        System.out.println("incrementAndGet()自增指定索引的值，返回自增后的值：" + array.incrementAndGet(5));
+    }
+}
+```
+输出结果：
+```java
+
+```
 
 
 
