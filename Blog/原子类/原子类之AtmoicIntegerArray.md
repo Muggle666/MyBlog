@@ -8,7 +8,7 @@
 
 ```java
     private static final Unsafe unsafe = Unsafe.getUnsafe();
-    // 数组在内存中
+    // 数组在内存中第一个元素的位置 base值为16
     private static final int base = unsafe.arrayBaseOffset(int[].class);
     private static final int shift;
     private final int[] array;
