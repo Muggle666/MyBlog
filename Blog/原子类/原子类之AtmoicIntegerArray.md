@@ -23,7 +23,7 @@
         shift = 31 - Integer.numberOfLeadingZeros(scale);
     }
 
-    // 
+    // 执行
     private long checkedByteOffset(int i) {
         if (i < 0 || i >= array.length)
             throw new IndexOutOfBoundsException("index " + i);
