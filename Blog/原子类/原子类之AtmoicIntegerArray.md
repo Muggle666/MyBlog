@@ -14,7 +14,7 @@
     private final int[] array;
 
     static {
-        //scale为每个元素的字节偏移量，int为4字节。
+        //scale为每个元素的字节偏移量，int为4字节。scale代表数组每个元素占有的字节数
         int scale = unsafe.arrayIndexScale(int[].class);
         if ((scale & (scale - 1)) != 0)
             throw new Error("data type scale not a power of two");
