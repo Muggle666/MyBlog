@@ -19,7 +19,7 @@
         if ((scale & (scale - 1)) != 0)
             throw new Error("data type scale not a power of two");
 	// 当scale为 4 ，Integer.numberOfLeadingZeros(scale) == 29 ，所以shift的值为 2
-	// Integer.numberOfLeadingZeros()返回的是无符号整型
+	// Integer.numberOfLeadingZeros(int i)返回的是无符号整型 i 最高非
         shift = 31 - Integer.numberOfLeadingZeros(scale);
     }
 
