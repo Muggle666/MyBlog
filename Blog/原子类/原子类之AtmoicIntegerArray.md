@@ -23,11 +23,10 @@
         shift = 31 - Integer.numberOfLeadingZeros(scale);
     }
 
-    // 执行get、set方法都会执行checkedByteOffset()方法，检查索引值是否超出
+    // 执行get、set方法都会执行checkedByteOffset()方法，检查索引值是否超出数组长度，如果没超出就执行byteOffset()方法
     private long checkedByteOffset(int i) {
         if (i < 0 || i >= array.length)
             throw new IndexOutOfBoundsException("index " + i);
-
         return byteOffset(i);
     }
 
