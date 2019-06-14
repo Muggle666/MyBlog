@@ -71,15 +71,28 @@ public class AtomicIntegerArrayDemo {
 ```
 输出结果：
 ```java
-
+索引： 0 ，值为：0
+索引： 1 ，值为：10
+索引： 2 ，值为：20
+索引： 3 ，值为：30
+索引： 4 ，值为：40
+索引： 5 ，值为：50
+索引： 6 ，值为：0
+索引： 7 ，值为：0
+getAndAdd()先获取指定索引元素的值再加参数，返回修改前的值：50
+get()返回指定索引元素的值：55
+compareAndSet()期待的索引值与原数组指定的索引值相同，返回true，修改后的值为：500
+getAndSet()先获取指定索引元素的值再更新，返回修改前的值：500
+get()返回指定索引元素的值：50
+getAndIncrement()自增指定索引的值，返回自增前的值：50
+incrementAndGet()自增指定索引的值，返回自增后的值：52
 ```
 
 
 
-总结
+## 总结
 
 AtomicIntegerArray原子类通过数组可以快速的随机访问元素，内部的方法都调用Unsafe对象的方法保证原子性。在并发的场景下，数组应根据实际情况选择AtomicIntegerArray、AtomicLongArray 和 AtomicReferenceArray 原子类。
 
 
-参考资料
 
