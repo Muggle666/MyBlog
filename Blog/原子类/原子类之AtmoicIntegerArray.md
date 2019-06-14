@@ -36,6 +36,7 @@
     }
 ```
 
+AtomicIntegerArray原子类通过
 
 
 总结
