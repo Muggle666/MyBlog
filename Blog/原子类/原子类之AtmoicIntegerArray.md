@@ -41,7 +41,7 @@
 
 总结
 
-AtomicIntegerArray原子类通过数组可以快速的随机访问元素，内部的方法都调用Unsafe对象的方法保证原子性。在并发的场景下，数组应根据实际情况选择
+AtomicIntegerArray原子类通过数组可以快速的随机访问元素，内部的方法都调用Unsafe对象的方法保证原子性。在并发的场景下，数组应根据实际情况选择AtomicIntegerArray、AtomicLongArray 和 AtomicReferenceArray 原子类。
 
 
 参考资料
