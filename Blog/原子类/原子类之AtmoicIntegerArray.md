@@ -18,6 +18,7 @@
         int scale = unsafe.arrayIndexScale(int[].class);
         if ((scale & (scale - 1)) != 0)
             throw new Error("data type scale not a power of two");
+	// 
         shift = 31 - Integer.numberOfLeadingZeros(scale);
     }
 
