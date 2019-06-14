@@ -36,7 +36,7 @@
     }
 ```
 
-AtomicIntegerArray原子类通过数组可以快速
+AtomicIntegerArray原子类通过数组可以快速的随机访问元素，
 
 
 总结
