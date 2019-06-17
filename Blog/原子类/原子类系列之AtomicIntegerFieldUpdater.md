@@ -20,11 +20,12 @@ x.set(10);
 
 ```java
 int x = 0;
-
 public void setX(){...}
 public int getX(){...}
 
 AtomicInteger x = new AtomicInteger(0);
+x.incrementAndGet();
+x.set(...);
 ```
 
 
