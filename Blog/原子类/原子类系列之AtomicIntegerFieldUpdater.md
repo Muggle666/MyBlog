@@ -3,7 +3,7 @@
 # 简介
 
 
-AtomicIntegerFieldUpdater原子类字面意思
+AtomicIntegerFieldUpdater原子类字面意思可以理解为：整型字段更新器
 
 
 
