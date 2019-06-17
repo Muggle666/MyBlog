@@ -3,7 +3,7 @@
 # 简介
 
 
-AtomicIntegerFieldUpdater原子类属于
+AtomicIntegerFieldUpdater原子类字面意思
 
 
 
