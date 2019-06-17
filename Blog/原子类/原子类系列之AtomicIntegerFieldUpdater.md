@@ -12,7 +12,9 @@
 ```java
 AtomicInteger x = new AtomicInteger(1);
 x.incrementAndGet();
+x.set(10);
 ```
+
 
 
 
