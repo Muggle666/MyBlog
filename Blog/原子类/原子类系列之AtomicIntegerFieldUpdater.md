@@ -21,7 +21,8 @@ x.set(10);
 ```java
 int x = 0;
 
-public void se
+public void setX(){...}
+public int getX(){...}
 
 AtomicInteger x = new AtomicInteger(0);
 ```
