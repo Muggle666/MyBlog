@@ -37,6 +37,8 @@ x.get();
 
 ### AtomicIntegerFieldUpdater原子类的使用
 
+使用AtomicIntegerFieldUpdater
+
 
 
 
