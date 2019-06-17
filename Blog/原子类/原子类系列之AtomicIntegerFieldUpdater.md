@@ -38,7 +38,8 @@ x.get();
 ### AtomicIntegerFieldUpdater原子类的使用
 
 使用AtomicIntegerFieldUpdater原子类有三点注意事项：
-1.变量必须是
+1.变量必须使用volatile关键字修饰
+2.
 
 
 
