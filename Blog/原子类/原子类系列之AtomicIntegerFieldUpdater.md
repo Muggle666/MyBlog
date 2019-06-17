@@ -38,10 +38,10 @@ x.get();
 ### AtomicIntegerFieldUpdater原子类的使用
 
 使用AtomicIntegerFieldUpdater原子类有三点注意事项：
-1.变量必须使用volatile关键字修饰。
->使用volatile是为了保证可见性，如果没有volatile关键字修饰，使用newUpdater()会抛出IllegalArgumentException异常。
-2.不能使用static关键字
-3.不能使用final关键字
+
+- 变量必须使用volatile关键字修饰。
+- 不能使用static关键字
+- 不能使用final关键字
 
 
 
