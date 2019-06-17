@@ -92,7 +92,8 @@ class Score {
 totalScore的值：100000
 ```
 
-先看下AtomicIntegerFieldUpdater原子类有
+先看下AtomicIntegerFieldUpdater原子类有哪些方法：
+
 
 
 
