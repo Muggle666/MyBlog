@@ -40,6 +40,7 @@ x.get();
 使用AtomicIntegerFieldUpdater原子类有三点注意事项：
 1.变量必须使用volatile关键字修饰
 2.不能使用static关键字
+3.不能使用final关键字
 
 
 
