@@ -7,7 +7,7 @@
 
 思考：AtomicIntegerFieldUpdater和AtomicInteger有什么区别呢？AtomicInteger也可以原子化地修改对象的属性呀，那AtomicIntegerFieldUpdater的应用场景是什么？
 
-
+首先回想一下AtomicInteger的
 
 
 
