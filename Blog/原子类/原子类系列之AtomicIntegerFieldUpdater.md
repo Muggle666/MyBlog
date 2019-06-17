@@ -85,7 +85,11 @@ class Score {
     }
 }
 ```
-输出
+输出结果：
+```java
+totalScore的值：100000
+```
+
 
 
 
