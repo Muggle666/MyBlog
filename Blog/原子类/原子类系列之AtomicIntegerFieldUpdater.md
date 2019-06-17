@@ -9,6 +9,10 @@
 
 首先回想一下AtomicInteger原子类的使用，当我们声明一个变量为AtomicInteger原子类，累加操作等算法操作都是调用getXXX()、setXXX()之类的方法。
 
+```java
+AtomicInteger x = new AtomicInteger(1);
+x.incrementAndGet();
+```
 
 
 
