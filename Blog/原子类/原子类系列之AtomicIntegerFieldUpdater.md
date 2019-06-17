@@ -20,7 +20,10 @@ x.set(10);
 
 ```java
 int x = 0;
-Atomic
+
+public void se
+
+AtomicInteger x = new AtomicInteger(0);
 ```
 
 
