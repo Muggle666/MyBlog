@@ -31,7 +31,7 @@ x.set(...);
 x.get();
 ```
 
-所以此时使用
+所以此时使用AtomicIntegerFieldUpdater原子类就大派用场啦！我认为使用AtomicIntegerFieldUpdater
 
 
 
