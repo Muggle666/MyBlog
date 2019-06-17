@@ -50,9 +50,42 @@ x.get();
 
 示例：
 ```java
+public class AtomicIntegerFieldUpdaterDemo {
 
+    //设置100000个线程，模拟并发场景
+    private static final int THREAD_NUM = 100000;
+
+    //设置栅栏是为了防止循环还没结束就执行main线程输出自增的变量，导致误以为线程不安全
+    private static CountDownLatch countDownLatch = new CountDownLatch(THREAD_NUM);
+
+    private static AtomicIntegerFieldUpdater atomicIntegerFieldUpdater = AtomicIntegerFieldUpdater.newUpdater(Score.class, "totalScore");
+
+    public static void main(String[] args) throws InterruptedException {
+        Score score = new Score();
+        for (int j = 0; j < THREAD_NUM; j++) {
+            new Thread(() -> {
+                atomicIntegerFieldUpdater.incrementAndGet(score);
+                countDownLatch.countDown();
+            }).start();
+        }
+        countDownLatch.await();
+        System.out.println("totalScore的值：" + atomicIntegerFieldUpdater.get(score));
+    }
+}
+
+class Score {
+    public volatile int totalScore = 0;
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+}
 ```
-
+输出
 
 
 
