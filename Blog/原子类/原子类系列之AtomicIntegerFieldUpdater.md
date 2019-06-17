@@ -19,13 +19,14 @@ x.set(10);
 那如果在原有的代码中，一个对象的属性只是用基本数据类型或者引用类型声明，通过getter、setter等方式修改变量的值，在并发情况下无法保证原子化，有可能导致数据异常。此时如果变量由int类型变成AtomicInteger原子类声明，虽然可以保证原子性，但在使用这个变量的地方都要修改为AtomicInteger原子类相应的方法，这很明显违背了设计模式中的六大原则——“开闭原则”！
 
 ```java
+//
 int x = 0;
 public void setX(){...}
 public int getX(){...}
 
 AtomicInteger x = new AtomicInteger(0);
-x.incrementAndGet();
 x.set(...);
+x.get();
 ```
 
 
