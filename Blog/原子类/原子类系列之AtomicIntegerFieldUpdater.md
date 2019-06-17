@@ -5,7 +5,7 @@
 
 **AtomicIntegerFieldUpdater**原子类字面意思可以理解为：整型字段原子更新器。可以原子地修改对象的属性，与其类似的还有**AtomicLongFieldUpdater**和**AtomicReferenceFieldUpdater**。
 
-思考：AtomicIntegerFieldUpdater和AtomicInteger有什么
+思考：AtomicIntegerFieldUpdater和AtomicInteger有什么区别呢？AtomicInteger也是可以原子化地
 
 
 
