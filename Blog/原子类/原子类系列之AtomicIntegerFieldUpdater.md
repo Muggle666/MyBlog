@@ -124,51 +124,51 @@ AtomicIntegerFieldUpdater原子类的构造函数修饰符为protect，提供一
 ```java
 private static final class AtomicIntegerFieldUpdaterImpl<T>
         extends AtomicIntegerFieldUpdater<T> {
-        private static final sun.misc.Unsafe U = sun.misc.Unsafe.getUnsafe();
-        private final long offset;
-        private final Class<?> cclass;
-        private final Class<T> tclass;
+    private static final sun.misc.Unsafe U = sun.misc.Unsafe.getUnsafe();
+    private final long offset;
+    private final Class<?> cclass;
+    private final Class<T> tclass;
 
-        AtomicIntegerFieldUpdaterImpl(final Class<T> tclass,
-                                      final String fieldName,
-                                      final Class<?> caller) {
-            final Field field;
-            final int modifiers;
-            try {
-                field = AccessController.doPrivileged(
+    AtomicIntegerFieldUpdaterImpl(final Class<T> tclass,
+                                  final String fieldName,
+                                  final Class<?> caller) {
+        final Field field;
+        final int modifiers;
+        try {
+            field = AccessController.doPrivileged(
                     new PrivilegedExceptionAction<Field>() {
                         public Field run() throws NoSuchFieldException {
                             return tclass.getDeclaredField(fieldName);
                         }
                     });
-                modifiers = field.getModifiers();
-                sun.reflect.misc.ReflectUtil.ensureMemberAccess(
+            modifiers = field.getModifiers();
+            sun.reflect.misc.ReflectUtil.ensureMemberAccess(
                     caller, tclass, null, modifiers);
-                ClassLoader cl = tclass.getClassLoader();
-                ClassLoader ccl = caller.getClassLoader();
-                if ((ccl != null) && (ccl != cl) &&
+            ClassLoader cl = tclass.getClassLoader();
+            ClassLoader ccl = caller.getClassLoader();
+            if ((ccl != null) && (ccl != cl) &&
                     ((cl == null) || !isAncestor(cl, ccl))) {
-                    sun.reflect.misc.ReflectUtil.checkPackageAccess(tclass);
-                }
-            } catch (PrivilegedActionException pae) {
-                throw new RuntimeException(pae.getException());
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
+                sun.reflect.misc.ReflectUtil.checkPackageAccess(tclass);
             }
-
-            if (field.getType() != int.class)
-                throw new IllegalArgumentException("Must be integer type");
-
-            if (!Modifier.isVolatile(modifiers))
-                throw new IllegalArgumentException("Must be volatile type");
-
-            this.cclass = (Modifier.isProtected(modifiers) &&
-                           tclass.isAssignableFrom(caller) &&
-                           !isSamePackage(tclass, caller))
-                          ? caller : tclass;
-            this.tclass = tclass;
-            this.offset = U.objectFieldOffset(field);
+        } catch (PrivilegedActionException pae) {
+            throw new RuntimeException(pae.getException());
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
+
+        if (field.getType() != int.class)
+            throw new IllegalArgumentException("Must be integer type");
+
+        if (!Modifier.isVolatile(modifiers))
+            throw new IllegalArgumentException("Must be volatile type");
+
+        this.cclass = (Modifier.isProtected(modifiers) &&
+                tclass.isAssignableFrom(caller) &&
+                !isSamePackage(tclass, caller))
+                ? caller : tclass;
+        this.tclass = tclass;
+        this.offset = U.objectFieldOffset(field);
+    }
 }
 ```
 
