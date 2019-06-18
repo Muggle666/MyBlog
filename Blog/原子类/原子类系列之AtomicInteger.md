@@ -271,8 +271,6 @@ AtomicLong原子类的源码基本与AtomicInteger原子类的类似，但有几
     private static native boolean VMSupportsCS8();
 ```
 
-而在AtomicLong原子类中，大部分CAS方法都与AtomicInteger原子类的方法类似，故不再赘述。
-
 
 # 总结
 通过上面的讲解，相信大家对AtomicInteger原子类都有一定的了解。只有熟悉了AtomicInteger原子类，那么肯定也会使用AtomicLong和AtomicBoolean原子类，因为基本数据类型的原子类实现基本相同，因此对AtomicLong和AtomicBoolean原子类不再赘述。
