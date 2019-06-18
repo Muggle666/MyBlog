@@ -271,7 +271,7 @@ AtomicLong原子类的源码基本与AtomicInteger原子类的类似，但有几
     private static native boolean VMSupportsCS8();
 ```
 
-在AtomicLong原子类中
+而在AtomicLong原子类中
 
 
 # 总结
