@@ -213,7 +213,7 @@ private static final class AtomicIntegerFieldUpdaterImpl<T>
 }
 ```
 
-
+通过AtomicIntegerFieldUpdater.newUpdater(..)创建
 
 
 
