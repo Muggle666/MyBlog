@@ -250,6 +250,8 @@ public void Demo() {
 
 AtomicLong原子类与AtomicInteger原子类的作用类似，AtomicLong类可以保证long类型的操作原子性。提到Long类型，有一个需要知道的常识是，在Java中，long型和double型以外的基本类型和引用类型变量的写操作都是原子性操作。但为什么long型和double型变量写操作不保障原子性操作呢？
 
+>因为long和double类型都是64位(8字节)的存储空间。在32位的Java虚拟机下的写操作可能被分为两个步骤操作，先写入低32位，再写入高32位，这样在多线程环境下共享long或者double类型变量，可能出现A线程对变量执行低32位操作，B线程执行高32位操作，导致变量值出错。
+
 # 总结
 通过上面的讲解，相信大家对AtomicInteger原子类都有一定的了解。只有熟悉了AtomicInteger原子类，那么肯定也会使用AtomicLong和AtomicBoolean原子类，因为基本数据类型的原子类实现基本相同，因此对AtomicLong和AtomicBoolean原子类不再赘述。
 
