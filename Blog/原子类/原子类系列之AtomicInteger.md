@@ -255,7 +255,7 @@ AtomicLong原子类与AtomicInteger原子类的作用类似，AtomicLong类可�
 AtomicLong原子类的源码基本与AtomicInteger原子类的类似，但有几行代码值得特别说明，这也是为了之后讲解AtomicLongFieldUpdater原子类作铺垫。
 
 ```java
-	/**
+    /**
      * Records whether the underlying JVM supports lockless
      * compareAndSwap for longs. While the Unsafe.compareAndSwapLong
      * method works in either case, some constructions should be
