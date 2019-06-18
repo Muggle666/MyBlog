@@ -232,7 +232,7 @@ private final void accessCheck(T obj) {
 
 使用incrementAndGet()方法的时候，需要传入原子性操作属性的对象，例子中就是Score的对象，可以理解为“通知”AtomicIntegerFieldUpdater对象我需要保证哪个对象属性的原子性。而在操作CAS之前需要执行accessCheck(T obj)的方法，该方法检查参数传入的对象是否是cclass的实例。为什么比AtomicInteger原子类操作CAS方法多一个检查的步骤呢？譬如我需要A类中的属性原子化，但我操作的时候粗心大意传入B类的对象，那很明显是错误的代码，所以需要检查是否为同一个实例！
 
-AtomicIntegerFieldUpdater原子类中还有大量其它的CAS方法，但与AtomicInteger原子类基本相似
+AtomicIntegerFieldUpdater原子类中还有大量其它的CAS方法，但与AtomicInteger原子类基本相似，故
 
 总结
 
