@@ -213,7 +213,12 @@ private static final class AtomicIntegerFieldUpdaterImpl<T>
 }
 ```
 
-通过AtomicIntegerFieldUpdater.newUpdater(...)创建到AtomicIntegerFieldUpdater对象之后，就可以像使用AtomicInteger原子类一样，方法基本相似，只不过有一处地方比较特殊。就以上面例子中的
+通过AtomicIntegerFieldUpdater.newUpdater(...)创建到AtomicIntegerFieldUpdater对象之后，就可以像使用AtomicInteger原子类一样，方法基本相似，只不过有一处地方比较特殊。就以上面例子中的incrementAndGet(T obj)为例吧！
+
+```language
+
+```
+
 
 
 
