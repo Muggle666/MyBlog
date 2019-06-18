@@ -248,7 +248,7 @@ public void Demo() {
 
 ### AtomicLong 原子类的使用
 
-AtomicLong原子类与AtomicInteger原子类的作用类似，AtomicLong类可以保证long类型的操作原子性。提到Long类型，有一个需要知道的常识是，在Java中，long型和double型以外的基本类型和引用类型变量的写操作都是原子性操作。
+AtomicLong原子类与AtomicInteger原子类的作用类似，AtomicLong类可以保证long类型的操作原子性。提到Long类型，有一个需要知道的常识是，在Java中，long型和double型以外的基本类型和引用类型变量的写操作都是原子性操作。但为什么long型和double型变量写操作不保障原子性操作呢？
 
 # 总结
 通过上面的讲解，相信大家对AtomicInteger原子类都有一定的了解。只有熟悉了AtomicInteger原子类，那么肯定也会使用AtomicLong和AtomicBoolean原子类，因为基本数据类型的原子类实现基本相同，因此对AtomicLong和AtomicBoolean原子类不再赘述。
