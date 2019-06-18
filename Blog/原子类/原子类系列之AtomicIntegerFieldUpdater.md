@@ -241,7 +241,7 @@ AtomicIntegerFieldUpdater原子类中还有大量其它的CAS方法，但与Atom
 先来看下AtomicLongFieldUpdater抽象类的类图。
 ![AtomicLongFieldUpdater类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/AtomicLongFieldUpdater/AtomicLongFieldUpdater-UML.jpg)
 
-两个
+在AtomicLongFieldUpdater.newUpdater()的时候选择使用
 
 总结
 
