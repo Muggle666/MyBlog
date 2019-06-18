@@ -124,26 +124,38 @@ AtomicIntegerFieldUpdater原子类的构造函数修饰符为protect，提供一
 ```java
 private static final class AtomicIntegerFieldUpdaterImpl<T>
         extends AtomicIntegerFieldUpdater<T> {
+    // Unsafe对象
     private static final sun.misc.Unsafe U = sun.misc.Unsafe.getUnsafe();
+    // 变量的内存偏移量
     private final long offset;
+    // 如果字段受保护，cclass为调用者类的class对象，否则cclass为tclass。
     private final Class<?> cclass;
+    // 被操作对象类的class对象
     private final Class<T> tclass;
 
+    /**
+     * @param tclass 被操作对象类的class对象（相当于上面例子的Score.class）
+     * @param fieldName 被操作对象的属性（相当于上面例子Score类的totalScore属性）
+     * @param caller 调用者类的class对象（相当于上面例子的AtomicIntegerFieldUpdaterDemo.class）
+     */
     AtomicIntegerFieldUpdaterImpl(final Class<T> tclass,
                                   final String fieldName,
                                   final Class<?> caller) {
-        final Field field;
-        final int modifiers;
+        final Field field; // 要原子更新的字段
+        final int modifiers; // 字段的修饰符
         try {
+            // 通过反射获得tclass的fieldName
             field = AccessController.doPrivileged(
                     new PrivilegedExceptionAction<Field>() {
                         public Field run() throws NoSuchFieldException {
                             return tclass.getDeclaredField(fieldName);
                         }
                     });
+            // 获取字段的修饰符
             modifiers = field.getModifiers();
-            sun.reflect.misc.ReflectUtil.ensureMemberAccess(
-                    caller, tclass, null, modifiers);
+            // 检查字段的访问权限，如果不在访问范围内则抛出异常
+            sun.reflect.misc.ReflectUtil.ensureMemberAccess(caller, tclass, null, modifiers);
+            // 获取对象的类装载器
             ClassLoader cl = tclass.getClassLoader();
             ClassLoader ccl = caller.getClassLoader();
             if ((ccl != null) && (ccl != cl) &&
@@ -156,18 +168,47 @@ private static final class AtomicIntegerFieldUpdaterImpl<T>
             throw new RuntimeException(ex);
         }
 
+        // 如果属性的类型不是int基本数据类型则抛出异常
         if (field.getType() != int.class)
             throw new IllegalArgumentException("Must be integer type");
 
+        // 如果字段的修饰符不是volatile则抛出异常
         if (!Modifier.isVolatile(modifiers))
             throw new IllegalArgumentException("Must be volatile type");
 
-        this.cclass = (Modifier.isProtected(modifiers) &&
-                tclass.isAssignableFrom(caller) &&
-                !isSamePackage(tclass, caller))
+
+        this.cclass = (Modifier.isProtected(modifiers) && // 字段的修饰符是否是protect
+                tclass.isAssignableFrom(caller) && // 判断tclass和caller是否相同或者是另一个类的子类或接口
+                !isSamePackage(tclass, caller)) // 是否具有相同的ClassLoader和包名称
                 ? caller : tclass;
         this.tclass = tclass;
+        // 获取该字段在对象内存中的偏移量
         this.offset = U.objectFieldOffset(field);
+    }
+
+    // second是否在first的类加载器委托链上（双亲委派模型）
+    private static boolean isAncestor(ClassLoader first, ClassLoader second) {
+        ClassLoader acl = first;
+        do {
+            acl = acl.getParent();
+            if (second == acl) {
+                return true;
+            }
+        } while (acl != null);
+        return false;
+    }
+
+    // 是否具有相同的ClassLoader和包名称
+    private static boolean isSamePackage(Class<?> class1, Class<?> class2) {
+        return class1.getClassLoader() == class2.getClassLoader()
+                && Objects.equals(getPackageName(class1), getPackageName(class2));
+    }
+
+    // 获取包名称
+    private static String getPackageName(Class<?> cls) {
+        String cn = cls.getName();
+        int dot = cn.lastIndexOf('.');
+        return (dot != -1) ? cn.substring(0, dot) : "";
     }
 }
 ```
