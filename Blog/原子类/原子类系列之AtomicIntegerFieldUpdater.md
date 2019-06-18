@@ -220,13 +220,13 @@ public final int incrementAndGet(T obj) {
     return getAndAdd(obj, 1) + 1;
 }
 public final int getAndAdd(T obj, int delta) {
-            accessCheck(obj);
-            return U.getAndAddInt(obj, offset, delta);
-        }
+    accessCheck(obj);
+    return U.getAndAddInt(obj, offset, delta);
+}
 private final void accessCheck(T obj) {
-            if (!cclass.isInstance(obj))
-                throwAccessCheckException(obj);
-        }
+    if (!cclass.isInstance(obj))
+    	throwAccessCheckException(obj);
+}
 ```
 
 
