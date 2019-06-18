@@ -234,7 +234,7 @@ private final void accessCheck(T obj) {
 
 AtomicIntegerFieldUpdater原子类中还有大量其它的CAS方法，但与AtomicInteger原子类基本相似，故不再赘述。
 
-### AtomicIntegerFieldUpdater原子类的使用
+### AtomicLongFieldUpdater原子类的使用
 
 总结
 
