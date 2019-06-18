@@ -229,7 +229,7 @@ private final void accessCheck(T obj) {
 }
 ```
 
-使用incrementAndGet()方法的时候，需要传入需要原子性操作的属性的对象
+使用incrementAndGet()方法的时候，需要传入原子性操作属性的对象，例子中就是Score的
 
 
 
