@@ -107,7 +107,7 @@ public abstract class AtomicIntegerFieldUpdater<T> {...}
 private static final class AtomicIntegerFieldUpdaterImpl<T> extends AtomicIntegerFieldUpdater<T> {...}
 ```
 
-AtomicIntegerFieldUpdater类中
+AtomicIntegerFieldUpdater抽象类中抽象了
 
 
 
