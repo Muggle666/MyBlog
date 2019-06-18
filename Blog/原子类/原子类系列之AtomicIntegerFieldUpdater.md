@@ -92,7 +92,7 @@ x.get();
 totalScore的值：100000
 ```
 <asd>
-第9行AtomicIntegerFieldUpdater调用newUpdater(Class\<U\> tclass, String fieldName)静态方法创建AtomicIntegerFieldUpdater对象，通过AtomicIntegerFieldUpdater的对象就可以保证对象属性为参数fieldName的原子性，示例中为Score类中的totalScore属性。
+第9行AtomicIntegerFieldUpdater调用newUpdater(Class<> tclass, String fieldName)静态方法创建AtomicIntegerFieldUpdater对象，通过AtomicIntegerFieldUpdater的对象就可以保证对象属性为参数fieldName的原子性，示例中为Score类中的totalScore属性。
 
 先看下AtomicIntegerFieldUpdater原子类有哪些方法：
 
