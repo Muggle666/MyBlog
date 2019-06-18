@@ -97,7 +97,7 @@ totalScore的值：100000
 ![AtomicIntegerFieldUpdater-UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/AtomicIntegerFieldUpdater/AtomicIntegerFieldUpdater-UML.png)
 
 
-咦？为什么AtomicIntegerFieldUpdater原子类内部又有AtomicIntegerFieldUpdaterImpl
+咦？为什么AtomicIntegerFieldUpdater原子类内部又有AtomicIntegerFieldUpdaterImpl私有类，并且是继承AtomicIntegerFieldUpdater类
 
 
 
