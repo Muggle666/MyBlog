@@ -52,47 +52,47 @@ x.get();
 
 示例：
 ```java
-public class AtomicIntegerFieldUpdaterDemo {
-
-    //设置100000个线程，模拟并发场景
-    private static final int THREAD_NUM = 100000;
-
-    //设置栅栏是为了防止循环还没结束就执行main线程输出自增的变量，导致误以为线程不安全
-    private static CountDownLatch countDownLatch = new CountDownLatch(THREAD_NUM);
-
-    private static AtomicIntegerFieldUpdater atomicIntegerFieldUpdater = AtomicIntegerFieldUpdater.newUpdater(Score.class, "totalScore");
-
-    public static void main(String[] args) throws InterruptedException {
-        Score score = new Score();
-        for (int j = 0; j < THREAD_NUM; j++) {
-            new Thread(() -> {
-                atomicIntegerFieldUpdater.incrementAndGet(score);
-                countDownLatch.countDown();
-            }).start();
-        }
-        countDownLatch.await();
-        System.out.println("totalScore的值：" + atomicIntegerFieldUpdater.get(score));
-    }
-}
-
-class Score {
-    public volatile int totalScore = 0;
-
-    public int getTotalScore() {
-        return totalScore;
-    }
-
-    public void setTotalScore(int totalScore) {
-        this.totalScore = totalScore;
-    }
-}
+1. public class AtomicIntegerFieldUpdaterDemo {
+2. 
+3.     //设置100000个线程，模拟并发场景
+4.     private static final int THREAD_NUM = 100000;
+5. 
+6.     //设置栅栏是为了防止循环还没结束就执行main线程输出自增的变量，导致误以为线程不安全
+7.     private static CountDownLatch countDownLatch = new CountDownLatch(THREAD_NUM);
+8. 
+9.     private static AtomicIntegerFieldUpdater atomicIntegerFieldUpdater = AtomicIntegerFieldUpdater.newUpdater(Score.class, "totalScore");
+10. 
+11.     public static void main(String[] args) throws InterruptedException {
+12.         Score score = new Score();
+13.         for (int j = 0; j < THREAD_NUM; j++) {
+14.             new Thread(() -> {
+15.                 atomicIntegerFieldUpdater.incrementAndGet(score);
+16.                 countDownLatch.countDown();
+17.             }).start();
+18.         }
+19.         countDownLatch.await();
+20.         System.out.println("totalScore的值：" + atomicIntegerFieldUpdater.get(score));
+21.     }
+22. }
+23. 
+24. class Score {
+25.     public volatile int totalScore = 0;
+26. 
+27.     public int getTotalScore() {
+28.         return totalScore;
+29.     }
+30. 
+31.     public void setTotalScore(int totalScore) {
+32.         this.totalScore = totalScore;
+33.     }
+34. }
 ```
 输出结果：
 ```java
 totalScore的值：100000
 ```
 
-
+第9行
 先看下AtomicIntegerFieldUpdater原子类有哪些方法：
 
 ![AtomicIntegerFieldUpdater-UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/AtomicIntegerFieldUpdater/AtomicIntegerFieldUpdater-UML.png)
