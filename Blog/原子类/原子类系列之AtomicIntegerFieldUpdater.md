@@ -241,7 +241,20 @@ AtomicIntegerFieldUpdater原子类中还有大量其它的CAS方法，但与Atom
 先来看下AtomicLongFieldUpdater抽象类的类图。
 ![AtomicLongFieldUpdater类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/AtomicLongFieldUpdater/AtomicLongFieldUpdater-UML.jpg)
 
-在执行AtomicLongFieldUpdater.newUpdater()方法的时候选择使用哪一个内部类，那为什么需要有两个内部类呢？
+在执行AtomicLongFieldUpdater.newUpdater()方法的时候选择使用哪一个内部类，那为什么需要有两个内部类呢？带着疑问，打开AtomicLongFieldUpdater.newUpdater()的源码！
+
+```java
+@CallerSensitive
+    public static <U> AtomicLongFieldUpdater<U> newUpdater(Class<U> tclass,
+                                                           String fieldName) {
+        Class<?> caller = Reflection.getCallerClass();
+        if (AtomicLong.VM_SUPPORTS_LONG_CAS)
+            return new CASUpdater<U>(tclass, fieldName, caller);
+        else
+            return new LockedUpdater<U>(tclass, fieldName, caller);
+    }
+```
+
 
 总结
 
