@@ -109,6 +109,11 @@ private static final class AtomicIntegerFieldUpdaterImpl<T> extends AtomicIntege
 
 AtomicIntegerFieldUpdater原子类的构造函数修饰符为protect，提供一个静态方法newUpdater()创建AtomicIntegerFieldUpdater的对象。
 
+```java
+
+```
+
+
 
 
 
