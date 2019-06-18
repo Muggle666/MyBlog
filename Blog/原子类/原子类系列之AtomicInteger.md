@@ -260,9 +260,7 @@ AtomicLong原子类的源码基本与AtomicInteger原子类的类似，但有几
      * compareAndSwap for longs. While the Unsafe.compareAndSwapLong
      * method works in either case, some constructions should be
      * handled at Java level to avoid locking user-visible locks.
-     */
-    /**
-     * 判断JVM是否支持lockless CAS 操作
+     * 大意：判断JVM是否支持lockless CAS 操作
      */
     static final boolean VM_SUPPORTS_LONG_CAS = VMSupportsCS8();
 
