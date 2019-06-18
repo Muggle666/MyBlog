@@ -122,7 +122,61 @@ AtomicIntegerFieldUpdater原子类的构造函数修饰符为protect，提供一
 
 通过这个静态方法调用子类AtomicIntegerFieldUpdaterImpl的构造函数。
 ```java
+private static final class AtomicIntegerFieldUpdaterImpl<T>
+        extends AtomicIntegerFieldUpdater<T> {
+        private static final sun.misc.Unsafe U = sun.misc.Unsafe.getUnsafe();
+        private final long offset;
+        private final Class<?> cclass;
+        private final Class<T> tclass;
 
+        AtomicIntegerFieldUpdaterImpl(final Class<T> tclass,
+                                      final String fieldName,
+                                      final Class<?> caller) {
+            final Field field;
+            final int modifiers;
+            try {
+                field = AccessController.doPrivileged(
+                    new PrivilegedExceptionAction<Field>() {
+                        public Field run() throws NoSuchFieldException {
+                            return tclass.getDeclaredField(fieldName);
+                        }
+                    });
+                modifiers = field.getModifiers();
+                sun.reflect.misc.ReflectUtil.ensureMemberAccess(
+                    caller, tclass, null, modifiers);
+                ClassLoader cl = tclass.getClassLoader();
+                ClassLoader ccl = caller.getClassLoader();
+                if ((ccl != null) && (ccl != cl) &&
+                    ((cl == null) || !isAncestor(cl, ccl))) {
+                    sun.reflect.misc.ReflectUtil.checkPackageAccess(tclass);
+                }
+            } catch (PrivilegedActionException pae) {
+                throw new RuntimeException(pae.getException());
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+
+            if (field.getType() != int.class)
+                throw new IllegalArgumentException("Must be integer type");
+
+            if (!Modifier.isVolatile(modifiers))
+                throw new IllegalArgumentException("Must be volatile type");
+
+            // Access to protected field members is restricted to receivers only
+            // of the accessing class, or one of its subclasses, and the
+            // accessing class must in turn be a subclass (or package sibling)
+            // of the protected member's defining class.
+            // If the updater refers to a protected field of a declaring class
+            // outside the current package, the receiver argument will be
+            // narrowed to the type of the accessing class.
+            this.cclass = (Modifier.isProtected(modifiers) &&
+                           tclass.isAssignableFrom(caller) &&
+                           !isSamePackage(tclass, caller))
+                          ? caller : tclass;
+            this.tclass = tclass;
+            this.offset = U.objectFieldOffset(field);
+        }
+}
 ```
 
 
