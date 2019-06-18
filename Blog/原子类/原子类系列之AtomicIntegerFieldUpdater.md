@@ -223,6 +223,7 @@ public final int getAndAdd(T obj, int delta) {
     accessCheck(obj);
     return U.getAndAddInt(obj, offset, delta);
 }
+// obj是否是cclass的实例
 private final void accessCheck(T obj) {
     if (!cclass.isInstance(obj))
     	throwAccessCheckException(obj);
