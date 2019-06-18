@@ -94,6 +94,9 @@ totalScore的值：100000
 
 先看下AtomicIntegerFieldUpdater原子类有哪些方法：
 
+![AtomicIntegerFieldUpdater-UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/AtomicIntegerFieldUpdater/AtomicIntegerFieldUpdater-UML.png)
+
+
 
 
 
