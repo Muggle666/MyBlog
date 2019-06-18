@@ -99,7 +99,8 @@ totalScore的值：100000
 
 咦？为什么AtomicIntegerFieldUpdater原子类内部又有AtomicIntegerFieldUpdaterImpl私有类，并且继承AtomicIntegerFieldUpdater类？原来AtomicIntegerFieldUpdater是一个抽象类，内部通过AtomicIntegerFieldUpdaterImpl类实现父类。
 ```java
-private static final class AtomicIntegerFieldUpdaterImpl<T> extends AtomicIntegerFieldUpdater<T> {}
+public abstract class AtomicIntegerFieldUpdater<T> {...}
+private static final class AtomicIntegerFieldUpdaterImpl<T> extends AtomicIntegerFieldUpdater<T> {...}
 ```
 
 
