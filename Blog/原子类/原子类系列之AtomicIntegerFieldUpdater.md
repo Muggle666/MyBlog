@@ -229,7 +229,7 @@ private final void accessCheck(T obj) {
 }
 ```
 
-使用incrementAndGet()方法的时候，需要传入原子性操作属性的对象，例子中就是Score的对象，而在操作CAS之前需要执行accessCheck(T obj)的方法，该方法是检查传入的对象
+使用incrementAndGet()方法的时候，需要传入原子性操作属性的对象，例子中就是Score的对象，而在操作CAS之前需要执行accessCheck(T obj)的方法，该方法是检查传入的对象与初始化AtomicIntegerFieldUpdaterImpl
 
 
 
