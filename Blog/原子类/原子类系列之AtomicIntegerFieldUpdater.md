@@ -118,7 +118,7 @@ AtomicIntegerFieldUpdater原子类的构造函数修饰符为protect，提供一
     }
 ```
 
-**@CallerSensitive**
+**@CallerSensitive** 这个是JVM的注释，但目前我还找不到明确的解释，但
 
 
 
