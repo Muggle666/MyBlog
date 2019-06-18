@@ -98,7 +98,7 @@ totalScore的值：100000
 
 先看下AtomicIntegerFieldUpdater原子类有哪些方法：
 
-![AtomicIntegerFieldUpdater-UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/AtomicIntegerFieldUpdater/AtomicIntegerFieldUpdater-UML.png)
+![AtomicIntegerFieldUpdater类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/AtomicIntegerFieldUpdater/AtomicIntegerFieldUpdater-UML.png)
 
 
 咦？为什么AtomicIntegerFieldUpdater原子类内部又有AtomicIntegerFieldUpdaterImpl私有类，并且继承AtomicIntegerFieldUpdater类？原来AtomicIntegerFieldUpdater是一个抽象类，内部通过AtomicIntegerFieldUpdaterImpl类实现父类。
@@ -239,7 +239,7 @@ AtomicIntegerFieldUpdater原子类中还有大量其它的CAS方法，但与Atom
 与AtomicIntegerFieldUpdater相似，AtomicLongFieldUpdater也是一个抽象类，但有两个内部类分别继承AtomicLongFieldUpdater抽象类。
 
 先来看下AtomicLongFieldUpdater抽象类的类图。
-
+![AtomicLongFieldUpdater类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/AtomicLongFieldUpdater/AtomicLongFieldUpdater-UML.jpg)
 
 总结
 
