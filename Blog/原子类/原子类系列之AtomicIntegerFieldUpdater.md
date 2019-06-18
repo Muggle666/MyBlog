@@ -245,14 +245,13 @@ AtomicIntegerFieldUpdater原子类中还有大量其它的CAS方法，但与Atom
 
 ```java
 @CallerSensitive
-    public static <U> AtomicLongFieldUpdater<U> newUpdater(Class<U> tclass,
-                                                           String fieldName) {
-        Class<?> caller = Reflection.getCallerClass();
-        if (AtomicLong.VM_SUPPORTS_LONG_CAS)
-            return new CASUpdater<U>(tclass, fieldName, caller);
-        else
-            return new LockedUpdater<U>(tclass, fieldName, caller);
-    }
+public static <U> AtomicLongFieldUpdater<U> newUpdater(Class<U> tclass, String fieldName) {
+    Class<?> caller = Reflection.getCallerClass();
+    if (AtomicLong.VM_SUPPORTS_LONG_CAS)
+        return new CASUpdater<U>(tclass, fieldName, caller);
+    else
+        return new LockedUpdater<U>(tclass, fieldName, caller);
+}
 ```
 
 
