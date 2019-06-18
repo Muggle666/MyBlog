@@ -236,7 +236,7 @@ AtomicIntegerFieldUpdater原子类中还有大量其它的CAS方法，但与Atom
 
 ### AtomicLongFieldUpdater原子类的使用
 
-与AtomicLongFieldUpdater
+与AtomicIntegerFieldUpdater相似，AtomicLongFieldUpdater也是一个抽象类，并且
 
 总结
 
