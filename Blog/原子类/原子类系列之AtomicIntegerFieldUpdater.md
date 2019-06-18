@@ -92,7 +92,7 @@ x.get();
 totalScore的值：100000
 ```
 
-第9行AtomicIntegerFieldUpdater调用newUpdater()静态方法创建AtomicIntegerFieldUpdater对象
+第9行AtomicIntegerFieldUpdater调用newUpdater()静态方法创建AtomicIntegerFieldUpdater对象，通过AtomicIntegerFieldUpdater的对象就可以保证
 先看下AtomicIntegerFieldUpdater原子类有哪些方法：
 
 ![AtomicIntegerFieldUpdater-UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/AtomicIntegerFieldUpdater/AtomicIntegerFieldUpdater-UML.png)
