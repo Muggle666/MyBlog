@@ -389,7 +389,7 @@ class Student {
 
 # 总结
 
-当需要保证对象的属性原子化操作，我们肯定优先考虑使用java.util.concurrent.atomic 包下提供的**字段原子更新器（AtomicIntegerFieldUpdater、AtomicLongFieldUpdater和AtomicReferenceFieldUpdater）**。这三个原子类都是抽象类，通过内部类继承并实现抽象方法。大部分方法与AtomicInteger原子类的方法相似，但值得注意的是Long类型的字段更新原子类都会检查JVM是否支持CAS操作，如果
+当需要保证对象的属性原子化操作，我们肯定优先考虑使用java.util.concurrent.atomic 包下提供的**字段原子更新器（AtomicIntegerFieldUpdater、AtomicLongFieldUpdater和AtomicReferenceFieldUpdater）**。这三个原子类都是抽象类，通过内部类继承并实现抽象方法。同时也了解到long和double类型在
 
 参考资料：
 
