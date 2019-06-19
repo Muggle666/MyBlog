@@ -389,7 +389,7 @@ class Student {
 
 # 总结
 
-当需要保证对象的属性原子化操作，我们肯定优先考虑使用java.util.concurrent.atomic 包下提供的**字段原子更新器（AtomicIntegerFieldUpdater、AtomicLongFieldUpdater和AtomicReferenceFieldUpdater）**。这三个原子类都是抽象类，通过
+当需要保证对象的属性原子化操作，我们肯定优先考虑使用java.util.concurrent.atomic 包下提供的**字段原子更新器（AtomicIntegerFieldUpdater、AtomicLongFieldUpdater和AtomicReferenceFieldUpdater）**。这三个原子类都是抽象类，通过内部类继承实现抽象方法，
 
 参考资料：
 
