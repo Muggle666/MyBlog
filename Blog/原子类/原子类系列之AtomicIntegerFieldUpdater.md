@@ -343,7 +343,9 @@ newUpdater()方法内通过AtomicLong.VM_SUPPORTS_LONG_CAS判断JVM是否支持l
 
 #### AtomicReferenceFieldUpdater原子类的使用
 
-除了基本数据类型的原子更新器，还有一个原子类是对象的原子
+除了基本数据类型的原子更新器，还有一个原子类是对象的原子更新器——AtomicReferenceFieldUpdater。
+
+AtomicReferenceFieldUpdater原子类与
 
 
 # 总结
