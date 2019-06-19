@@ -249,12 +249,12 @@ public static <U> AtomicLongFieldUpdater<U> newUpdater(Class<U> tclass, String f
     Class<?> caller = Reflection.getCallerClass();
     if (AtomicLong.VM_SUPPORTS_LONG_CAS) // JVM支持lockless的 CAS 操作
         return new CASUpdater<U>(tclass, fieldName, caller);
-    else // JVM不支持lockless的CAS 操作
+    else // JVM不支持lockless的 CAS 操作
         return new LockedUpdater<U>(tclass, fieldName, caller);
 }
 ```
 
-
+newUpdater()方法内
 
 
 总结
