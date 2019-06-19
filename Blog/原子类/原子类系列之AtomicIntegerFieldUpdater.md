@@ -254,7 +254,7 @@ public static <U> AtomicLongFieldUpdater<U> newUpdater(Class<U> tclass, String f
 }
 ```
 
-newUpdater()方法内
+newUpdater()方法内通过判断JVM是否支持lockless的CAS操作
 
 
 总结
