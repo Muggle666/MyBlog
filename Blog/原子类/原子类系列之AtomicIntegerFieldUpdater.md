@@ -380,7 +380,10 @@ class Student {
 ```
 输出结果：
 ```java
-
+获取指定对象的指定属性值：0
+执行compareAndSet(student,0,10)后指定对象的指定属性值：10
+执行set(student,20)后指定对象的指定属性值：20
+执行updateAndGet(student,(s1)->(100))后指定对象的指定属性值：100
 ```
 
 
