@@ -339,7 +339,7 @@ newUpdater()方法内通过AtomicLong.VM_SUPPORTS_LONG_CAS判断JVM是否支持l
     }
 ```
 
-不难发现，CASUpdater构造器的源码与AtomicIntegerFieldUpdaterImpl构造器的一模一样，所以不作过多的解释，
+不难发现，CASUpdater构造器的源码与AtomicIntegerFieldUpdaterImpl构造器的一模一样，所以不作过多的解释。值得注意的是，
 
 总结
 
