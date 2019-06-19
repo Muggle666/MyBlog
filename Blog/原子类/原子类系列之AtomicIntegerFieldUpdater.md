@@ -339,6 +339,7 @@ newUpdater()方法内通过AtomicLong.VM_SUPPORTS_LONG_CAS判断JVM是否支持l
     }
 ```
 
+不难发现，CASUpdater的源码与
 
 总结
 
