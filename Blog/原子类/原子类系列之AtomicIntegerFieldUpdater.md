@@ -347,7 +347,11 @@ newUpdater()方法内通过AtomicLong.VM_SUPPORTS_LONG_CAS判断JVM是否支持l
 
 AtomicReferenceFieldUpdater原子类与AtomicIntegerFieldUpdater和AtomicLongFieldUpdater原子类的使用基本相似，源码不再赘述。
 
-写个简单例子体会一下
+写个简单例子使用AtomicReferenceFieldUpdater
+```java
+
+```
+
 
 
 
