@@ -389,7 +389,7 @@ class Student {
 
 # 总结
 
-根据使用场景的不同选择不同的原子类，当需要保证对象的属性原子化操作，我肯定优先考虑使用java.util.concurrent.atomic 包下提供的字段原子更新器（AtomicIntegerFieldUpdater、AtomicLongFieldUpdater和AtomicReferenceFieldUpdater）。
+当需要保证对象的属性原子化操作，我们肯定优先考虑使用java.util.concurrent.atomic 包下提供的**字段原子更新器（AtomicIntegerFieldUpdater、AtomicLongFieldUpdater和AtomicReferenceFieldUpdater）**。
 
 参考资料：
 
