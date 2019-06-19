@@ -260,7 +260,7 @@ newUpdater()方法内通过AtomicLong.VM_SUPPORTS_LONG_CAS判断JVM是否支持l
 接下来继续打开CASUpdater和LockedUpdater内部类的构造器源码：
 
 ```java
-CASUpdater(final Class<T> tclass, final String fieldName, final Class<?> caller) {
+    CASUpdater(final Class<T> tclass, final String fieldName, final Class<?> caller) {
         final Field field;
         final int modifiers;
         try {
