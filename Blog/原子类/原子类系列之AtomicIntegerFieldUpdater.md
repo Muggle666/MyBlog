@@ -339,7 +339,7 @@ newUpdater()方法内通过AtomicLong.VM_SUPPORTS_LONG_CAS判断JVM是否支持l
     }
 ```
 
-不难发现，CASUpdater和LockedUpdater构造器的源码与AtomicIntegerFieldUpdaterImpl构造器的差不多一模一样，所以不作过多的解释。值得注意的是，LockedUpdater内部类的方法都是使用synchronized关键字保证线程安全的，这是在JVM不支持lockless的CAS操作情况
+不难发现，CASUpdater和LockedUpdater构造器的源码与AtomicIntegerFieldUpdaterImpl构造器的差不多一模一样，所以不作过多的解释。值得注意的是，LockedUpdater内部类的方法都是使用synchronized关键字保证线程安全的，这是在JVM不支持lockless的CAS操作情况下使用的，性能相对于CASUpdater会低一点。
 
 总结
 
