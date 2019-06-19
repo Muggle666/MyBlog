@@ -349,8 +349,40 @@ AtomicReferenceFieldUpdater原子类与AtomicIntegerFieldUpdater和AtomicLongFie
 
 写个简单例子使用AtomicReferenceFieldUpdater
 ```java
+public class AtomicReferenceFieldUpdaterDemo {
+
+    public static AtomicReferenceFieldUpdater updater = AtomicReferenceFieldUpdater.newUpdater(Student.class, Integer.class, "score");
+    public static Student student = new Student();
+
+    public static void main(String[] args) {
+        System.out.println("获取指定对象的指定属性值：" + updater.get(student));
+
+        updater.compareAndSet(student,0,10);
+        System.out.println("执行compareAndSet(student,0,10)后指定对象的指定属性值：" + updater.get(student));
+
+        updater.set(student,20);
+        System.out.println("执行set(student,20)后指定对象的指定属性值：" + updater.get(student));
+        
+//        updater.updateAndGet(student, new UnaryOperator() {
+//            @Override
+//            public Object apply(Object o) {
+//                return 100;
+//            }
+//        });
+        updater.updateAndGet(student,(s1)->(100));
+        System.out.println("执行updateAndGet(student,(s1)->(100))后指定对象的指定属性值：" + updater.get(student));
+    }
+}
+
+class Student {
+    public volatile Integer score = 0;
+}
+```
+输出结果：
+```java
 
 ```
+
 
 
 
