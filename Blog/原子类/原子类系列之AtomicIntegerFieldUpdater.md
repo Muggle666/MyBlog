@@ -257,7 +257,7 @@ public static <U> AtomicLongFieldUpdater<U> newUpdater(Class<U> tclass, String f
 newUpdater()方法内通过AtomicLong.VM_SUPPORTS_LONG_CAS判断JVM是否支持lockless的CAS操作。
 ###### 关于AtomicLong的解释，可以浏览本人的拙作【原子类系列之AtomicInteger】。
 
-接下来继续打开CASUpdater和LockedUpdater内部类的源码：
+接下来继续打开CASUpdater和LockedUpdater内部类的构造器源码：
 
 ```java
 
