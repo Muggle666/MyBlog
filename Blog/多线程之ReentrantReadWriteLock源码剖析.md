@@ -195,7 +195,6 @@ abstract static class Sync extends AbstractQueuedSynchronizer {
             int c = getState();
             int w = exclusiveCount(c);
             if (c != 0) {
-                // (Note: if c != 0 and w == 0 then shared count != 0)
                 if (w == 0 || current != getExclusiveOwnerThread())
                     return false;
                 if (w + exclusiveCount(acquires) > MAX_COUNT)
@@ -279,7 +278,7 @@ abstract static class Sync extends AbstractQueuedSynchronizer {
                     if (getExclusiveOwnerThread() != current)
                         return -1;
                 } else if (readerShouldBlock()) {
-
+                    // Make sure we're not acquiring read lock reentrantly
                     if (firstReader == current) {
                         // assert firstReaderHoldCount > 0;
                     } else {
