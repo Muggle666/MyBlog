@@ -74,7 +74,11 @@ class Score {
     }
 }
 ```
-
+输出结果：
+```java
+100000
+```
+ sh
 
 
 先看下ReentrantReadWriteLock的类图：
