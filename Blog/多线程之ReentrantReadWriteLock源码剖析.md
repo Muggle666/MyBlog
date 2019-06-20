@@ -78,7 +78,7 @@ class Score {
 ```java
 100000
 ```
- sh
+使用ReentrantReadWriteLock类可以保证线程安全，但为什么上面说
 
 
 先看下ReentrantReadWriteLock的类图：
