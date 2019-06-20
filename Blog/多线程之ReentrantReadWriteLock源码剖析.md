@@ -34,6 +34,7 @@ public class ReentrantReadWriteLockDemo {
 }
 
 class Score {
+    // 累加的分数
     private int score;
 
     private ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
@@ -41,7 +42,7 @@ class Score {
     // 读锁
     private ReentrantReadWriteLock.ReadLock readLock = lock.readLock();
 
-  
+    // 写锁
     private ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
 
     public void add(int score) {
