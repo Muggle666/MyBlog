@@ -278,10 +278,8 @@ abstract static class Sync extends AbstractQueuedSynchronizer {
                 if (exclusiveCount(c) != 0) {
                     if (getExclusiveOwnerThread() != current)
                         return -1;
-                    // else we hold the exclusive lock; blocking here
-                    // would cause deadlock.
                 } else if (readerShouldBlock()) {
-                    // Make sure we're not acquiring read lock reentrantly
+
                     if (firstReader == current) {
                         // assert firstReaderHoldCount > 0;
                     } else {
