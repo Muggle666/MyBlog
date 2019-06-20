@@ -78,8 +78,9 @@ class Score {
 ```java
 100000
 ```
-使用ReentrantReadWriteLock类可以保证线程安全，但为什么上面说在读多写少的场景下可以优化性能呢？接下来，从源码的角度进行剖析
+使用ReentrantReadWriteLock类可以保证线程安全，但为什么上面说在读多写少的场景下可以优化性能呢？接下来，从源码的角度进行剖析！
 
+### ReentrantReadWriteLock源码剖析
 
 先看下ReentrantReadWriteLock的类图：
 
