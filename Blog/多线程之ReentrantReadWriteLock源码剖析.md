@@ -2,4 +2,4 @@
 
 ## 简介：
 
-ReentrantReadWriteLock类内部有共享锁和排它锁
+ReentrantReadWriteLock类内部有共享锁和排它锁，在并发情况下，多个线程读操作使用
