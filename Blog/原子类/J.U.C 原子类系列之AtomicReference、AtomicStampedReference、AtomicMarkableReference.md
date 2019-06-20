@@ -1,4 +1,5 @@
-上一篇文章详细讲解了AtomicInteger原子类，还有和AtomicInteger原子类实现原理基本一样的AtomicLong和AtomicBoolean原子类。这些都是基本数据类型的原子类，在并发情景下可以保证基本数据类型变量的原子性。但是对于引用类型，这些基本类型的原子类就无能为力了，所以就出现**对象引用类型的原子类**。
+# 简介
+上一篇文章详细讲解了[AtomicInteger原子类](https://www.jianshu.com/p/5d87871b4bf9)，还有和AtomicInteger原子类实现原理基本一样的AtomicLong和AtomicBoolean原子类。这些都是基本数据类型的原子类，在并发情景下可以保证基本数据类型变量的原子性。但是对于引用类型，这些基本类型的原子类就无能为力了，所以就出现**对象引用类型的原子类**。
 
 对象引用类型的原子类包括：**AtomicReference、AtomicStampedReference、AtomicMarkableReference**
 
@@ -8,6 +9,8 @@ AtomicReference原子类与基本数据类型的原子类实现过程相似，�
 
 
 所以AtomicStampedReference、AtomicMarkableReference两个原子类就大派用场啦！
+
+### AtomicStampedReference 的使用
 
 先看下AtomicStampedReference 原子类的核心源码：
 
@@ -64,10 +67,10 @@ public class AtomicStampedReference<V> {
                                  int newStamp) {
         Pair<V> current = pair;
         return
-                expectedReference == current.reference && // 如果返回true则说明当前的
-                        expectedStamp == current.stamp &&
+                expectedReference == current.reference && // 如果返回true则说明期待的原始对象与Pair的reference对象一样
+                        expectedStamp == current.stamp &&  // 如果返回true说明期待原始对象标志版本与Pair的stamp对象一样
                         ((newReference == current.reference &&
-                                newStamp == current.stamp) ||
+                                newStamp == current.stamp) || // 如果期待更新的对象和标志版本与Pair的reference和stamp一样的话直接返回true，否则执行CAS操作
                                 casPair(current, Pair.of(newReference, newStamp)));
     }
 
@@ -98,7 +101,6 @@ public class AtomicStampedReference<V> {
         try {
             return UNSAFE.objectFieldOffset(klazz.getDeclaredField(field));
         } catch (NoSuchFieldException e) {
-            // Convert Exception to corresponding Error
             NoSuchFieldError error = new NoSuchFieldError(field);
             error.initCause(e);
             throw error;
@@ -107,9 +109,16 @@ public class AtomicStampedReference<V> {
 }
 ```
 
-AtomicStampedReference 实现的 CAS 方法增加了版本号参数，通过版本号就能够解决“ABA”问题。
+#### 代码模拟 AtomicStampedReference 类解决“ABA”隐患
+AtomicStampedReference 实现的 CAS 方法**增加版本号参数stamp**，通过版本号就能够解决“ABA”问题。AtomicStampedReference类中大部分方法都可以根据方法名推测方法是有什么用。getXXX()方法无非就是从Pair对象属性中获取值；set方法将不同的对象或者不同的版本号设置给Pair对象。因此对AtomicStampedReference 的源码不作过多的解释。
 
-示例：
+示例：线程A和线程B同时访问同一个值为1000的Integer类型对象。假设线程A执行CAS操作的时候，由于其它的原因还没将需要更新的值赋值，线程B抢先执行完CAS操作，并且将值为1000改为200，再改为1000（模拟ABA的情景），最后线程A才执行完CAS操作。
+
+##### ps.因为出现ABA的几率小，实现想不出怎么用代码实现，姑且的当线程A执行sleep()方法当作线程执行CAS方法过程遇到的一些阻碍吧~
+
+![ABA例子](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/ABA/ABA_Sample.png)
+
+
 ```java
 public class AtomicStampedReferenceDemo {
 
@@ -162,6 +171,98 @@ public class AtomicStampedReferenceDemo {
 版本号不同，更新失败！
 ```
 
+### AtomicMarkableReference 的使用
+
+而AtomicMarkableReference原子类与AtomicStampedReference原子类源码实现相似，区别在于AtomicMarkableReference的标记是Boolean类型，只有两种状态true和false，适用在只需要知道
+AtomicMarkableReference对象是否有被修改的情景。
+
+```java
+    // Pair对象维护对象的引用和对象标记
+    private static class Pair<T> {
+        final T reference;
+        final boolean mark;// 通过标记的状态区分对象是否有更改
+
+        private Pair(T reference, boolean mark) {
+            this.reference = reference;
+            this.mark = mark;
+        }
+
+        static <T> Pair<T> of(T reference, boolean mark) {
+            return new Pair<T>(reference, mark);
+        }
+    }
+    /**
+     * @param expectedReference 期待的原始对象
+     * @param newReference      将要更新的对象
+     * @param expectedMark      期待原始对象的标记
+     * @param newMark           将要更新对象的标记
+     */
+    public boolean compareAndSet(V expectedReference,
+                                 V newReference,
+                                 boolean expectedMark,
+                                 boolean newMark) {
+        Pair<V> current = pair;
+        return
+                expectedReference == current.reference && // 如果期待的原始对象与Pair的reference一样则返回true
+                        expectedMark == current.mark && // 如果期待的原始对象的标记与Pair的mark一样则返回true
+                        ((newReference == current.reference &&
+                                newMark == current.mark) || // 如果要更新的对象和对象标记与Pair的refernce和mark一样的话直接返回true，否则执行CAS操作
+                                casPair(current, Pair.of(newReference, newMark)));
+    }
+```
+
+示例：依旧引用上面的例子
+
+```java
+public class AtomicMarkableReferenceDemo {
+
+    private static final Integer INIT_NUM = 10;
+
+    private static final Integer TEM_NUM = 20;
+
+    private static final Integer UPDATE_NUM = 100;
+
+    private static final Boolean INITIAL_MARK = Boolean.FALSE;
+
+    private static AtomicMarkableReference atomicMarkableReference = new AtomicMarkableReference(INIT_NUM, INITIAL_MARK);
+
+    public static void main(String[] args) {
+        new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " ： 初始值为：" + INIT_NUM + " , 标记为： " + INITIAL_MARK);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (atomicMarkableReference.compareAndSet(INIT_NUM, UPDATE_NUM, atomicMarkableReference.isMarked(), Boolean.TRUE)) {
+                System.out.println(Thread.currentThread().getName() + " ： 修改后的值为：" + atomicMarkableReference.getReference() + " , 标记为： " + atomicMarkableReference.isMarked());
+            }else{
+                System.out.println(Thread.currentThread().getName() +  " CAS返回false");
+            }
+        }, "线程A").start();
+
+        new Thread(() -> {
+            Thread.yield();
+            System.out.println(Thread.currentThread().getName() + " ： 初始值为：" + atomicMarkableReference.getReference() + " , 标记为： " + INITIAL_MARK);
+            atomicMarkableReference.compareAndSet(atomicMarkableReference.getReference(), TEM_NUM, atomicMarkableReference.isMarked(), Boolean.TRUE);
+            System.out.println(Thread.currentThread().getName() + " ： 修改后的值为：" + atomicMarkableReference.getReference() + " , 标记为： " + atomicMarkableReference.isMarked());
+        }, "线程B").start();
+    }
+}
+```
+
+输出结果：
+```java
+线程A ： 初始值为：10 , 标记为： false
+线程B ： 初始值为：10 , 标记为： false
+线程B ： 修改后的值为：20 , 标记为： true
+线程A CAS返回false
+```
+
+由于线程B修改了对象，标记有false改为true，所以当上下文切换为线程A的时候，如果标记不一致CAS方法就会返回false。
+
+## 总结：
+日常开发中需要对象原子化操作可以使用AtomicReference、AtomicStampedReference和AtomicMarkableReference类；如果担心出现ABA隐患则从AtomicStampedReference和AtomicMarkableReference两个原子类中选取。
 
 参考资料：
 

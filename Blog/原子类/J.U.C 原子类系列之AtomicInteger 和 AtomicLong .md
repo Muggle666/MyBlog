@@ -1,4 +1,7 @@
+## 简介
 在日常开发中，基本数据类型的原子类最常用的可能就是AtomicInteger类了。话说回来，为什么有Integer类还需要有AtomicInteger类呢？先来看看AtomicInteger类的包是啥：**java.util.concurrent.atomic** 。看到没有，这是并发包下的类，所以AtomicInteger类肯定是在并发环境下使用的。
+
+### AtomicInteger原子类的使用
 
 先看一条常见的面试题：x 作为全局变量，使用 x++ 线程安全吗？
 
@@ -79,7 +82,7 @@ X的值：100000
 好了，经过前面的铺垫，接下来开始对AtomicInteger类进一步的探索！
 
 先了解AtomicInteger原子类有哪些方法和变量吧！
-![AtomicInteger-UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/AtomicInteger/AtomicInteger-UML.jpg)
+![AtomicInteger类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Atomic/AtomicInteger/AtomicInteger-UML.jpg)
 
 乍一看，好多方法呢！其实大多数的方法都是类似的，难度都不大。
 ```java
@@ -241,6 +244,33 @@ public void Demo() {
 ```
 
 在使用显式锁的情景下，合理使用lazySet()可能比使用set()更好！因为加锁一定是线程安全，保证了可见性，再使用volatile修饰变量其实多余了，而使用lazySet()就可以避免内存屏障，提高程序的执行效率！
+
+
+### AtomicLong 原子类的使用
+
+AtomicLong原子类与AtomicInteger原子类的作用类似，AtomicLong类可以保证long类型的操作原子性。提到Long类型，有一个需要知道的常识是，在Java中，long型和double型以外的基本类型和引用类型变量的写操作都是原子性操作。但为什么long型和double型变量写操作不保障原子性操作呢？【可参考我另外一篇博客：[https://www.jianshu.com/p/45f7e31c6792](https://www.jianshu.com/p/45f7e31c6792)】
+
+>因为long和double类型都是64位(8字节)的存储空间。在32位的Java虚拟机下的写操作可能被分为两个步骤操作，先写入低32位，再写入高32位，这样在多线程环境下共享long或者double类型变量，可能出现A线程对变量执行低32位操作，B线程执行高32位操作，导致变量值出错。
+
+AtomicLong原子类的源码基本与AtomicInteger原子类的类似，但有几行代码值得特别说明，这也是为了之后讲解AtomicLongFieldUpdater原子类作铺垫。
+
+```java
+    /**
+     * Records whether the underlying JVM supports lockless
+     * compareAndSwap for longs. While the Unsafe.compareAndSwapLong
+     * method works in either case, some constructions should be
+     * handled at Java level to avoid locking user-visible locks.
+     * 大意：判断JVM是否支持lockless CAS 操作
+     */
+    static final boolean VM_SUPPORTS_LONG_CAS = VMSupportsCS8();
+
+    /**
+     * Returns whether underlying JVM supports lockless CompareAndSet
+     * for longs. Called only once and cached in VM_SUPPORTS_LONG_CAS.
+     */
+    private static native boolean VMSupportsCS8();
+```
+
 
 # 总结
 通过上面的讲解，相信大家对AtomicInteger原子类都有一定的了解。只有熟悉了AtomicInteger原子类，那么肯定也会使用AtomicLong和AtomicBoolean原子类，因为基本数据类型的原子类实现基本相同，因此对AtomicLong和AtomicBoolean原子类不再赘述。
