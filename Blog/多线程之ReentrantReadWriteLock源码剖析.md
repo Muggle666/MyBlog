@@ -95,7 +95,7 @@ emmm...好像好复杂，ReentrantReadWriteLock类有那么多内部类。
 3. Sync 是 FairSync 和 NonfairSync 的父类；Sync 抽象类内部有 ThreadLocalHoldCounter 和 HoldCounter 这两个内部类。
 
 
-
+接下来我就按照这3个信息，一步一步的往ReentrantReadWriteLock类
 
 
 
