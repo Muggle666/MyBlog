@@ -90,7 +90,7 @@ emmm...好像好复杂，ReentrantReadWriteLock类有那么多内部类。
 
 
 从ReentrantReadWriteLock类图中，我可以知道几个信息：
-1.
+1.ReentrantReadWriteLock
 
 
 
