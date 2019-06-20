@@ -137,6 +137,6 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 
 ![创建ReentrantReadWriteLock对象的流程图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ReentrantReadWriteLock/ReentrantReadWriteLock-InitUML.png)
 
-
+#### 2. ReentrantReadWriteLock类有 WriteLock 、 ReadLock 、FairSync 、 NonfairSync 和 Sync 这5个内部类
 
 总结
