@@ -152,7 +152,6 @@ abstract static class Sync extends AbstractQueuedSynchronizer {
 
         static final class HoldCounter {
             int count = 0;
-            // Use id, not reference, to avoid garbage retention
             final long tid = getThreadId(Thread.currentThread());
         }
 
