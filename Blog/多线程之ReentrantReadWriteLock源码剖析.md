@@ -92,7 +92,7 @@ emmm...好像好复杂，ReentrantReadWriteLock类有那么多内部类。
 从ReentrantReadWriteLock类图中，我可以知道几个信息：
 1.ReentrantReadWriteLock实现ReadWriteLock接口和Serializable接口；所以ReentrantReadWriteLock实现了ReadWriteLock接口的readLock()方法和writeLock()方法，并且可以序列化。
 2.ReentrantReadWriteLock类有 WriteLock 、 ReadLock 、FairSync 、 NonfairSync 和 Sync 这5个内部类。
-3. Sync 是 FairSync 和 NonfairSync 的父类；Sync 抽象类内部有 ThreadLocalHoldCounter 和 HoldCounter
+3. Sync 是 FairSync 和 NonfairSync 的父类；Sync 抽象类内部有 ThreadLocalHoldCounter 和 HoldCounter 这两个内部类。
 
 
 
