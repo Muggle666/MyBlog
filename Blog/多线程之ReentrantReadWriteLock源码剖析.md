@@ -104,10 +104,12 @@ emmm...好像好复杂，ReentrantReadWriteLock类有那么多内部类。
 public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializable {
     private static final long serialVersionUID = -6992448646407690164L;
 
-    // 内部类
+    // 内部类提供的读锁
     private final ReentrantReadWriteLock.ReadLock readerLock;
 
+    // 内部类提供的写锁
     private final ReentrantReadWriteLock.WriteLock writerLock;
+
 
     final Sync sync;
 
