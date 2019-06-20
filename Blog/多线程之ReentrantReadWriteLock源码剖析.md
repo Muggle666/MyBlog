@@ -130,7 +130,7 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
     public ReentrantReadWriteLock.ReadLock  readLock()  { return readerLock; }
 }
 ```
-ps.我在看源码的过程中，看到writeLock()
+ps.我在看源码的过程中，看到writeLock()和readLock()两个实现方法没有@Override注解，
 
 
 
