@@ -101,7 +101,28 @@ emmm...好像好复杂，ReentrantReadWriteLock类有那么多内部类。
 #### ReentrantReadWriteLock实现ReadWriteLock接口和Serializable接口
 
 ```java
+public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializable {
+    private static final long serialVersionUID = -6992448646407690164L;
+    /** Inner class providing readlock */
+    private final ReentrantReadWriteLock.ReadLock readerLock;
+    /** Inner class providing writelock */
+    private final ReentrantReadWriteLock.WriteLock writerLock;
+    /** Performs all synchronization mechanics */
+    final Sync sync;
 
+    public ReentrantReadWriteLock() {
+        this(false);
+    }
+
+    public ReentrantReadWriteLock(boolean fair) {
+        sync = fair ? new FairSync() : new NonfairSync();
+        readerLock = new ReadLock(this);
+        writerLock = new WriteLock(this);
+    }
+
+    public ReentrantReadWriteLock.WriteLock writeLock() { return writerLock; }
+    public ReentrantReadWriteLock.ReadLock  readLock()  { return readerLock; }
+}
 ```
 
 
