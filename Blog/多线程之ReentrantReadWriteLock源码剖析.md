@@ -34,7 +34,7 @@ public class ReentrantReadWriteLockDemo {
 }
 
 class Score {
-    // 累加的分数
+    // 共享变量：累加的分数
     private int score;
 
     private ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
