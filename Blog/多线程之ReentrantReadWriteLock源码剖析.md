@@ -11,6 +11,7 @@ public class ReentrantReadWriteLockDemo {
 
     private static int threadNum = 100000;
 
+    // 设置栅栏是为了防止循环还没结束就执行main线程输出自增的变量，导致误以为线程不安全
     private static CountDownLatch countDownLatch = new CountDownLatch(threadNum);
 
     public static void main(String[] args) {
