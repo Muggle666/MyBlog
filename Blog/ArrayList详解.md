@@ -1,6 +1,28 @@
-ArrayList集合有3个构造函数：
+
+# 简介
+
+ArrayList集合类是基于数组实现的，其数组容量的大小可以动态的变化，数组的元素可以为null。值得注意的是，ArrayList中所有的方法都是非线程安全的！在多线程环境下可以使用sychronzied或者使用显式锁，当然还有一个更加便捷的方式，就是使用Collections.synchronizedList(List<T> list)方法，这样的话，使用所有的ArrayList方法都是线程安全的。
+
 ```java
-    //参数传入数组长度
+List list = Collections.synchronizedList(new ArrayList());
+```
+
+## 源码剖析
+
+#### 1.ArrayList集合类的结构图
+![ArrayList结构图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/ArrayList/ArrayList%E7%BB%93%E6%9E%84%E5%9B%BE.png)
+
+```java
+public class ArrayList<E> extends AbstractList<E>
+        implements List<E>, RandomAccess, Cloneable, java.io.Serializable
+```
+
+ArrayList集合类继承了AbstractList抽象类和实现了List接口，拥有了新增，删除，修改和遍历的功能；实现RandomAccess接口，这是一个标志接口，只要有类实现该接口就代表可以快速随机访问元素；实现Cloneable接口和Serializable接口可以克隆和序列化。
+
+
+#### 2.ArrayList集合类有3个构造函数：
+```java
+    //参数传入数组长度，可自定义数组大小
     public ArrayList(int initialCapacity) {
         if (initialCapacity > 0) {
             this.elementData = new Object[initialCapacity];
@@ -28,7 +50,7 @@ ArrayList集合有3个构造函数：
         }
     }
 ```
-添加元素的方法有4个：
+#### 3.添加元素的方法有4个：add()方法的讲解和ArrayList动态扩容机制
 ```java
 add(E e)
 add(int index, E element)
@@ -50,7 +72,7 @@ add(E e)方法相关的代码
     //ArrayList集合的数组(数组不能被序列化)
     transient Object[] elementData;
 
-    //ArrayList的长度
+    //ArrayList数组的长度
     private int size;
 
     //添加数组元素
@@ -68,7 +90,7 @@ add(E e)方法相关的代码
         ensureExplicitCapacity(minCapacity);
     }
 
-    //保证数组长度，如果需要添加元素位置超出数组长度则执行grow扩容
+    // 保证数组长度，如果minCapacity超出数组长度则执行grow()方法扩容
     private void ensureExplicitCapacity(int minCapacity) {
         modCount++;
         if (minCapacity - elementData.length > 0)
@@ -82,11 +104,21 @@ add(E e)方法相关的代码
         int newCapacity = oldCapacity + (oldCapacity >> 1);
         if (newCapacity - minCapacity < 0)
             newCapacity = minCapacity;
-        if (newCapacity - MAX_ARRAY_SIZE > 0)
+        if (newCapacity - MAX_ARRAY_SIZE > 0) // 如果minCapacity比MAX_ARRAY_SIZE还要大则执行hugeCapacity()方法
             newCapacity = hugeCapacity(minCapacity);
         elementData = Arrays.copyOf(elementData, newCapacity);
     }
+
+    private static int hugeCapacity(int minCapacity) {
+        if (minCapacity < 0) // 为什么小于 0 为什么会 overflow ？ 因为minCapacity已经比MAX_ARRAY_SIZE还要大，而minCapacity是int类型，当minCapacity大于2147483647就会变成负数
+            throw new OutOfMemoryError();
+        return (minCapacity > MAX_ARRAY_SIZE) ?
+            Integer.MAX_VALUE :
+            MAX_ARRAY_SIZE;
+    }
 ```
+![add(E e)方法流程图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/ArrayList/ArrayLIst%E9%9B%86%E5%90%88add(E%20e)%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
+
 
 add(int index, E element)相关方法：
 ```java
@@ -105,16 +137,18 @@ public void add(int index, E element) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
     }
 ```
+![add(int index ,E element)流程图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/ArrayList/add(int%20index%2CE%20e)%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
 
-删除元素的方法有3个：
+
+#### 4.删除元素的方法有3个：
 ```java
-remove(int index)
-remove(Object o)
-removeAll(Collection<?> c)
+remove(int index)// 通过指定索引删除元素
+remove(Object o)// 通过指定对象删除第一次出现的索引对象
+removeAll(Collection<?> c)// 通过指定集合，删除collection中包含的所有元素
 ```
 
 ```java
-public E remove(int index) {
+    public E remove(int index) {
         rangeCheck(index);//判断是否超出索引长度
 
         modCount++;
@@ -125,18 +159,17 @@ public E remove(int index) {
             System.arraycopy(elementData, index+1, elementData, index,
                     numMoved);
         elementData[--size] = null; // clear to let GC do its work
-
         return oldValue;
     }
 
     public boolean remove(Object o) {
-        if (o == null) {
+        if (o == null) {// 如果参数为null，则删除集合数组中第一个为null的元素
             for (int index = 0; index < size; index++)
                 if (elementData[index] == null) {
                     fastRemove(index);
                     return true;
                 }
-        } else {
+        } else {// 如果参数不为空，则遍历集合数组，直到找到与参数相同的值，并删除该元素
             for (int index = 0; index < size; index++)
                 if (o.equals(elementData[index])) {
                     fastRemove(index);
@@ -170,12 +203,10 @@ public E remove(int index) {
         int r = 0, w = 0;
         boolean modified = false;
         try {
-            for (; r < size; r++)
-                if (c.contains(elementData[r]) == complement)
+            for (; r < size; r++)// 遍历集合元素
+                if (c.contains(elementData[r]) == complement)// removeAll()方法传参complement为false，所以当c对象不包含集合元素的时候才执行
                     elementData[w++] = elementData[r];
         } finally {
-            // Preserve behavioral compatibility with AbstractCollection,
-            // even if c.contains() throws.
             if (r != size) {
                 System.arraycopy(elementData, r,
                                  elementData, w,
@@ -183,7 +214,7 @@ public E remove(int index) {
                 w += size - r;
             }
             if (w != size) {
-                // clear to let GC do its work
+                // 设置没有元素的索引为null，便于jvm垃圾回收
                 for (int i = w; i < size; i++)
                     elementData[i] = null;
                 modCount += size - w;
@@ -196,3 +227,253 @@ public E remove(int index) {
 ```
 
 通过源码可以知道，删除元素都要进行数组的重组，而且当被删除的元素越靠近集合数组的前面，数组的重组开销就越大。
+
+#### 5.获取元素
+
+由于ArrayList集合类实现了RandomAccess接口，所以可以快速的获取元素。
+
+```java
+    E elementData(int index) {
+        return (E) elementData[index];
+    }
+
+
+    public E get(int index) {
+        rangeCheck(index);
+
+        return elementData(index);
+    }
+```
+
+#### 6.为ArrayList集合类“瘦身”——trimToSize()：将数组的容量设置size，省去多余空间，优化程序。
+
+![trimToSize()方法示意图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/ArrayList/ArrayList_trimToSize()_sample.png)
+
+```java
+    public void trimToSize() {
+        modCount++;
+        if (size < elementData.length) {
+            elementData = (size == 0)
+              ? EMPTY_ELEMENTDATA // 当数组长度为0，设置为EMPTY_ELEMENTDATA
+              : Arrays.copyOf(elementData, size); // 重组数组容量，数组容量大小为size
+        }
+    }
+```
+
+
+#### 7.指定ArrayList集合类数组容量大小——ensureCapacity(int minCapacity)
+
+```java
+    public void ensureCapacity(int minCapacity) {
+    	// 如果集合数组不是默认的空数组则设置为0，否则设置为默认数组长度
+        int minExpand = (elementData != DEFAULTCAPACITY_EMPTY_ELEMENTDATA) ? 0 : DEFAULT_CAPACITY;
+        if (minCapacity > minExpand) {
+            ensureExplicitCapacity(minCapacity); // 保证数组长度，如果minCapacity超出数组长度则执行grow()方法扩容
+        }
+    }
+```
+
+如果在创建ArrayList对象的时候就可以知道数组长度大概范围，通过ArrayList对象调用ensureCapacity()方法可以达到性能优化的效果。因为如果一开始没有设置容量大小，每当数据添加到数组中，数组容量不足就会动态的扩容，直接将数组元素复制到新的数组，新的数组容量大小为原来的1.5倍，这是非常耗性能的，假设原本的ArrayList对象已经有几十万条的数据，复制到新的数组等于将这几十万条数据的内存复制一遍，容易发生oom。因此如果在使用数组的时候就知道数据量的大小，我们应该先设置容量。
+
+举个例子：
+
+```java
+public class Sample {
+    public static void main(String[] args) {
+        System.out.println("不设置集合容量大小，使用默认的容量大小");
+        ArrayList arrayList  = new ArrayList();
+        arrayList.add("1");
+        System.out.println("实际集合容量大小为：" + getArrayListCapacity(arrayList));
+        System.out.println("设置容量大小为5");
+        arrayList.ensureCapacity(5);
+        System.out.println("实际集合容量大小为：" + getArrayListCapacity(arrayList));
+        System.out.println("设置容量大小为20");
+        arrayList.ensureCapacity(20);
+        System.out.println("实际集合容量大小为：" + getArrayListCapacity(arrayList));
+    }
+
+    // 通过反射获取私有变量--elementData数组的长度
+    public static int getArrayListCapacity(ArrayList<?> arrayList) {
+        Class<ArrayList> arrayListClass = ArrayList.class;
+        try {
+            Field field = arrayListClass.getDeclaredField("elementData");
+            field.setAccessible(true);
+            Object[] objects = (Object[])field.get(arrayList);
+            return objects.length;
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            return -1;
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+}
+```
+
+输出结果：
+```java
+不设置集合容量大小，使用默认的容量大小
+实际集合容量大小为：10
+设置容量大小为5
+实际集合容量大小为：10
+设置容量大小为20
+实际集合容量大小为：20
+```
+
+#### 8.获取数组元素对应的索引——indexOf(Object o)、indexOf(Object o)
+
+```java
+    // 返回第一次出现元素的索引，如果没有则返回-1
+    public int indexOf(Object o) {
+        if (o == null) {
+            for (int i = 0; i < size; i++)
+                if (elementData[i]==null)
+                    return i;
+        } else {
+            for (int i = 0; i < size; i++)
+                if (o.equals(elementData[i]))
+                    return i;
+        }
+        return -1;
+    }
+
+    // 返回最后一次出现元素的索引，如果没有则返回-1
+    public int lastIndexOf(Object o) {
+        if (o == null) { 
+            for (int i = size-1; i >= 0; i--)
+                if (elementData[i]==null)
+                    return i;
+        } else { 
+            for (int i = size-1; i >= 0; i--)
+                if (o.equals(elementData[i]))
+                    return i;
+        }
+        return -1;
+    }
+```
+根据源码可以看出，获取元素索引的方法很简单，就是遍历数组，直到遇到第一个或最后一个符合条件的元素，返回索引，如果都没有则返回-1。
+
+示例：
+```java
+public class Sample {
+    public static void main(String[] args) {
+        ArrayList list = new ArrayList();
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        list.add("D");
+        list.add("E");
+        list.add("A");
+        list.add("B");
+        System.out.println(list.indexOf("B"));
+        System.out.println(list.lastIndexOf("B"));
+    }
+}
+```
+输出结果：
+```java
+1
+6
+```
+
+
+#### 9.查看是否包含元素——contains(Object o)
+
+```java
+    // 是否包含元素
+    public boolean contains(Object o) {
+        return indexOf(o) >= 0;
+    }
+```
+源码的实现非常简单，就是通过调用indexOf()的返回值判断是否包含元素，如果返回-1一定就是不包含元素，contains()方法就会返回false，否则返回true。
+
+#### 10.获取集合长度——size()
+```java
+    public int size() {
+        return size;// size属性的大小是随着集合添加或者删除元素变化
+    }
+```
+
+#### 11.ArrayList集合克隆——clone()
+```java
+   // 重写Object父类的方法
+   public Object clone() {
+        try {
+            ArrayList<?> v = (ArrayList<?>) super.clone();
+            v.elementData = Arrays.copyOf(elementData, size);
+            v.modCount = 0;
+            return v;
+        } catch (CloneNotSupportedException e) {
+            // this shouldn't happen, since we are Cloneable
+            throw new InternalError(e);
+        }
+    }
+```
+
+但有一点需要强调，ArrayList的clone()方法是浅克隆，并非深克隆。
+
+什么是浅克隆？什么是深克隆？在原型模式中也有相关的解释【[鄙人的拙作](https://www.jianshu.com/p/dac220d3d314)】
+>**浅克隆**：创建一个新对象，新对象的属性和原来对象完全相同，对于非基本类型属性，仍指向原有属性所指向的对象的内存地址。
+**深克隆**：创建一个新对象，属性中引用的其他对象也会被克隆，不再指向原有对象地址。
+
+示例说明：
+```java
+public class Sample {
+    public static void main(String[] args) {
+        Student student = new Student();
+        student.setName("Muggle");
+
+        ArrayList<Student> list = new ArrayList();
+        list.add(student);
+
+        // 浅克隆
+        ArrayList<Student> cloneList = (ArrayList) list.clone();
+
+        System.out.println("比较被克隆的对象和克隆对象是否一样：" + (list == cloneList));
+
+        // 修改集合数组对象的元素
+        student.setName("MuggleLee");
+
+        System.out.println("被克隆集合的数组第一个元素：" + list.get(0).getName());
+        System.out.println("克隆集合的数组第一个元素：" + cloneList.get(0).getName());
+    }
+}
+class Student{
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+```
+输出结果：
+```java
+比较被克隆的对象和克隆对象是否一样：false
+被克隆集合的数组第一个元素：MuggleLee
+克隆集合的数组第一个元素：MuggleLee
+```
+
+由输出结果可知，被克隆的集合与克隆的集合是不一样的，但是修改元素却都会影响两个集合。
+
+关于被克隆集合、克隆集合和它们元素的关系如下：
+
+![Clone-sample](https://raw.githubusercontent.com/MuggleLee/PicGo/master/ArrayList/clone-sample.png)
+
+
+
+参考资料：
+
+[https://www.jianshu.com/p/dac220d3d314](https://www.jianshu.com/p/dac220d3d314)
+
+
+
+
+
+
+
+
