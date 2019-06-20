@@ -124,8 +124,9 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
         writerLock = new WriteLock(this);
     }
 
-    // 实现ReadWriteLock接口
+    // 实现ReadWriteLock接口的writeLock()
     public ReentrantReadWriteLock.WriteLock writeLock() { return writerLock; }
+    // 实现ReadWriteLock接口的writeLock()
     public ReentrantReadWriteLock.ReadLock  readLock()  { return readerLock; }
 }
 ```
