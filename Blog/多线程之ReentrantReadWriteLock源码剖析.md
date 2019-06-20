@@ -135,6 +135,6 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 
 上面的代码只保留ReentrantReadWriteLock类的实现方法和构造器，方便我们了解创建ReentrantReadWriteLock对象时，在底层是怎样运作的。
 
-
+![创建ReentrantReadWriteLock对象的](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ReentrantReadWriteLock/ReentrantReadWriteLock-InitUML.png)
 
 总结
