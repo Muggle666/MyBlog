@@ -90,7 +90,7 @@ emmm...好像好复杂，ReentrantReadWriteLock类有那么多内部类。
 
 
 从ReentrantReadWriteLock类图中，我可以知道几个信息：
-1.ReentrantReadWriteLock继承ReadWriteLock接口，实现ReadWriteLock接口的两个方法rea
+1.ReentrantReadWriteLock实现ReadWriteLock接口和Serializable接口；
 
 
 
