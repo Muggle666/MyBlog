@@ -7,7 +7,70 @@ ReentrantReadWriteLock类内部有**共享锁**和**排他锁**，在并发情�
 先写个示例使用ReentrantReadWriteLock类先吧！
 
 ```java
+public class ReentrantReadWriteLockDemo {
 
+    private static int threadNum = 100000;
+
+    private static CountDownLatch countDownLatch = new CountDownLatch(threadNum);
+
+    public static void main(String[] args) {
+        Score score = new Score();
+        score.setScore(0);
+
+        for (int i = 0; i < threadNum; i++) {
+            new Thread(() -> {
+                score.add(1);
+                countDownLatch.countDown();
+            }).start();
+        }
+        try {
+            countDownLatch.await();
+            System.out.println(score.getScore());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+
+class Score {
+    private int score;
+
+    private ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+
+    // 读锁
+    private ReentrantReadWriteLock.ReadLock readLock = lock.readLock();
+
+  
+    private ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
+
+    public void add(int score) {
+        try {
+            writeLock.lock();
+            this.score = this.score + score;
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    public int getScore() {
+        try {
+            readLock.lock();
+            return score;
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    public void setScore(int score) {
+        try {
+            writeLock.lock();
+            this.score = score;
+        } finally {
+            writeLock.unlock();
+        }
+    }
+}
 ```
 
 
