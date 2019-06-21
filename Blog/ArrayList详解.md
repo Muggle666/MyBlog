@@ -20,7 +20,7 @@ public class ArrayList<E> extends AbstractList<E>
 ArrayList集合类继承了AbstractList抽象类和实现了List接口，拥有了新增，删除，修改和遍历的功能；实现RandomAccess接口，这是一个标志接口，只要有类实现该接口就代表可以快速随机访问元素；实现Cloneable接口和Serializable接口可以克隆和序列化。
 
 
-#### 2.ArrayList集合类有3个构造函数：
+#### 2.ArrayList集合类的构造函数：
 ```java
     //参数传入数组长度，可自定义数组大小
     public ArrayList(int initialCapacity) {
@@ -50,7 +50,7 @@ ArrayList集合类继承了AbstractList抽象类和实现了List接口，拥有�
         }
     }
 ```
-#### 3.添加元素的方法有4个：add()方法的讲解和ArrayList动态扩容机制
+#### 3.添加元素——add()方法的讲解和ArrayList动态扩容机制
 ```java
 add(E e)
 add(int index, E element)
@@ -140,7 +140,8 @@ public void add(int index, E element) {
 ![add(int index ,E element)流程图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/ArrayList/add(int%20index%2CE%20e)%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
 
 
-#### 4.删除元素的方法有3个：
+#### 4.删除元素——remove()
+删除的方法有以下3个：
 ```java
 remove(int index)// 通过指定索引删除元素
 remove(Object o)// 通过指定对象删除第一次出现的索引对象
@@ -228,7 +229,7 @@ removeAll(Collection<?> c)// 通过指定集合，删除collection中包含的�
 
 通过源码可以知道，删除元素都要进行数组的重组，而且当被删除的元素越靠近集合数组的前面，数组的重组开销就越大。
 
-#### 5.获取元素
+#### 5.获取元素——get()
 
 由于ArrayList集合类实现了RandomAccess接口，所以可以快速的获取元素。
 
@@ -413,7 +414,7 @@ public class Sample {
 
 但有一点需要强调，ArrayList的clone()方法是浅克隆，并非深克隆。
 
-什么是浅克隆？什么是深克隆？在原型模式中也有相关的解释【[鄙人的拙作](https://www.jianshu.com/p/dac220d3d314)】
+什么是浅克隆？什么是深克隆？在原型模式中也有相关的概念【[鄙人的拙作](https://www.jianshu.com/p/dac220d3d314)】
 >**浅克隆**：创建一个新对象，新对象的属性和原来对象完全相同，对于非基本类型属性，仍指向原有属性所指向的对象的内存地址。
 **深克隆**：创建一个新对象，属性中引用的其他对象也会被克隆，不再指向原有对象地址。
 
@@ -463,6 +464,116 @@ class Student{
 关于被克隆集合、克隆集合和它们元素的关系如下：
 
 ![Clone-sample](https://raw.githubusercontent.com/MuggleLee/PicGo/master/ArrayList/clone-sample.png)
+
+#### 12.集合元素转变成数组——toArray()、toArray(T[] a)
+
+```java
+public Object[] toArray() {
+    return Arrays.copyOf(elementData, size);
+}
+
+@SuppressWarnings("unchecked")
+public <T> T[] toArray(T[] a) {
+    if (a.length < size)
+        return (T[]) Arrays.copyOf(elementData, size, a.getClass());
+    System.arraycopy(elementData, 0, a, 0, size);
+    if (a.length > size)
+        a[size] = null;
+    return a;
+}
+```
+
+源码很简单，两个方法其实都是调用System.arraycopy()方法将集合内部的数组内存复制到一个新的数组返回。不过要注意的是toArray()方法，因为容易抛出java.lang.ClassCastException的异常！
+
+先示范代码：
+```java
+public class Sample {
+    public static void main(String[] args) {
+	ArrayList list = new ArrayList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        Integer[] integers = (Integer[]) list.toArray();
+    }
+}
+```
+输出结果报的异常是：
+> Exception in thread "main" java.lang.ClassCastException: [Ljava.lang.Object; cannot be cast to [Ljava.lang.Integer;
+
+
+**这是因为toArray()返回数组的类型是Object[]类型，如果想通过强转类型为Integer[]或者其他数组属于向下转型，这在Java中是不允许的。**
+
+那有什么办法可以转化为其他类型的数组呢？可以使用另外一种方法 toArray(T[] a) 。通过源码可以看出，toArray(T[] a)方法可以转变为任意类型的数组。
+```java
+public class Sample {
+    public static void main(String[] args) {
+	ArrayList list = new ArrayList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+	// 推荐使用的方式。因为新建的数组为0，复制出来的数组长度与集合数组长度一样，不会造成内存浪费
+        Integer[] integers = (Integer[]) list.toArray(new Integer[0]);
+        System.out.println(integers.length);// 输出结果为3
+    }
+}
+```
+#### 13.清空集合数组元素——clear()
+```java
+public void clear() {
+    modCount++;
+
+    // clear to let GC do its work
+    for (int i = 0; i < size; i++)
+        elementData[i] = null;
+
+    size = 0;
+}
+```
+源码很简单，将集合数组元素全部设置为null，便于垃圾回收。
+
+#### 14.与Collection对象找交集——retainAll(Collection<?> c)
+
+看源码之前，先看下我写的示例：
+```java
+public class Sample {
+    public static void main(String[] args) {
+        ArrayList list = new ArrayList();
+        list.add(1);
+        list.add(2);
+
+        LinkedList linkedList = new LinkedList();
+        linkedList.add(1);
+        linkedList.add(5);
+
+        // 找出与linkedList交集
+        boolean flag = list.retainAll(linkedList);
+        System.out.println("执行retainAll()后的boolean值：" + flag);
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+    }
+}
+```
+输出结果：
+```java
+执行retainAll()后的boolean值：true
+1
+```
+
+
+
+
+#### 15.sort
+
+#### 16.spliterator()  replaceAll
+
+#### 17.foreach()
+
+#### 18.removeIf()
+
+#### 19.subList()
 
 
 
