@@ -139,7 +139,7 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 #### 2. Sync 是 FairSync 和 NonfairSync 的父类；Sync 抽象类内部有 ThreadLocalHoldCounter 和 HoldCounter 这两个内部类。
 
 ```java
-     abstract static class Sync extends AbstractQueuedSynchronizer {
+    abstract static class Sync extends AbstractQueuedSynchronizer {
         private static final long serialVersionUID = 6317671515068378041L;
 
         // 共享锁状态占用的位数

@@ -1,18 +1,6 @@
-
-# 简介
-
-ArrayList集合类是基于数组实现的，其数组容量的大小可以动态的变化，数组的元素可以为null。值得注意的是，ArrayList中所有的方法都是非线程安全的！在多线程环境下可以使用sychronzied或者使用显式锁，当然还有一个更加便捷的方式，就是使用Collections.synchronizedList(List<T> list)方法，这样的话，使用所有的ArrayList方法都是线程安全的。
-
+ArrayList集合有3个构造函数：
 ```java
-List list = Collections.synchronizedList(new ArrayList());
-```
-
-## 源码剖析
-
-#### 1.ArrayList集合类的结构图
-![ArrayList结构图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/ArrayList/ArrayList%E7%BB%93%E6%9E%84%E5%9B%BE.png)
-
-```java
+<<<<<<< HEAD
 public class ArrayList<E> extends AbstractList<E>
         implements List<E>, RandomAccess, Cloneable, java.io.Serializable
 ```
@@ -23,6 +11,9 @@ ArrayList集合类继承了AbstractList抽象类和实现了List接口，拥有�
 #### 2.ArrayList集合类的构造函数：
 ```java
     //参数传入数组长度，可自定义数组大小
+=======
+    //参数传入数组长度
+>>>>>>> 7ccf97860f7453ce492e0d1581bf0179c8709025
     public ArrayList(int initialCapacity) {
         if (initialCapacity > 0) {
             this.elementData = new Object[initialCapacity];
@@ -50,7 +41,11 @@ ArrayList集合类继承了AbstractList抽象类和实现了List接口，拥有�
         }
     }
 ```
+<<<<<<< HEAD
 #### 3.添加元素——add()方法的讲解和ArrayList动态扩容机制
+=======
+添加元素的方法有4个：
+>>>>>>> 7ccf97860f7453ce492e0d1581bf0179c8709025
 ```java
 add(E e)
 add(int index, E element)
@@ -72,7 +67,7 @@ add(E e)方法相关的代码
     //ArrayList集合的数组(数组不能被序列化)
     transient Object[] elementData;
 
-    //ArrayList数组的长度
+    //ArrayList的长度
     private int size;
 
     //添加数组元素
@@ -90,7 +85,7 @@ add(E e)方法相关的代码
         ensureExplicitCapacity(minCapacity);
     }
 
-    // 保证数组长度，如果minCapacity超出数组长度则执行grow()方法扩容
+    //保证数组长度，如果需要添加元素位置超出数组长度则执行grow扩容
     private void ensureExplicitCapacity(int minCapacity) {
         modCount++;
         if (minCapacity - elementData.length > 0)
@@ -104,21 +99,11 @@ add(E e)方法相关的代码
         int newCapacity = oldCapacity + (oldCapacity >> 1);
         if (newCapacity - minCapacity < 0)
             newCapacity = minCapacity;
-        if (newCapacity - MAX_ARRAY_SIZE > 0) // 如果minCapacity比MAX_ARRAY_SIZE还要大则执行hugeCapacity()方法
+        if (newCapacity - MAX_ARRAY_SIZE > 0)
             newCapacity = hugeCapacity(minCapacity);
         elementData = Arrays.copyOf(elementData, newCapacity);
     }
-
-    private static int hugeCapacity(int minCapacity) {
-        if (minCapacity < 0) // 为什么小于 0 为什么会 overflow ？ 因为minCapacity已经比MAX_ARRAY_SIZE还要大，而minCapacity是int类型，当minCapacity大于2147483647就会变成负数
-            throw new OutOfMemoryError();
-        return (minCapacity > MAX_ARRAY_SIZE) ?
-            Integer.MAX_VALUE :
-            MAX_ARRAY_SIZE;
-    }
 ```
-![add(E e)方法流程图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/ArrayList/ArrayLIst%E9%9B%86%E5%90%88add(E%20e)%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
-
 
 add(int index, E element)相关方法：
 ```java
@@ -137,19 +122,22 @@ public void add(int index, E element) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
     }
 ```
-![add(int index ,E element)流程图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/ArrayList/add(int%20index%2CE%20e)%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
 
+<<<<<<< HEAD
 
 #### 4.删除元素——remove()
 删除的方法有以下3个：
+=======
+删除元素的方法有3个：
+>>>>>>> 7ccf97860f7453ce492e0d1581bf0179c8709025
 ```java
-remove(int index)// 通过指定索引删除元素
-remove(Object o)// 通过指定对象删除第一次出现的索引对象
-removeAll(Collection<?> c)// 通过指定集合，删除collection中包含的所有元素
+remove(int index)
+remove(Object o)
+removeAll(Collection<?> c)
 ```
 
 ```java
-    public E remove(int index) {
+public E remove(int index) {
         rangeCheck(index);//判断是否超出索引长度
 
         modCount++;
@@ -160,17 +148,18 @@ removeAll(Collection<?> c)// 通过指定集合，删除collection中包含的�
             System.arraycopy(elementData, index+1, elementData, index,
                     numMoved);
         elementData[--size] = null; // clear to let GC do its work
+
         return oldValue;
     }
 
     public boolean remove(Object o) {
-        if (o == null) {// 如果参数为null，则删除集合数组中第一个为null的元素
+        if (o == null) {
             for (int index = 0; index < size; index++)
                 if (elementData[index] == null) {
                     fastRemove(index);
                     return true;
                 }
-        } else {// 如果参数不为空，则遍历集合数组，直到找到与参数相同的值，并删除该元素
+        } else {
             for (int index = 0; index < size; index++)
                 if (o.equals(elementData[index])) {
                     fastRemove(index);
@@ -204,10 +193,12 @@ removeAll(Collection<?> c)// 通过指定集合，删除collection中包含的�
         int r = 0, w = 0;
         boolean modified = false;
         try {
-            for (; r < size; r++)// 遍历集合元素
-                if (c.contains(elementData[r]) == complement)// removeAll()方法传参complement为false，所以当c对象不包含集合元素的时候才执行
+            for (; r < size; r++)
+                if (c.contains(elementData[r]) == complement)
                     elementData[w++] = elementData[r];
         } finally {
+            // Preserve behavioral compatibility with AbstractCollection,
+            // even if c.contains() throws.
             if (r != size) {
                 System.arraycopy(elementData, r,
                                  elementData, w,
@@ -215,7 +206,7 @@ removeAll(Collection<?> c)// 通过指定集合，删除collection中包含的�
                 w += size - r;
             }
             if (w != size) {
-                // 设置没有元素的索引为null，便于jvm垃圾回收
+                // clear to let GC do its work
                 for (int i = w; i < size; i++)
                     elementData[i] = null;
                 modCount += size - w;
@@ -228,6 +219,7 @@ removeAll(Collection<?> c)// 通过指定集合，删除collection中包含的�
 ```
 
 通过源码可以知道，删除元素都要进行数组的重组，而且当被删除的元素越靠近集合数组的前面，数组的重组开销就越大。
+<<<<<<< HEAD
 
 #### 5.获取元素——get()
 
@@ -588,3 +580,5 @@ public class Sample {
 
 
 
+=======
+>>>>>>> 7ccf97860f7453ce492e0d1581bf0179c8709025
