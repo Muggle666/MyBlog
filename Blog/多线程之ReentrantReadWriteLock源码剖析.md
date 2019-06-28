@@ -488,8 +488,9 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
     compareAndSetState(c, c + SHARED_UNIT);// 读锁重入次数的CAS，每次加SHARED_UNIT
     compareAndSetState(c, c + 1);// 写锁重入次数的CAS，每次加 1
 
-    // 
+    // 获取读锁的重入次数
     static int sharedCount(int c) { return c >>> SHARED_SHIFT; } 
+    // 获取写锁的重入次数
     static int exclusiveCount(int c) { return c & EXCLUSIVE_MASK; }
 
 ```
