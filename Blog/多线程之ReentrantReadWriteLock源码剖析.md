@@ -483,11 +483,12 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 以下几处地方让我惊叹不已：
 1.state变量为int数据类型，高16位代表读锁的重入次数，而低16位代表写锁的重入次数。
 ```java
-	static final int SHARED_UNIT    = (1 << SHARED_SHIFT);// SHARED_UNIT == 65536
+    static final int SHARED_UNIT = (1 << SHARED_SHIFT);// SHARED_UNIT == 65536
     compareAndSetState(c, c + SHARED_UNIT);// 读锁重入次数的CAS，每次加SHARED_UNIT
     compareAndSetState(c, c + 1);// 写锁重入次数的CAS，每次加 1
 ```
 
+假设
 
 
 总结
