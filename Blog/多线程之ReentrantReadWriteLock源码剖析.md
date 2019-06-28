@@ -489,7 +489,7 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
     compareAndSetState(c, c + 1);// 写锁重入次数的CAS，每次加 1
 ```
 
-假设程序中读锁的重入次数为2
+假设程序中读锁的重入次数为 2 次，写锁的重入次数为 0 次，根据读锁的
 
 
 总结
