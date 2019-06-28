@@ -244,7 +244,7 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
             Thread current = Thread.currentThread();
             // 当前线程为第一个读线程
             if (firstReader == current) {
-                // 如果读锁的重入数为1则代表只有一个读线程占有读锁，设置为null；否则读锁重入数减1
+                // 如果读锁的重入数为1则代表只有一个读线程占有读锁，设置为null；否则读锁重入数减 1
                 if (firstReaderHoldCount == 1)
                     firstReader = null;
                 else
