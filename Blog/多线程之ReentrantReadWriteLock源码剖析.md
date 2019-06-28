@@ -500,6 +500,6 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 
 ![State值的巧妙使用](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ReentrantReadWriteLock/ReentrantReadWriteLock%E7%9A%84state%E4%BD%BF%E7%94%A8.png)
 
-这是多么巧妙呀！利用位运算能更快的使用
+这是多么巧妙呀！利用位运算能提高运行
 
 总结
