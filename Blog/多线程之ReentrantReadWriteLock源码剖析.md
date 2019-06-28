@@ -1,4 +1,4 @@
-在并发场景中，程序读多写少是非常普遍的。针对这种情况，JDK1.5提高了并发类**ReentrantReadWriteLock**。
+在并发场景中，程序读多写少是非常普遍的。针对这种情况，JDK1.5提供了并发类**ReentrantReadWriteLock**。
 
 ## 简介：
 
