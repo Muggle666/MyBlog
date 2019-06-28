@@ -113,6 +113,7 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
     // 默认执行非公平锁
     public ReentrantReadWriteLock() { this(false); }
 
+    // 构造器选择公平或非公平锁
     public ReentrantReadWriteLock(boolean fair) {
         sync = fair ? new FairSync() : new NonfairSync();
         readerLock = new ReadLock(this);
