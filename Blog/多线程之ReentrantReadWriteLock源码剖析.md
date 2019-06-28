@@ -4,7 +4,7 @@
 
 ReentrantReadWriteLock类内部有**共享锁**和**排他锁**，在并发情况下，多个线程读操作使用共享锁，可以有多个线程同时执行读操作；而多个线程写操作是使用到排他锁，只允许一个线程执行写操作。所以在读多写少的场景下，使用ReentrantReadWriteLock类可以提高性能。
 
-先写个示例使用ReentrantReadWriteLock类先吧！
+先写个示例使用ReentrantReadWriteLock类吧！
 
 ```java
 public class ReentrantReadWriteLockDemo {
