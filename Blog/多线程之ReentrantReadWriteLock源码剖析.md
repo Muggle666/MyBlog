@@ -479,7 +479,7 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
         final int getCount() { return getState(); }
     }
 ```
-当我看完Sync类的源码，对 Doug Lea 的敬佩犹如滔滔江水绵延不绝，又有如黄河泛滥一发不可收拾...以下几处地方让我受益匪浅的：
+当我看完Sync类的源码的，对 Doug Lea 的敬佩犹如滔滔江水绵延不绝，又有如黄河泛滥一发不可收拾...以下几处地方让我受益匪浅的：
 1.state变量为int数据类型，
 
 
