@@ -487,6 +487,8 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
     int c = getState();// 获取state值
     compareAndSetState(c, c + SHARED_UNIT);// 读锁重入次数的CAS，每次加SHARED_UNIT
     compareAndSetState(c, c + 1);// 写锁重入次数的CAS，每次加 1
+
+
 ```
 
 假设程序中读锁的重入次数为 2 次，写锁的重入次数为 0 次，根据读锁的CAS方法，state值等于SHARED_SHIFT相加了两次，即65536 * 2 = 131072。然后将131072用int的数据类型二进制表示
