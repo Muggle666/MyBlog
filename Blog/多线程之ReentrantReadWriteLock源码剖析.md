@@ -106,7 +106,7 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 
     private final ReentrantReadWriteLock.ReadLock readerLock; // 内部类提供的读锁
 
-    private final ReentrantReadWriteLock.WriteLock writerLock;// 内部类提供的写锁
+    private final ReentrantReadWriteLock.WriteLock writerLock; // 内部类提供的写锁
 
     final Sync sync; // 执行同步的内部类
 
