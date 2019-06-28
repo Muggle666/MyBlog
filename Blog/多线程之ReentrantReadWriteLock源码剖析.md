@@ -479,7 +479,7 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
         final int getCount() { return getState(); }
     }
 ```
-当我看完Sync类的源码，
+当我看完Sync类的源码，感觉打开了新世界的
 
 
 总结
