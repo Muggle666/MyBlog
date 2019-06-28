@@ -496,6 +496,7 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 ```
 
 假设程序中读锁的重入次数为 2 次，写锁的重入次数为 0 次，根据读锁的CAS方法，state值等于SHARED_SHIFT相加了两次，即65536 * 2 = 131072。当需要获取读锁的重入次数，则将state向右移16个位，即取高16位作为读锁的重入次数；而获取写锁的重入次数，则是将state向左移16位，即取低16位作为写锁的重入次数。
+ps.
 
 ![State值的巧妙使用](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ReentrantReadWriteLock/ReentrantReadWriteLock%E7%9A%84state%E4%BD%BF%E7%94%A8.png)
 
