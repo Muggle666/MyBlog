@@ -76,6 +76,8 @@ ThreadLocal的初始值：Initial value
 
 可以看出ThreadLocal有两个静态内部类，分别是SuppliedThreadLocal和ThreadLocalMap。
 
+ThreadLocal类可以通过SuppliedThreadLocal内部类初始化
+
 
 
 
