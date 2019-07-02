@@ -69,6 +69,8 @@ ThreadLocal的初始值：Initial value
 
 上面例子使用了ThreadLocal类API的四个方法，可以看出来十分方便的声明ThreadLocal类和使用，接下来就开始探索源码是怎么实现的！
 
+## ThreadLocal源码剖析
+
 先看下ThreadLocal类的类图：
 ![ThreadLocal类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal-UML.jpg)
 
