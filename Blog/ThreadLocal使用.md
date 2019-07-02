@@ -4,7 +4,7 @@
 ### What：什么是ThreadLocal
 
 
-
+用ThreadLocal声明的变量可以在线程内部提供变量副本，线程彼此之间修改
 
 
 
