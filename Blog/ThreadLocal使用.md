@@ -42,7 +42,7 @@ public class ThreadLocalDemo {
 
     public static void main(String[] args) {
         System.out.println("ThreadLocal的初始值：" + threadLocal.get());
-        threadLocal.set("Main");
+        threadLocal.set("Main线程");
         new Thread(() -> {
             System.out.println("子线程获取ThreadLocal的值：" + threadLocal.get());
             threadLocal.set("Thread线程");
@@ -56,7 +56,7 @@ public class ThreadLocalDemo {
 输出结果：
 ```java
 ThreadLocal的初始值：Initial value
-主线程执行set方法后，主线程获取ThreadLocal的值：Main方法
+主线程执行set方法后，主线程获取ThreadLocal的值：Main线程
 子线程获取ThreadLocal的值：Initial value
 子线程执行set方法后，子线程获取ThreadLocal的值：Thread线程
 ```
