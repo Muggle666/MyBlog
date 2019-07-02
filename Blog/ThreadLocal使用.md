@@ -1,1 +1,1 @@
-前提：看ReentrantReadWriteLock源码的时候，遇到
+前提：看ReentrantReadWriteLock源码的时候，发现其内部声明了一个内部类ThreadLocalHoldCounter
