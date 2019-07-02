@@ -8,7 +8,7 @@
 
 
 先看下ThreadLocal类的类图：
-
+![ThreadLocal类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal-UML.jpg)
 
 
 
