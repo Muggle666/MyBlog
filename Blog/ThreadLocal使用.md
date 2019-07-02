@@ -130,7 +130,7 @@ static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {
 
 ### ThreadLocalMap内部类
 
-
+ThreadLocalMap 是一个自定义的哈希映射，仅仅是用来维护线程本地变量的值
 
 
 
