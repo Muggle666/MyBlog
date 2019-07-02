@@ -42,13 +42,17 @@ public class ThreadLocalDemo {
 
     public static void main(String[] args) {
         System.out.println("ThreadLocal的初始值：" + threadLocal.get());
-        threadLocal.set("Main线程");
+        threadLocal.set("Main方法");
         new Thread(() -> {
             System.out.println("子线程获取ThreadLocal的值：" + threadLocal.get());
             threadLocal.set("Thread线程");
             System.out.println("子线程执行set方法后，子线程获取ThreadLocal的值：" + threadLocal.get());
+            threadLocal.remove();
+            System.out.println("子线程执行remove方法后，子线程获取ThreadLocal的值：" + threadLocal.get());
         }).start();
         System.out.println("主线程执行set方法后，主线程获取ThreadLocal的值：" + threadLocal.get());
+        threadLocal.remove();
+        System.out.println("主线程执行remove方法后，主线程获取ThreadLocal的值：" + threadLocal.get());
     }
 }
 ```
