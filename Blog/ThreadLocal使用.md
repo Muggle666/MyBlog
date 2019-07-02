@@ -72,14 +72,3 @@ ThreadLocal的初始值：Initial value
 先看下ThreadLocal类的类图：
 ![ThreadLocal类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal-UML.jpg)
 
-
-
-
-
-Why：为什么使用ThreadLocal
-
-
-Where：在哪里使用ThreadLocal
-
-
-How：怎么使用ThreadLocal
