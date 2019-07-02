@@ -108,7 +108,7 @@ static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {
 初始化ThreadLocal类的值有两种方式，第一种方式就是实现Supplier接口的get()方法或者使用Lambda表达式，第二种方式就是重写initialValue()方法。
 
 ```java
-    // 初始化ThreadLocal的值——第一种方法：实现抽象方法
+    // 初始化ThreadLocal的值————第一种方法：实现抽象方法
 //    private static ThreadLocal threadLocal = ThreadLocal.withInitial(new Supplier<String>() {
 //        @Override
 //        public String get() {
@@ -116,10 +116,10 @@ static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {
 //        }
 //    });
 
-    // 初始化ThreadLocal的值——第二种方法：使用Lambda表达式
+    // 使用Lambda表达式
     private static ThreadLocal threadLocal = ThreadLocal.withInitial(()->{return "Initial value";});
 
-    // 第三种方式重写initialValue()方法
+    // 初始化ThreadLocal的值————第二种方式重写initialValue()方法
 //    private static ThreadLocal threadLocal = new ThreadLocal(){
 //        @Override
 //        protected Object initialValue() {
