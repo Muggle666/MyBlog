@@ -83,16 +83,14 @@ public interface Supplier<T> {
 
 static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {
 
-   private final Supplier<? extends T> supplier;
+    private final Supplier<? extends T> supplier;
 
-        SuppliedThreadLocal(Supplier<? extends T> supplier) {
-            this.supplier = Objects.requireNonNull(supplier);
-        }
+    SuppliedThreadLocal(Supplier<? extends T> supplier) {
+        this.supplier = Objects.requireNonNull(supplier);
+    }
 
-        @Override
-        protected T initialValue() {
-            return supplier.get();
-        }
+    @Override
+    protected T initialValue() { return supplier.get(); }
 }
 ```
 
