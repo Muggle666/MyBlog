@@ -18,7 +18,7 @@
 
 ## ThreadLocal的基本使用
 
-先看下ThreadLocal的
+先看下ThreadLocal的API有哪些方法。
 
 
 先看下ThreadLocal类的类图：
