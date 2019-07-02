@@ -82,7 +82,7 @@ ThreadLocal的初始值：Initial value
 先看下ThreadLocal类的类图：
 ![ThreadLocal类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal-UML.jpg)
 
-可以看出ThreadLocal有两个静态内部类，分别是SuppliedThreadLocal和ThreadLocalMap。
+可以看出ThreadLocal有两个静态内部类，分别是**SuppliedThreadLocal**和**ThreadLocalMap**。
 
 ### SuppliedThreadLocal内部类
 可以通过SuppliedThreadLocal内部类初始化ThreadLocal类的值，而SuppliedThreadLocal继承ThreadLocal和声明了一个Supplier变量，而Supplier变量是一个标志性接口，因此可以通过使用Lambda表达式初始化值。
@@ -105,10 +105,26 @@ static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {
 }
 ```
 
-初始化ThreadLocal类的值有两种方式，第一种方式就是重写initialValue()方法，第二种方式就是实现Supplier接口的get()方法。
+初始化ThreadLocal类的值有两种方式，第一种方式就是重写initialValue()方法，第二种方式就是实现Supplier接口的get()方法或者使用。
 
 ```java
+    // 初始化ThreadLocal的值——第一种方法：实现抽象方法
+//    private static ThreadLocal threadLocal = ThreadLocal.withInitial(new Supplier<String>() {
+//        @Override
+//        public String get() {
+//            return "Initial value";
+//        }
+//    });
 
+    // 初始化ThreadLocal的值——第二种方法：使用Lambda表达式
+    private static ThreadLocal threadLocal = ThreadLocal.withInitial(()->{return "Initial value";});
+
+    // 第三种方式重写initialValue()方法
+//    private static ThreadLocal threadLocal = new ThreadLocal(){
+//        @Override
+//        protected Object initialValue() {
+//            return "Initial value";
+//        }
 ```
 
 
