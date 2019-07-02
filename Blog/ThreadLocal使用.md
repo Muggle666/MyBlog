@@ -74,4 +74,4 @@ ThreadLocal的初始值：Initial value
 先看下ThreadLocal类的类图：
 ![ThreadLocal类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal-UML.jpg)
 
-可以看出ThreadLocal有两个内部类，分别是
+可以看出ThreadLocal有两个内部类，分别是SuppliedThreadLocal和ThreadLocalMap
