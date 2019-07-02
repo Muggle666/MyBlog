@@ -6,7 +6,9 @@
 
 用ThreadLocal声明的变量可以在线程内部提供变量副本，线程彼此之间修改ThreadLocal声明的变量互不影响，这就不存在并发的情况了。
 
-也就是说，每创建一个线程，线程内部都会有ThreadLocal声明的变量的副本
+也就是说，每创建一个线程，线程内部都会有ThreadLocal声明的变量的副本，如下图所示：
+
+
 
 先看下ThreadLocal类的类图：
 ![ThreadLocal类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal-UML.jpg)
