@@ -27,6 +27,31 @@
 |static \<S> ThreadLocal\<S> withInitial(Supplier<? extends S> supplier)|返回当前线程的局部变量副本的变量初始值。|
 
 实例：
+```java
+public class ThreadLocalDemo {
+    // 初始化ThreadLocal的值——第一种方法：实现抽象方法
+//    private static ThreadLocal threadLocal = ThreadLocal.withInitial(new Supplier<String>() {
+//        @Override
+//        public String get() {
+//            return "Initial value";
+//        }
+//    });
+
+    // 初始化ThreadLocal的值——第二种方法：使用Lambda表达式
+    private static ThreadLocal threadLocal = ThreadLocal.withInitial(()->{return "Initial value";});
+
+    public static void main(String[] args) {
+        System.out.println("ThreadLocal的初始值：" + threadLocal.get());
+        threadLocal.set("Main方法");
+        new Thread(() -> {
+            System.out.println("子线程获取ThreadLocal的值：" + threadLocal.get());
+            threadLocal.set("Thread线程");
+            System.out.println("子线程执行set方法后，子线程获取ThreadLocal的值：" + threadLocal.get());
+        }).start();
+        System.out.println("主线程执行set方法后，主线程获取ThreadLocal的值：" + threadLocal.get());
+    }
+}
+```
 
 
 
