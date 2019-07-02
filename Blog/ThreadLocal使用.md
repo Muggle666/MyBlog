@@ -40,6 +40,14 @@ public class ThreadLocalDemo {
     // 初始化ThreadLocal的值——第二种方法：使用Lambda表达式
     private static ThreadLocal threadLocal = ThreadLocal.withInitial(()->{return "Initial value";});
 
+    // 初始化ThreadLocal的值第三种方式重写initialValue()方法
+//    private static ThreadLocal threadLocal = new ThreadLocal(){
+//        @Override
+//        protected Object initialValue() {
+//            return "Initial value";
+//        }
+//    };
+
     public static void main(String[] args) {
         System.out.println("ThreadLocal的初始值：" + threadLocal.get());
         threadLocal.set("Main方法");
