@@ -21,11 +21,11 @@
 先看下ThreadLocal的API有哪些方法。
 |方法名|用法|
 |-|-|
+|T get()|content2|
 |content1|content2|
 |content1|content2|
 |content1|content2|
-|content1|content2|
-|content1|content2|
+
 
 
 
