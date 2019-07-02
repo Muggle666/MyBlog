@@ -97,7 +97,12 @@ static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {
 }
 ```
 
-初始化ThreadLocal类的值有两种方式，第一种方式就是重写initialValue()方法，第二种方式就是重写
+初始化ThreadLocal类的值有两种方式，第一种方式就是重写initialValue()方法，第二种方式就是实现Supplier接口的get()方法。
+
+```java
+
+```
+
 
 
 
