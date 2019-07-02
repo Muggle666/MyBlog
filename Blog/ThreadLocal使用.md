@@ -7,7 +7,7 @@
 用ThreadLocal声明的变量可以在线程内部提供变量副本，线程彼此之间修改ThreadLocal声明的变量互不影响，这就不存在并发的情况了。
 
 
-
+先看下ThreadLocal类的
 
 
 
