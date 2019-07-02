@@ -19,9 +19,13 @@
 ## ThreadLocal的基本使用
 
 先看下ThreadLocal的API有哪些方法。
-|方法名|用法|column3|
-|-|-|-|
-|content1|content2|content3|
+|方法名|用法|
+|-|-|
+|content1|content2|
+|content1|content2|
+|content1|content2|
+|content1|content2|
+|content1|content2|
 
 
 
