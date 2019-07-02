@@ -60,12 +60,14 @@ public class ThreadLocalDemo {
 输出结果：
 ```java
 ThreadLocal的初始值：Initial value
-主线程执行set方法后，主线程获取ThreadLocal的值：Main线程
+主线程执行set方法后，主线程获取ThreadLocal的值：Main方法
+主线程执行remove方法后，主线程获取ThreadLocal的值：Initial value
 子线程获取ThreadLocal的值：Initial value
 子线程执行set方法后，子线程获取ThreadLocal的值：Thread线程
+子线程执行remove方法后，子线程获取ThreadLocal的值：Initial value
 ```
 
-
+上面例子使用了API
 
 先看下ThreadLocal类的类图：
 ![ThreadLocal类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal-UML.jpg)
