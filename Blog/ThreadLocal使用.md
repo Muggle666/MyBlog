@@ -11,6 +11,8 @@
 ![Demo](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal-demo.png)
 
 
+ThreadLocal的使用场景有哪些呢？
+
 
 
 
