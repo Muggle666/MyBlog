@@ -21,8 +21,8 @@
 先看下ThreadLocal的API有哪些方法。
 |方法名|用法|
 |-|-|
-|T get()|content2|
-|void set(T value)|content2|
+|T get()|返回当前线程的局部变量副本的变量值|
+|void set(T value)|设置当前线程的局部变量副本的变量值为指定值|
 |void remove()|content2|
 |static \<S> ThreadLocal\<S> withInitial(Supplier<? extends S> supplier)|content2|
 
