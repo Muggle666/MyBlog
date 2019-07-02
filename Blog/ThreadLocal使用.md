@@ -26,7 +26,8 @@
 |void remove()|删除当前线程的局部变量副本的变量值|
 |static \<S> ThreadLocal\<S> withInitial(Supplier<? extends S> supplier)|返回当前线程的局部变量副本的变量初始值。|
 
-嘻嘻，就只有4个可调用的方法
+实例：
+
 
 
 
