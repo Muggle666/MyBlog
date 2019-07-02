@@ -120,11 +120,12 @@ static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {
     private static ThreadLocal threadLocal = ThreadLocal.withInitial(()->{return "Initial value";});
 
     // 初始化ThreadLocal的值————第二种方式重写initialValue()方法
-//    private static ThreadLocal threadLocal = new ThreadLocal(){
-//        @Override
-//        protected Object initialValue() {
-//            return "Initial value";
-//        }
+    private static ThreadLocal threadLocal = new ThreadLocal(){
+        @Override
+        protected Object initialValue() {
+            return "Initial value";
+        }
+    };
 ```
 
 
