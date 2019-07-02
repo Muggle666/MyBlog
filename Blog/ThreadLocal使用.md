@@ -109,12 +109,12 @@ static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {
 
 ```java
     // 初始化ThreadLocal的值————第一种方法：实现抽象方法
-//    private static ThreadLocal threadLocal = ThreadLocal.withInitial(new Supplier<String>() {
-//        @Override
-//        public String get() {
-//            return "Initial value";
-//        }
-//    });
+    private static ThreadLocal threadLocal = ThreadLocal.withInitial(new Supplier<String>() {
+        @Override
+        public String get() {
+            return "Initial value";
+        }
+    });
 
     // 使用Lambda表达式
     private static ThreadLocal threadLocal = ThreadLocal.withInitial(()->{return "Initial value";});
