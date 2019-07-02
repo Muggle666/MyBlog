@@ -24,7 +24,7 @@
 |T get()|content2|
 |void set(T value)|content2|
 |void remove()|content2|
-|static <S> ThreadLocal<S> withInitial(Supplier\<? extends S> supplier)|content2|
+|static <S> ThreadLocal<S> withInitial(Supplier<? extends S> supplier)|content2|
 
 
 
