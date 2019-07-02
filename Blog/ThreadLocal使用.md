@@ -22,8 +22,8 @@
 |方法名|用法|
 |-|-|
 |T get()|content2|
-|content1|content2|
-|content1|content2|
+|void set(T value)|content2|
+|void remove()|content2|
 |content1|content2|
 
 
