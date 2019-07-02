@@ -23,8 +23,8 @@
 |-|-|
 |T get()|返回当前线程的局部变量副本的变量值|
 |void set(T value)|设置当前线程的局部变量副本的变量值为指定值|
-|void remove()|content2|
-|static \<S> ThreadLocal\<S> withInitial(Supplier<? extends S> supplier)|content2|
+|void remove()|删除当前线程的局部变量副本的变量值|
+|static \<S> ThreadLocal\<S> withInitial(Supplier<? extends S> supplier)|返回当前线程的局部变量副本的变量初始值。|
 
 
 
