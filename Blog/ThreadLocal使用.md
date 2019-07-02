@@ -3,9 +3,20 @@
 
 What：什么是ThreadLocal
 
+
+
+
+
+
+
+
+
+
+
 Why：为什么使用ThreadLocal
 
 
-Where：在哪里使用
+Where：在哪里使用ThreadLocal
 
-How
+
+How：怎么使用ThreadLocal
