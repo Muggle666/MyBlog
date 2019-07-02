@@ -97,6 +97,7 @@ static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {
 }
 ```
 
+初始化ThreadLocal类的值有
 
 
 
