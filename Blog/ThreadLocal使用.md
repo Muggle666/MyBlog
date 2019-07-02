@@ -130,7 +130,7 @@ static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {
 
 ### ThreadLocalMap内部类
 
-ThreadLocalMap是一个自定义的哈希映射，是用来维护线程本地变量的值，其中ThreadLocalMap的key使用WeakReference修饰，这有利于
+ThreadLocalMap是一个自定义的哈希映射，是用来维护线程本地变量的值，其中ThreadLocalMap的key使用WeakReference修饰，这有利于垃圾回收，提高系统的性能。
 
 
 
