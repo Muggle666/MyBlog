@@ -134,7 +134,7 @@ ThreadLocalMap是一个自定义的哈希映射，是用来维护线程本地变
 
 
 ```java
-static class ThreadLocalMap {
+     static class ThreadLocalMap {
 
         static class Entry extends WeakReference<ThreadLocal<?>> {
             Object value;
