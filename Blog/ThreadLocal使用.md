@@ -131,6 +131,9 @@ private void set(ThreadLocal<?> key, Object value) {
             if (!cleanSomeSlots(i, sz) && sz >= threshold)
                 rehash();
         }
+ void createMap(Thread t, T firstValue) {
+        t.threadLocals = new ThreadLocalMap(this, firstValue);
+    }
 ```
 
 
