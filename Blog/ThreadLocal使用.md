@@ -105,6 +105,15 @@ ThreadLocal的初始值：Initial value
     ThreadLocalMap getMap(Thread t) {
         return t.threadLocals;
     }
+
+private Entry getEntry(ThreadLocal<?> key) {
+            int i = key.threadLocalHashCode & (table.length - 1);
+            Entry e = table[i];
+            if (e != null && e.get() == key)
+                return e;
+            else
+                return getEntryAfterMiss(key, i, e);
+        }
 ```
 
 
