@@ -88,7 +88,7 @@ ThreadLocal的初始值：Initial value
 
 ### get()源码剖析：
 ```java
-     public T get() {
+    public T get() {
         Thread t = Thread.currentThread();
         ThreadLocalMap map = getMap(t);
         if (map != null) {
@@ -100,6 +100,10 @@ ThreadLocal的初始值：Initial value
             }
         }
         return setInitialValue();
+    }
+
+    ThreadLocalMap getMap(Thread t) {
+        return t.threadLocals;
     }
 ```
 
