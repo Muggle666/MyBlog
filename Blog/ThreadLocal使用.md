@@ -134,7 +134,7 @@ ThreadLocalMap是一个自定义的哈希映射，是用来维护线程本地变
 
 
 ```java
-    static class ThreadLocalMap {
+static class ThreadLocalMap {
 
         static class Entry extends WeakReference<ThreadLocal<?>> {
             Object value;
@@ -145,48 +145,56 @@ ThreadLocalMap是一个自定义的哈希映射，是用来维护线程本地变
             }
         }
 
+        // Entry数组的初始容量
         private static final int INITIAL_CAPACITY = 16;
 
-        private ThreadLocal.ThreadLocalMap.Entry[] table;
+        // Entry数组
+        private Entry[] table;
 
+        // Entry数组元素的个数
         private int size = 0;
 
+        // Entry扩容的阀值
         private int threshold; // Default to 0
 
+        // 设置Entry数组的阀值，长度为 len 的 2/3 倍
         private void setThreshold(int len) {
             threshold = len * 2 / 3;
         }
 
+        // Entry数组的下一个索引
         private static int nextIndex(int i, int len) {
             return ((i + 1 < len) ? i + 1 : 0);
         }
 
+        // Entry数组的上一个索引
         private static int prevIndex(int i, int len) {
             return ((i - 1 >= 0) ? i - 1 : len - 1);
         }
 
+        // 初始化ThreadLocalMap对象
         ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
-            table = new ThreadLocal.ThreadLocalMap.Entry[INITIAL_CAPACITY];
+            table = new Entry[INITIAL_CAPACITY];
             int i = firstKey.threadLocalHashCode & (INITIAL_CAPACITY - 1);
-            table[i] = new ThreadLocal.ThreadLocalMap.Entry(firstKey, firstValue);
+            table[i] = new Entry(firstKey, firstValue);// 初始化Entry
             size = 1;
             setThreshold(INITIAL_CAPACITY);
         }
 
-        private ThreadLocalMap(ThreadLocal.ThreadLocalMap parentMap) {
-            ThreadLocal.ThreadLocalMap.Entry[] parentTable = parentMap.table;
+        private ThreadLocalMap(ThreadLocalMap parentMap) {
+            Entry[] parentTable = parentMap.table;
             int len = parentTable.length;
             setThreshold(len);
-            table = new ThreadLocal.ThreadLocalMap.Entry[len];
+            table = new Entry[len];
 
             for (int j = 0; j < len; j++) {
-                ThreadLocal.ThreadLocalMap.Entry e = parentTable[j];
+                Entry e = parentTable[j];
                 if (e != null) {
                     @SuppressWarnings("unchecked")
                     ThreadLocal<Object> key = (ThreadLocal<Object>) e.get();
                     if (key != null) {
                         Object value = key.childValue(e.value);
-                        ThreadLocal.ThreadLocalMap.Entry c = new ThreadLocal.ThreadLocalMap.Entry(key, value);
+                        Entry c = new Entry(key, value);
                         int h = key.threadLocalHashCode & (len - 1);
                         while (table[h] != null)
                             h = nextIndex(h, len);
@@ -197,25 +205,27 @@ ThreadLocalMap是一个自定义的哈希映射，是用来维护线程本地变
             }
         }
 
-        private ThreadLocal.ThreadLocalMap.Entry getEntry(ThreadLocal<?> key) {
+        // 获取Entry元素
+        private Entry getEntry(ThreadLocal<?> key) {
             int i = key.threadLocalHashCode & (table.length - 1);
-            ThreadLocal.ThreadLocalMap.Entry e = table[i];
+            Entry e = table[i];
+            // 如果索引对应的元素不是null，而且元素的索引与参数key相同
+            // （为什么会存在不同的情况呢？这是因为有hash冲突的情况），否则执行getEntryAfterMiss方法再去确认key对应的value值
             if (e != null && e.get() == key)
                 return e;
             else
                 return getEntryAfterMiss(key, i, e);
         }
 
-        private ThreadLocal.ThreadLocalMap.Entry getEntryAfterMiss(ThreadLocal<?> key, int i, ThreadLocal.ThreadLocalMap.Entry e) {
-            ThreadLocal.ThreadLocalMap.Entry[] tab = table;
+        private Entry getEntryAfterMiss(ThreadLocal<?> key, int i, Entry e) {
+            Entry[] tab = table;
             int len = tab.length;
-
             while (e != null) {
                 ThreadLocal<?> k = e.get();
                 if (k == key)
                     return e;
                 if (k == null)
-                    expungeStaleEntry(i);
+                    expungeStaleEntry(i);// 清除key为i的键值对
                 else
                     i = nextIndex(i, len);
                 e = tab[i];
@@ -224,58 +234,53 @@ ThreadLocalMap是一个自定义的哈希映射，是用来维护线程本地变
         }
 
         private void set(ThreadLocal<?> key, Object value) {
-
-            // We don't use a fast path as with get() because it is at
-            // least as common to use set() to create new entries as
-            // it is to replace existing ones, in which case, a fast
-            // path would fail more often than not.
-
-            ThreadLocal.ThreadLocalMap.Entry[] tab = table;
+            Entry[] tab = table;
             int len = tab.length;
             int i = key.threadLocalHashCode & (len-1);
 
-            for (ThreadLocal.ThreadLocalMap.Entry e = tab[i];
+            // 如果数组的索引为key的哈希对应的值不为null则进入for循环
+            for (Entry e = tab[i];
                  e != null;
                  e = tab[i = nextIndex(i, len)]) {
                 ThreadLocal<?> k = e.get();
-
-                if (k == key) {
+                if (k == key) {// 如果key存在就更新
                     e.value = value;
                     return;
                 }
-
+                // 如果key为null则说明该entry已经失效，执行replaceStaleEntry替换掉
                 if (k == null) {
                     replaceStaleEntry(key, value, i);
                     return;
                 }
             }
-
-            tab[i] = new ThreadLocal.ThreadLocalMap.Entry(key, value);
+            // 向数组新增Entry对象元素
+            tab[i] = new Entry(key, value);
             int sz = ++size;
-            if (!cleanSomeSlots(i, sz) && sz >= threshold)
-                rehash();
+            if (!cleanSomeSlots(i, sz) && sz >= threshold) // 清除一些过期的值并且判断是否需要扩容
+                rehash();// 扩容
         }
 
         private void remove(ThreadLocal<?> key) {
-            ThreadLocal.ThreadLocalMap.Entry[] tab = table;
-            int len = tab.length;
-            int i = key.threadLocalHashCode & (len-1);
-            for (ThreadLocal.ThreadLocalMap.Entry e = tab[i];
+            Entry[] tab = table;// 获取Entry数组
+            int len = tab.length;// 获取数组长度
+            int i = key.threadLocalHashCode & (len-1);// 获取数组元素索引
+            // 如果索引对应的数组元素不为null，则循环Entry数组
+            for (Entry e = tab[i];
                  e != null;
                  e = tab[i = nextIndex(i, len)]) {
                 if (e.get() == key) {
-                    e.clear();
-                    expungeStaleEntry(i);
+                    e.clear();// 当前元素设置为null，即删去当前元素
+                    expungeStaleEntry(i);// 重组数组
                     return;
                 }
             }
         }
 
-        private void replaceStaleEntry(ThreadLocal<?> key, Object value,
-                                       int staleSlot) {
-            ThreadLocal.ThreadLocalMap.Entry[] tab = table;
+        // 将新元素放进陈旧的元素
+        private void replaceStaleEntry(ThreadLocal<?> key, Object value, int staleSlot) {
+            Entry[] tab = table;
             int len = tab.length;
-            ThreadLocal.ThreadLocalMap.Entry e;
+            Entry e;
 
             int slotToExpunge = staleSlot;
             for (int i = prevIndex(staleSlot, len);
@@ -283,47 +288,38 @@ ThreadLocalMap是一个自定义的哈希映射，是用来维护线程本地变
                  i = prevIndex(i, len))
                 if (e.get() == null)
                     slotToExpunge = i;
-
             for (int i = nextIndex(staleSlot, len);
                  (e = tab[i]) != null;
                  i = nextIndex(i, len)) {
                 ThreadLocal<?> k = e.get();
-
                 if (k == key) {
                     e.value = value;
-
                     tab[i] = tab[staleSlot];
                     tab[staleSlot] = e;
-
-                    // Start expunge at preceding stale entry if it exists
                     if (slotToExpunge == staleSlot)
                         slotToExpunge = i;
                     cleanSomeSlots(expungeStaleEntry(slotToExpunge), len);
                     return;
                 }
-
                 if (k == null && slotToExpunge == staleSlot)
                     slotToExpunge = i;
             }
-
             tab[staleSlot].value = null;
-            tab[staleSlot] = new ThreadLocal.ThreadLocalMap.Entry(key, value);
-
+            tab[staleSlot] = new Entry(key, value);
             if (slotToExpunge != staleSlot)
                 cleanSomeSlots(expungeStaleEntry(slotToExpunge), len);
         }
 
+        // 清除目标对象，并向后扫描清除被弃用的元素
         private int expungeStaleEntry(int staleSlot) {
-            ThreadLocal.ThreadLocalMap.Entry[] tab = table;
+            Entry[] tab = table;
             int len = tab.length;
 
-            // expunge entry at staleSlot
             tab[staleSlot].value = null;
             tab[staleSlot] = null;
             size--;
 
-            // Rehash until we encounter null
-            ThreadLocal.ThreadLocalMap.Entry e;
+            Entry e;
             int i;
             for (i = nextIndex(staleSlot, len);
                  (e = tab[i]) != null;
@@ -347,13 +343,14 @@ ThreadLocalMap是一个自定义的哈希映射，是用来维护线程本地变
             return i;
         }
 
+        // 清除被弃用的元素
         private boolean cleanSomeSlots(int i, int n) {
             boolean removed = false;
-            ThreadLocal.ThreadLocalMap.Entry[] tab = table;
+            Entry[] tab = table;
             int len = tab.length;
             do {
                 i = nextIndex(i, len);
-                ThreadLocal.ThreadLocalMap.Entry e = tab[i];
+                Entry e = tab[i];
                 if (e != null && e.get() == null) {
                     n = len;
                     removed = true;
@@ -363,23 +360,23 @@ ThreadLocalMap是一个自定义的哈希映射，是用来维护线程本地变
             return removed;
         }
 
+        // 清除弃用元素并判断是否需要扩容
         private void rehash() {
             expungeStaleEntries();
-
-            // Use lower threshold for doubling to avoid hysteresis
             if (size >= threshold - threshold / 4)
                 resize();
         }
 
+        // 扩容
         private void resize() {
-            ThreadLocal.ThreadLocalMap.Entry[] oldTab = table;
+            Entry[] oldTab = table;
             int oldLen = oldTab.length;
             int newLen = oldLen * 2;
-            ThreadLocal.ThreadLocalMap.Entry[] newTab = new ThreadLocal.ThreadLocalMap.Entry[newLen];
+            Entry[] newTab = new Entry[newLen];
             int count = 0;
 
             for (int j = 0; j < oldLen; ++j) {
-                ThreadLocal.ThreadLocalMap.Entry e = oldTab[j];
+                Entry e = oldTab[j];
                 if (e != null) {
                     ThreadLocal<?> k = e.get();
                     if (k == null) {
@@ -393,17 +390,17 @@ ThreadLocalMap是一个自定义的哈希映射，是用来维护线程本地变
                     }
                 }
             }
-
             setThreshold(newLen);
             size = count;
             table = newTab;
         }
 
+        // 清空被弃用的元素
         private void expungeStaleEntries() {
-            ThreadLocal.ThreadLocalMap.Entry[] tab = table;
+            Entry[] tab = table;
             int len = tab.length;
             for (int j = 0; j < len; j++) {
-                ThreadLocal.ThreadLocalMap.Entry e = tab[j];
+                Entry e = tab[j];
                 if (e != null && e.get() == null)
                     expungeStaleEntry(j);
             }
