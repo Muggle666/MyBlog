@@ -88,7 +88,98 @@ ThreadLocal的初始值：Initial value
 先看下ThreadLocal类的源码：
 
 ```java
+public class ThreadLocal<T> {
 
+        // 防止哈希冲突，当数组大小为2的 N 次方的时候，哈希值能平均的分布
+        private final int threadLocalHashCode = nextHashCode();
+
+        private static AtomicInteger nextHashCode =
+                new AtomicInteger();
+
+        private static final int HASH_INCREMENT = 0x61c88647;
+
+        private static int nextHashCode() {
+            return nextHashCode.getAndAdd(HASH_INCREMENT);
+        }
+
+        // 初始化的值为null
+        protected T initialValue() {
+            return null;
+        }
+
+        // 初始值
+        public static <S> ThreadLocal<S> withInitial(Supplier<? extends S> supplier) {
+            return new SuppliedThreadLocal<>(supplier);
+        }
+
+        public ThreadLocal() { }
+
+        public T get() {
+            Thread t = Thread.currentThread();
+            ThreadLocalMap map = getMap(t);
+            // 如果ThreadLocalMap为null则执行setInitialValue方法初始化
+            if (map != null) {
+                Entry e = map.getEntry(this);
+                if (e != null) {// 如果Entry对象为null，代表当前线程的ThreadLocal值没有被初始化，向下执行setInitialValue方法
+                    @SuppressWarnings("unchecked")
+                    T result = (T) e.value;
+                    return result;
+                }
+            }
+            return setInitialValue();
+        }
+
+        private T setInitialValue() {
+            T value = initialValue();
+            Thread t = Thread.currentThread();
+            ThreadLocalMap map = getMap(t);
+            //如果ThreadLocalMap对象存在，则设置当前线程的ThreadLocal值为null
+            if (map != null)
+                map.set(this, value);
+            else
+                createMap(t, value);// 初始化ThreadLocalMap对象
+            return value;
+        }
+
+        public void set(T value) {
+            Thread t = Thread.currentThread();
+            ThreadLocalMap map = getMap(t);
+            if (map != null)
+                map.set(this, value);
+            else
+                createMap(t, value);
+        }
+
+        // 删去当前线程ThreadLocal对象存储的值
+        public void remove() {
+            ThreadLocalMap m = getMap(Thread.currentThread());
+            if (m != null)
+                m.remove(this);
+        }
+
+        // 获取ThreadLocalMap对象
+        ThreadLocalMap getMap(Thread t) {
+            return t.threadLocals;
+        }
+
+        // 创建ThreadLocalMap对象
+        void createMap(Thread t, T firstValue) {
+            t.threadLocals = new ThreadLocalMap(this, firstValue);
+        }
+
+        static ThreadLocalMap createInheritedMap(ThreadLocalMap parentMap) {
+            return new ThreadLocalMap(parentMap);
+        }
+
+        T childValue(T parentValue) {
+            throw new UnsupportedOperationException();
+        }
+
+        // 下面两个内部类等会再介绍
+        static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {...}
+
+        static class ThreadLocalMap {...}
+    }
 ```
 
 
