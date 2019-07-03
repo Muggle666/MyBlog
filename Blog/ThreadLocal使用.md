@@ -83,7 +83,7 @@ ThreadLocal的初始值：Initial value
 
 ![ThreadLocal类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal-UML.jpg)
 
-可以看出ThreadLocal有两个静态内部类，分别是**SuppliedThreadLocal**和**ThreadLocalMap**。实际上，ThreadLocal类的核心ThreadLocalMap这个
+可以看出ThreadLocal有两个静态内部类，分别是**SuppliedThreadLocal**和**ThreadLocalMap**。实际上，ThreadLocal类的核心就是ThreadLocalMap这个内部类。ThreadLocalMap
 
 先看下ThreadLocal类的源码：
 
