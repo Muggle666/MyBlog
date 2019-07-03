@@ -84,6 +84,8 @@ ThreadLocal的初始值：Initial value
 
 可以看出ThreadLocal有两个静态内部类，分别是**SuppliedThreadLocal**和**ThreadLocalMap**。
 
+先看下
+
 ### SuppliedThreadLocal内部类
 可以通过SuppliedThreadLocal内部类初始化ThreadLocal类的值，而SuppliedThreadLocal继承ThreadLocal和声明了一个Supplier变量，而Supplier变量是一个标志性接口，因此可以通过使用Lambda表达式初始化值。
 ```java
