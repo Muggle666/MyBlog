@@ -114,6 +114,22 @@ private Entry getEntry(ThreadLocal<?> key) {
             else
                 return getEntryAfterMiss(key, i, e);
         }
+private Entry getEntryAfterMiss(ThreadLocal<?> key, int i, Entry e) {
+            Entry[] tab = table;
+            int len = tab.length;
+
+            while (e != null) {
+                ThreadLocal<?> k = e.get();
+                if (k == key)
+                    return e;
+                if (k == null)
+                    expungeStaleEntry(i);
+                else
+                    i = nextIndex(i, len);
+                e = tab[i];
+            }
+            return null;
+        }
 ```
 
 
