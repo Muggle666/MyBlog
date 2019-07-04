@@ -108,7 +108,6 @@ public class ThreadLocal<T> {
         private static AtomicInteger nextHashCode =
                 new AtomicInteger();
 
-  	
         private static final int HASH_INCREMENT = 0x61c88647;
 
         private static int nextHashCode() {
