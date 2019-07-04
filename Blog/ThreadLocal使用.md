@@ -1,7 +1,7 @@
 **前提：** 看ReentrantReadWriteLock源码的时候，发现其内部声明了一个内部类ThreadLocalHoldCounter，而这个内部类继承ThreadLocal类，后来粗读了ReentrantReadWriteLock的源码，发现ThreadLocalHoldCounter这个类发挥及其重要的作用，因此我决定将ThreadLocal类好好研究一番~
 
 
-## <span style="color:blue">什么是ThreadLocal</span>
+## <span style="color:red">什么是ThreadLocal</span>
 
 
 用ThreadLocal声明的变量可以在线程内部提供变量副本，线程彼此之间修改ThreadLocal声明的变量互不影响，这就不存在并发的情况了。
@@ -11,12 +11,12 @@
 ![Demo](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal-demo.png)
 
 
-## ThreadLocal的使用场景有哪些呢？
+## <span style="color:red">ThreadLocal的使用场景有哪些呢？</span>
 
 不需要共享的变量。比如Web中，每个用户的requestid不一样，使用ThreadLocal声明就可以有效的避免线程之间的竞争，无需采取同步措施，因此可以简单的理解为用空间换时间。
 
 
-## ThreadLocal的基本使用
+## <span style="color:red">ThreadLocal的基本使用</span>
 
 先看下ThreadLocal的API有哪些方法。
 |方法名|用法|
