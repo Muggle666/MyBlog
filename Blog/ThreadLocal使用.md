@@ -100,7 +100,241 @@ public class Thread implements Runnable {
 
 接下来看下ThreadLocal类的set()相关源码：
 ```java
+    public void set(T value) {
+        Thread t = Thread.currentThread();
+        ThreadLocalMap map = getMap(t);// 获取ThreadLocalMap对象
+        // 如果ThreadLocalMap对象不为null，则执行内部类ThreadLocalMap的set方法，否则执行createMap初始化ThreadLocalMap对象
+        if (map != null)
+            map.set(this, value);
+        else
+            createMap(t, value);
+    }
 
+    // 获取ThreadLocalMap对象，这个对象是在Thread类的局部变量，所以通过Thread类获取对象
+    ThreadLocalMap getMap(Thread t) {
+        return t.threadLocals;
+    }
+
+    // 创建ThreadLocalMap对象
+    void createMap(Thread t, T firstValue) {
+        t.threadLocals = new ThreadLocalMap(this, firstValue);
+    }
+
+    static class ThreadLocalMap {
+
+        static class Entry extends WeakReference<ThreadLocal<?>> {
+            Object value;
+            Entry(ThreadLocal<?> k, Object v) {
+                super(k);
+                value = v;
+            }
+        }
+
+        // Entry数组的初始容量
+        private static final int INITIAL_CAPACITY = 16;
+
+        // ThreadLocalMap对象实际上由Entry数组记录ThreadLocal变量
+        private Entry[] table;
+
+        // Entry数组元素的个数
+        private int size = 0;
+
+        // Entry扩容的阀值
+        private int threshold;
+
+        // 设置Entry数组的阀值，长度为 len 的 2/3 倍
+        private void setThreshold(int len) {
+            threshold = len * 2 / 3;
+        }
+
+        // Entry数组的下一个索引
+        private static int nextIndex(int i, int len) {
+            return ((i + 1 < len) ? i + 1 : 0);
+        }
+
+        // Entry数组的上一个索引
+        private static int prevIndex(int i, int len) {
+            return ((i - 1 >= 0) ? i - 1 : len - 1);
+        }
+
+        // 初始化ThreadLocalMap对象
+        ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
+            table = new Entry[INITIAL_CAPACITY];
+            int i = firstKey.threadLocalHashCode & (INITIAL_CAPACITY - 1);
+            table[i] = new Entry(firstKey, firstValue);// 初始化Entry
+            size = 1;
+            setThreshold(INITIAL_CAPACITY);
+        }
+
+        // ThreadLocal.set()主要核心方法
+        private void set(ThreadLocal<?> key, Object value) {
+            Entry[] tab = table;
+            int len = tab.length;
+            int i = key.threadLocalHashCode & (len - 1);// ThreadLocal对象经过哈希算法确定元素索引 i
+
+            // 如果数组索引对应的Entry对象不是null，则进入for循环
+            for (Entry e = tab[i];
+                 e != null;
+                 e = tab[i = nextIndex(i, len)]) {
+                ThreadLocal<?> k = e.get();
+
+                if (k == key) {
+                    e.value = value;
+                    return;
+                }
+
+                // 如果key为null则说明该entry已经失效，执行replaceStaleEntry替换掉
+                if (k == null) {
+                    replaceStaleEntry(key, value, i);
+                    return;
+                }
+            }
+            // 向数组新增Entry对象元素
+            tab[i] = new Entry(key, value);
+            int sz = ++size;
+            if (!cleanSomeSlots(i, sz) && sz >= threshold)// 清除一些过期的值并且判断是否需要扩容
+                rehash();
+        }
+
+        // 将新元素放进陈旧的元素
+        private void replaceStaleEntry(ThreadLocal<?> key, Object value,
+                                       int staleSlot) {
+            Entry[] tab = table;
+            int len = tab.length;
+            Entry e;
+
+            int slotToExpunge = staleSlot;
+            for (int i = prevIndex(staleSlot, len);
+                 (e = tab[i]) != null;
+                 i = prevIndex(i, len))
+                if (e.get() == null)
+                    slotToExpunge = i;
+
+            for (int i = nextIndex(staleSlot, len);
+                 (e = tab[i]) != null;
+                 i = nextIndex(i, len)) {
+                ThreadLocal<?> k = e.get();
+
+                if (k == key) {
+                    e.value = value;
+
+                    tab[i] = tab[staleSlot];
+                    tab[staleSlot] = e;
+
+                    if (slotToExpunge == staleSlot)
+                        slotToExpunge = i;
+                    cleanSomeSlots(expungeStaleEntry(slotToExpunge), len);
+                    return;
+                }
+
+                if (k == null && slotToExpunge == staleSlot)
+                    slotToExpunge = i;
+            }
+
+            tab[staleSlot].value = null;
+            tab[staleSlot] = new Entry(key, value);
+
+            if (slotToExpunge != staleSlot)
+                cleanSomeSlots(expungeStaleEntry(slotToExpunge), len);
+        }
+
+        // 清除被弃用的元素
+        private boolean cleanSomeSlots(int i, int n) {
+            boolean removed = false;
+            Entry[] tab = table;
+            int len = tab.length;
+            do {
+                i = nextIndex(i, len);
+                Entry e = tab[i];
+                if (e != null && e.get() == null) {
+                    n = len;
+                    removed = true;
+                    i = expungeStaleEntry(i);
+                }
+            } while ( (n >>>= 1) != 0);
+            return removed;
+        }
+
+        // 清除目标对象，并向后扫描清除被弃用的元素
+        private int expungeStaleEntry(int staleSlot) {
+            Entry[] tab = table;
+            int len = tab.length;
+
+            tab[staleSlot].value = null;
+            tab[staleSlot] = null;
+            size--;
+
+            Entry e;
+            int i;
+            for (i = nextIndex(staleSlot, len);
+                 (e = tab[i]) != null;
+                 i = nextIndex(i, len)) {
+                ThreadLocal<?> k = e.get();
+                if (k == null) {
+                    e.value = null;
+                    tab[i] = null;
+                    size--;
+                } else {
+                    int h = k.threadLocalHashCode & (len - 1);
+                    if (h != i) {
+                        tab[i] = null;
+
+                        while (tab[h] != null)
+                            h = nextIndex(h, len);
+                        tab[h] = e;
+                    }
+                }
+            }
+            return i;
+        }
+
+        // 清除弃用元素并判断是否需要扩容
+        private void rehash() {
+            expungeStaleEntries();
+            if (size >= threshold - threshold / 4)
+                resize();
+        }
+
+        // 扩容
+        private void resize() {
+            Entry[] oldTab = table;
+            int oldLen = oldTab.length;
+            int newLen = oldLen * 2;
+            Entry[] newTab = new Entry[newLen];
+            int count = 0;
+
+            for (int j = 0; j < oldLen; ++j) {
+                Entry e = oldTab[j];
+                if (e != null) {
+                    ThreadLocal<?> k = e.get();
+                    if (k == null) {
+                        e.value = null; // Help the GC
+                    } else {
+                        int h = k.threadLocalHashCode & (newLen - 1);
+                        while (newTab[h] != null)
+                            h = nextIndex(h, newLen);
+                        newTab[h] = e;
+                        count++;
+                    }
+                }
+            }
+
+            setThreshold(newLen);
+            size = count;
+            table = newTab;
+        }
+
+        // 清空被弃用的元素
+        private void expungeStaleEntries() {
+            Entry[] tab = table;
+            int len = tab.length;
+            for (int j = 0; j < len; j++) {
+                Entry e = tab[j];
+                if (e != null && e.get() == null)
+                    expungeStaleEntry(j);
+            }
+        }
+    }
 ```
 
 
