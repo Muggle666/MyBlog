@@ -92,7 +92,7 @@ public class Thread implements Runnable {
 }
 ```
 
-threadLocals保存着ThreadLocal声明的变量。如下图所示：
+threadLocals保存着ThreadLocal声明的变量，而且不同线程ThreadLocal声明的变量互不影响。如下图所示：
 
 ![栈帧内的ThreadLocalMap示意图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/%E6%A0%88%E5%B8%A7%E5%86%85%E7%9A%84ThreadLocalMap%E7%A4%BA%E6%84%8F%E5%9B%BE.png)
 
