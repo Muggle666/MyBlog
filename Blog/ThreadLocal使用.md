@@ -346,7 +346,7 @@ public class Thread implements Runnable {
 ```
 
 
-以上就是ThreadLocal类的set方法涉及的源码，虽然很多，但理解
+以上就是ThreadLocal类的set方法涉及的源码，虽然很多，但理解核心的源码就可以了，就是要知道ThreadLocal变量是怎样存储在
 
 
 
