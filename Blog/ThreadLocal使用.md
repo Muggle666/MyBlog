@@ -92,7 +92,7 @@ public class Thread implements Runnable {
 }
 ```
 
-也就是说，每个线程内部都会有ThreadLocalMap类型的局部变量，用于记录ThreadLocal声明的变量，而且栈帧的局部变量都是ThreadLocal声明的变量的副本，所以线程内部改变ThreadLocal的变量也不会影响其他线程。如下图所示：
+也就是说，每个线程内部都会有ThreadLocalMap类型的局部变量，用于记录ThreadLocal声明的变量，而且栈帧的局部变量都是ThreadLocal声明的变量的副本，所以线程内部改变ThreadLocal的变量也不会影响其他线程，也不存在。如下图所示：
 
 ![栈帧内的ThreadLocalMap示意图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/%E6%A0%88%E5%B8%A7%E5%86%85%E7%9A%84ThreadLocalMap%E7%A4%BA%E6%84%8F%E5%9B%BE.png)
 
