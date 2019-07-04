@@ -86,7 +86,7 @@ ThreadLocal的初始值：Initial value
 可以看出ThreadLocal有两个静态内部类，分别是**SuppliedThreadLocal**和**ThreadLocalMap**。实际上，ThreadLocal类的核心就是ThreadLocalMap这个内部类。当创建线程的时候，栈帧都会有threadLocals这一个局部变量。
 ```java
 public class Thread implements Runnable {
-   ThreadLocal.ThreadLocalMap threadLocals = null;
+    ThreadLocal.ThreadLocalMap threadLocals = null;
 }
 ```
 
