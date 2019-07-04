@@ -83,7 +83,7 @@ ThreadLocal的初始值：Initial value
 
 ![ThreadLocal类图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal-UML.jpg)
 
-可以看出ThreadLocal有两个静态内部类，分别是**SuppliedThreadLocal**和**ThreadLocalMap**。实际上，ThreadLocal类的核心就是ThreadLocalMap这个内部类。当创建线程的时候，栈帧都会有threadLocals这一个局部变量。也就是说，每个线程内部都会有ThreadLocalMap类型的局部变量，用于记录ThreadLocal声明的变量。
+可以看出ThreadLocal有两个静态内部类，分别是**SuppliedThreadLocal**和**ThreadLocalMap**。实际上，ThreadLocal类的核心就是ThreadLocalMap这个内部类。当创建线程的时候，栈帧都会有threadLocals这一个局部变量。
 
 ##### Thread类的部分源码：
 ```java
@@ -92,7 +92,7 @@ public class Thread implements Runnable {
 }
 ```
 
-threadLocals保存着ThreadLocal声明的变量，而且不同线程ThreadLocal声明的变量互不影响，因为栈帧的局部变量都是ThreadLocal声明的变量的副本。如下图所示：
+也就是说，每个线程内部都会有ThreadLocalMap类型的局部变量，用于记录ThreadLocal声明的变量。而且不同线程ThreadLocal声明的变量互不影响，因为栈帧的局部变量都是ThreadLocal声明的变量的副本。如下图所示：
 
 ![栈帧内的ThreadLocalMap示意图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/%E6%A0%88%E5%B8%A7%E5%86%85%E7%9A%84ThreadLocalMap%E7%A4%BA%E6%84%8F%E5%9B%BE.png)
 
