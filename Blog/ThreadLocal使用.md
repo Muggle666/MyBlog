@@ -96,7 +96,7 @@ public class Thread implements Runnable {
 
 ![栈帧内的ThreadLocalMap示意图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/%E6%A0%88%E5%B8%A7%E5%86%85%E7%9A%84ThreadLocalMap%E7%A4%BA%E6%84%8F%E5%9B%BE.png)
 
-
+ThreadLocalMap的key就是保存当前线程
 
 先看下ThreadLocal类的源码：
 
