@@ -196,7 +196,51 @@ public class Thread implements Runnable {
                 rehash();
         }
 
+	// 将新元素放进陈旧的元素
+        private void replaceStaleEntry(ThreadLocal<?> key, Object value,
+                                       int staleSlot) {
+            Entry[] tab = table;
+            int len = tab.length;
+            Entry e;
 
+            int slotToExpunge = staleSlot;
+            // 向前查找被弃用的索引
+            for (int i = prevIndex(staleSlot, len);
+                 (e = tab[i]) != null;
+                 i = prevIndex(i, len))
+                if (e.get() == null)
+                    slotToExpunge = i;
+
+            // 向后查找key或者value为null的元素
+            for (int i = nextIndex(staleSlot, len);
+                 (e = tab[i]) != null;
+                 i = nextIndex(i, len)) {
+                ThreadLocal<?> k = e.get();
+
+                if (k == key) {
+                    e.value = value;
+
+                    tab[i] = tab[staleSlot];
+                    tab[staleSlot] = e;
+
+                    // 如果存在则清除被弃用的Entry对象
+                    if (slotToExpunge == staleSlot)
+                        slotToExpunge = i;
+                    cleanSomeSlots(expungeStaleEntry(slotToExpunge), len);
+                    return;
+                }
+
+                if (k == null && slotToExpunge == staleSlot)
+                    slotToExpunge = i;
+            }
+
+            tab[staleSlot].value = null;
+            tab[staleSlot] = new Entry(key, value);
+
+            // 如果还有其它被弃用的Entry对象，执行cleanSomeSlots方法清除他们
+            if (slotToExpunge != staleSlot)
+                cleanSomeSlots(expungeStaleEntry(slotToExpunge), len);
+        }
 
         // 清除被弃用的元素
         private boolean cleanSomeSlots(int i, int n) {
