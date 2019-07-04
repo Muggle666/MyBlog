@@ -346,7 +346,7 @@ public class Thread implements Runnable {
 ```
 
 
-如果你
+如果你看完上面的源码，我相信您很容易回答“ThreadLocal”
 
 
 
