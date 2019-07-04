@@ -96,7 +96,7 @@ public class Thread implements Runnable {
 
 ![栈帧内的ThreadLocalMap示意图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/%E6%A0%88%E5%B8%A7%E5%86%85%E7%9A%84ThreadLocalMap%E7%A4%BA%E6%84%8F%E5%9B%BE.png)
 
-实际上，ThreadLocalMap是一个数组，而数组内的元素都是由key和value组成的Entry对象。ThreadLocalMap的key就是经过哈希算法计算出来的ThreadLocal对象。神奇的是，ThreadLocal的哈希算法可以保证只要在ThreadLocalMap数组长度为2的 N 次方的时候，哈希值能平均的分布,避免键冲突。
+实际上，ThreadLocalMap是一个数组，而数组内的元素都是由key和value组成的Entry对象。ThreadLocalMap的key就是经过哈希算法计算出来的ThreadLocal对象。神奇的是，ThreadLocal的哈希算法可以保证只要在ThreadLocalMap数组长度为2的 N 次方的时候，哈希值能平均的分布,避免键冲突。【】
 
 ```java
 public class ThreadLocal<T> {
