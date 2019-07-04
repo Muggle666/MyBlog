@@ -98,27 +98,6 @@ public class Thread implements Runnable {
 
 实际上，ThreadLocalMap是一个数组，而数组内的元素都是由key和value组成的Entry对象。ThreadLocalMap的key就是经过哈希算法计算出来的ThreadLocal对象。神奇的是，ThreadLocal的哈希算法可以保证只要在ThreadLocalMap数组长度为2的 N 次方的时候，哈希值能平均的分布,避免键冲突。【[涉及的数学思想比较多，对ThreadLocal哈希算法感兴趣的可以参考](https://blog.csdn.net/y4x5M0nivSrJaY3X92c/article/details/81124944)】
 
-```java
-public class ThreadLocal<T> {
-
-        // 防止哈希冲突，当数组大小为2的 N 次方的时候，哈希值能平均的分布
-        private final int threadLocalHashCode = nextHashCode();
-
-        private static AtomicInteger nextHashCode =
-                new AtomicInteger();
-
-        private static final int HASH_INCREMENT = 0x61c88647;
-
-        private static int nextHashCode() {
-            return nextHashCode.getAndAdd(HASH_INCREMENT);
-        }
-}
-```
-
-
-
-
-
 先看下ThreadLocal类的源码：
 
 ```java
