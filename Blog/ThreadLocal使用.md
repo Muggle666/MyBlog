@@ -348,7 +348,7 @@ public class Thread implements Runnable {
 
 如果你看完上面的源码，我相信您很容易回答“**ThreadLocal变量是在哪里保存，如何保存的**”这个问题。
 
-首先，ThreadLocal变量都是通过Entry这一个键值对对象保存，Entry的key为ThreadLocal对象，而value就是ThreadLocal变量的值。而Entry对象保存在ThreadLocalMap
+首先，ThreadLocal变量都是通过Entry这一个键值对对象保存，Entry的key为ThreadLocal对象，而value就是ThreadLocal变量的值。而Entry对象保存在ThreadLocalMap中
 
 
 
