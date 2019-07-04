@@ -96,7 +96,7 @@ public class Thread implements Runnable {
 
 ![栈帧内的ThreadLocalMap示意图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/%E6%A0%88%E5%B8%A7%E5%86%85%E7%9A%84ThreadLocalMap%E7%A4%BA%E6%84%8F%E5%9B%BE.png)
 
-由图中可以看出，threadLocals 内部是有
+由图中可以看出，threadLocals 内部是保存Entry，而
 ThreadLocalMap的key就是经过哈希算法计算出来的ThreadLocal对象。神奇的是，ThreadLocal的哈希算法可以保证只要在
 
 先看下ThreadLocal类的源码：
