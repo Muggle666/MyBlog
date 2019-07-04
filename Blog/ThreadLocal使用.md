@@ -100,7 +100,7 @@ public class Thread implements Runnable {
 
 接下来看下ThreadLocal类的set()相关源码，值得注意的是，由于Entry对象是继承**WeakReference**，所以Entry对象是弱引用的，简单来说就是很容易被GC回收，所以在ThreadLocal类中，大部分方法都涉及判断对象是否为null，如果为null就要从数组中移除，避免内存溢出。
 
-结合以下源码，为方便理解：
+为方便理解，结合以下源码：
 ![ThreadLocal 类 set 方法的 UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal_set-UML.png)
 
 ```java
