@@ -346,7 +346,7 @@ public class Thread implements Runnable {
 ```
 
 
-如果你看完上面的源码，我相信您很容易回答“ThreadLocal”
+如果你看完上面的源码，我相信您很容易回答“**ThreadLocal变量是在哪里保存，如何保存的**”这个问题。
 
 
 
