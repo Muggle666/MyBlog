@@ -353,6 +353,68 @@ public class Thread implements Runnable {
 
 
 
+get的源码
+
+```java
+    public T get() {
+        Thread t = Thread.currentThread();
+        ThreadLocalMap map = getMap(t);
+        // 如果ThreadLocalMap为null则执行setInitialValue方法初始化
+        if (map != null) {
+            ThreadLocalMap.Entry e = map.getEntry(this);// 当前ThreadLocal对象作为参数传给getEntry方法
+            if (e != null) {
+                @SuppressWarnings("unchecked")
+                T result = (T)e.value;
+                return result;
+            }
+        }
+        return setInitialValue();
+    }
+
+    // 获取Entry元素
+    private Entry getEntry(ThreadLocal<?> key) {
+        int i = key.threadLocalHashCode & (table.length - 1);// 通过哈希算法计算数组索引
+        // 通过索引获取Entry对象
+        Entry e = table[i];
+        // 如果索引对应的元素不是null（有可能发生GC，导致Entry对象被弃用），
+        // 而且参数key与Entry对象的Key相同（有可能hash冲突的情况）则返回 e ，
+        // 否则执行getEntryAfterMiss方法再去确认key对应的value值
+        if (e != null && e.get() == key)
+            return e;
+        else
+            return getEntryAfterMiss(key, i, e);
+    }
+
+    private Entry getEntryAfterMiss(ThreadLocal<?> key, int i, Entry e) {
+        Entry[] tab = table;
+        int len = tab.length;
+
+        // 如果Entry对象为null，则返回null
+        while (e != null) {
+            ThreadLocal<?> k = e.get();// 获取Entry对象的key
+            if (k == key)// 
+                return e;
+            if (k == null)
+                expungeStaleEntry(i);// 清除索引为i的键值对
+            else
+                i = nextIndex(i, len);
+            e = tab[i];
+        }
+        return null;
+    }
+
+    //如果ThreadLocalMap对象存在，则设置当前线程的ThreadLocal值为null
+    private T setInitialValue() {
+        T value = initialValue();
+        Thread t = Thread.currentThread();
+        ThreadLocalMap map = getMap(t);
+        if (map != null)
+            map.set(this, value);
+        else
+            createMap(t, value);
+        return value;
+    }
+```
 
 
 
