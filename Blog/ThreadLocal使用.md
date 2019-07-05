@@ -418,7 +418,7 @@ public class Thread implements Runnable {
 ```
 
 
-根据上面的源码，画出 get 方法的流程图如下（背景色为绿色的是get方法的主要流程，粉红背景色则是涉及到的方法的流程图）：
+根据上面的源码，画出 get 方法的流程图如下（背景色为绿色的是get方法的主要流程，粉红背景色则是涉及到的方法流程图）：
 ![ThreadLocal类get方法的UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal_get-UML.png)
 
 
