@@ -418,7 +418,7 @@ public class Thread implements Runnable {
 ```
 
 
-
+根据上面的源码，画出get 方法
 
 
 
