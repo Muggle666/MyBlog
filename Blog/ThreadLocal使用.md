@@ -418,7 +418,8 @@ public class Thread implements Runnable {
 ```
 
 
-根据上面的源码，画出get 方法
+根据上面的源码，画出 get 方法的流程图如下：
+
 
 
 
