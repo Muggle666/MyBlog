@@ -350,8 +350,13 @@ public class Thread implements Runnable {
 
 首先，ThreadLocal变量都是通过Entry这一个键值对对象保存，Entry的key为ThreadLocal对象，而value就是ThreadLocal变量的值。而Entry对象是作为元素保存在线程局部变量ThreadLocalMap这个数组中。
 
-理解上面set方法相关的源码，剩下的get
-
+理解上面set方法相关的源码，剩下的get()、remove()、withInitial（）
+|方法名|用法|
+|-|-|
+|T get()|返回当前线程的局部变量副本的变量值|
+|void set(T value)|设置当前线程的局部变量副本的变量值为指定值|
+|void remove()|删除当前线程的局部变量副本的变量值|
+|static \<S> ThreadLocal\<S> withInitial(Supplier<? extends S> supplier)|返回当前线程的局部变量副本的变量初始值。|
 
 get的源码
 
