@@ -98,6 +98,8 @@ public class Thread implements Runnable {
 
 实际上，ThreadLocalMap是一个数组，而数组内的元素都是由key和value组成的Entry对象。ThreadLocalMap的key就是经过哈希算法计算出来的ThreadLocal对象。神奇的是，ThreadLocal的哈希算法可以保证只要在ThreadLocalMap数组长度为2的 N 次方的时候，哈希值能平均的分布,避免键冲突。【[涉及的数学思想比较多，对ThreadLocal哈希算法感兴趣的可以参考](https://blog.csdn.net/y4x5M0nivSrJaY3X92c/article/details/81124944)】
 
+set
+
 接下来看下ThreadLocal类的set()相关源码，值得注意的是，由于Entry对象是继承**WeakReference**，所以Entry对象是弱引用的，简单来说就是很容易被GC回收，所以在ThreadLocal类中，大部分方法都涉及判断对象是否为null，如果为null就要从数组中移除，避免内存溢出。虽然set方法涉及的源码很多，但理解核心的源码就可以了，就是**要知道ThreadLocal变量是在哪里保存，如何保存的**。
 
 为方便理解，结合以下源码画出流程图：
@@ -353,7 +355,7 @@ public class Thread implements Runnable {
 理解上面set方法相关的源码，剩下的get()、remove()、withInitial()就容易了，因为大部分源码是相同或者是相似的。
 
 
-get（的源码
+### get()相关的源码
 
 ```java
     public T get() {
