@@ -354,8 +354,7 @@ public class Thread implements Runnable {
 
 理解上面set方法相关的源码，剩下的get()、remove()、withInitial()就容易了，因为大部分源码是相同或者是相似的。
 
-
-### get()相关的源码
+## <span style="color:green">2.get()相关的源码：</span>
 
 ```java
     public T get() {
