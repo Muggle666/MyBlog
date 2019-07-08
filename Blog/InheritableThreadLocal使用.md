@@ -1,1 +1,1 @@
-ThreadLocal的变量在线程之间互不
+ThreadLocal的变量在线程之间互不联系，
