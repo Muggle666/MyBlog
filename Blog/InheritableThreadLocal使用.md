@@ -1,1 +1,1 @@
-ThreadLocal类的方法基本都
+ThreadLocal类的方法基本都讲解完了，剩下的两个方法
