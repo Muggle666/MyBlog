@@ -54,12 +54,14 @@ main线程  InheritableThreadLocal变量
 在第二行创建 InheritableThreadLocal 变量之后，接着在第九行调用父类 set() 方法设置 InheritableThreadLocal 的变量。
 
 ```java
-    public void set(T value) {
-        Thread t = Thread.currentThread();
-        ThreadLocalMap map = getMap(t);
-        if (map != null)
-            map.set(this, value);
-        else
-            createMap(t, value);
-    }
+1.     public void set(T value) {
+2.         Thread t = Thread.currentThread();
+3.         ThreadLocalMap map = getMap(t);
+4.         if (map != null)
+5.             map.set(this, value);
+6.         else
+7.             createMap(t, value);
+8.     }
 ```
+
+进入父类的set)
