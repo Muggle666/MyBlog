@@ -46,5 +46,6 @@ main线程  InheritableThreadLocal变量
 子线程  InheritableThreadLocal变量
 ```
 
-由例子可以看出，使用ThreadLocal类的变量在子线程中是无法访问的，而
+由例子可以看出，使用 ThreadLocal 类的变量在子线程中是无法访问的，而
+ InheritableThreadLocal 类的变量的确
 
