@@ -15,4 +15,3 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
     }
 }
 ```
-
