@@ -1,1 +1,1 @@
-ThreadLocal的变量可以在使
+ThreadLocal的变量在线程之间互不
