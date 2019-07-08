@@ -17,6 +17,28 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
 ```
 可以看出，InheritableThreadLocal类继承ThreadLocal类，并且重写了三个方法，接下来通过例子结合源码分析InheritableThreadLocal类。
 
-```language
+```java
+public class InheritableThreadLocalDemo {
+
+    private static InheritableThreadLocal inheritableThreadLocal = new InheritableThreadLocal();
+
+    private static ThreadLocal threadLocal = new ThreadLocal();
+
+    public static void main(String[] args) {
+        threadLocal.set("ThreadLocal变量");
+        inheritableThreadLocal.set("InheritableThreadLocal变量");
+
+        System.out.println(Thread.currentThread().getName() + "  " + threadLocal.get());
+        System.out.println(Thread.currentThread().getName() + "  " + inheritableThreadLocal.get());
+
+        new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + "  " + threadLocal.get());
+            System.out.println(Thread.currentThread().getName() + "  " + inheritableThreadLocal.get());
+        }).start();
+    }
+}
+```
+输出结果：
+```java
 
 ```
