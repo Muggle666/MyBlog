@@ -18,25 +18,25 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
 可以看出，InheritableThreadLocal类继承ThreadLocal类，并且重写了三个方法，在分析InheritableThreadLocal类之前，先通过例子看下子线程是不是真的可以访问父类的本地变量。
 
 ```java
-public class InheritableThreadLocalDemo {
-
-    private static InheritableThreadLocal inheritableThreadLocal = new InheritableThreadLocal();
-
-    private static ThreadLocal threadLocal = new ThreadLocal();
-
-    public static void main(String[] args) {
-        threadLocal.set("ThreadLocal变量");
-        inheritableThreadLocal.set("InheritableThreadLocal变量");
-
-        System.out.println(Thread.currentThread().getName() + "线程  " + threadLocal.get());
-        System.out.println(Thread.currentThread().getName() + "线程  " + inheritableThreadLocal.get());
-
-        new Thread(() -> {
-            System.out.println(Thread.currentThread().getName() + "  " + threadLocal.get());
-            System.out.println(Thread.currentThread().getName() + "  " + inheritableThreadLocal.get());
-        },"子线程").start();
-    }
-}
+1. public class InheritableThreadLocalDemo {
+2. 
+3.     private static InheritableThreadLocal inheritableThreadLocal = new InheritableThreadLocal();
+4. 
+5.     private static ThreadLocal threadLocal = new ThreadLocal();
+6. 
+7.     public static void main(String[] args) {
+8.         threadLocal.set("ThreadLocal变量");
+9.         inheritableThreadLocal.set("InheritableThreadLocal变量");
+10. 
+11.         System.out.println(Thread.currentThread().getName() + "线程  " + threadLocal.get());
+12.         System.out.println(Thread.currentThread().getName() + "线程  " + inheritableThreadLocal.get());
+13. 
+14.         new Thread(() -> {
+15.             System.out.println(Thread.currentThread().getName() + "  " + threadLocal.get());
+16.             System.out.println(Thread.currentThread().getName() + "  " + inheritableThreadLocal.get());
+17.         },"子线程").start();
+18.     }
+19. }
 ```
 输出结果：
 ```java
@@ -51,5 +51,5 @@ main线程  InheritableThreadLocal变量
 
 接下来，通过上面的例子结合 InheritableThreadLocal 源码分析。
 
-
+在第二行创建 InheritableThreadLocal 变量之后，接着在
 
