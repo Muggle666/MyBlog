@@ -15,7 +15,7 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
     }
 }
 ```
-可以看出，InheritableThreadLocal类继承ThreadLocal类，并且重写了三个方法，接下来通过例子结合源码分析InheritableThreadLocal类。
+可以看出，InheritableThreadLocal类继承ThreadLocal类，并且重写了三个方法，在分析InheritableThreadLocal类之前，先通过例子了解一下
 
 ```java
 public class InheritableThreadLocalDemo {
@@ -46,3 +46,4 @@ main线程  InheritableThreadLocal变量
 子线程  null
 子线程  InheritableThreadLocal变量
 ```
+
