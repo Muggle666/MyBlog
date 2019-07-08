@@ -51,5 +51,5 @@ main线程  InheritableThreadLocal变量
 
 接下来，通过上面的例子结合 InheritableThreadLocal 源码分析。
 
-在第二行创建 InheritableThreadLocal 变量之后，接着在
+在第二行创建 InheritableThreadLocal 变量之后，接着在第九行调用父类 set() 方法
 
