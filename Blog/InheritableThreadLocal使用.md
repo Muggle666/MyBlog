@@ -15,3 +15,4 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
     }
 }
 ```
+可以看出，InheritableThreadLocal类继承ThreadLocal类，所以ThreadLocal类的所有方法都
