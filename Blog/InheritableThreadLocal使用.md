@@ -1,1 +1,1 @@
-ThreadLc
+ThreadLocal类的方法基本都
