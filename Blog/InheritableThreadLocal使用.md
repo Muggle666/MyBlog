@@ -64,4 +64,4 @@ main线程  InheritableThreadLocal变量
 8.     }
 ```
 
-进入父类的 set() 方法，第三行实际上是执行子类的getMap()方法，，而子类的 getMap() 方法返回的是 Thread.inheritableThreadLocals ，也就是Thread类的局部变量 inheritableThreadLocals 。由于 Thread.inheritableThreadLocals 未被初始化，所以值为 null ，set()方法进入第 7 行，创建ThreadLocalMap对象
+进入父类的 set() 方法，第三行实际上是执行子类的getMap()方法，，而子类的 getMap() 方法返回的是 Thread.inheritableThreadLocals ，也就是Thread类的局部变量 inheritableThreadLocals 。由于 Thread.inheritableThreadLocals 未被初始化，所以值为 null ，set()方法进入第 7 行，创建 ThreadLocalMap 对象
