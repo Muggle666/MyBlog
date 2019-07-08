@@ -64,4 +64,4 @@ main线程  InheritableThreadLocal变量
 8.     }
 ```
 
-进入父类的 set() 方法，第三行实际上是执行子类的getMap()方法，
+进入父类的 set() 方法，第三行实际上是执行子类的getMap()方法，，而子类的 getMap() 方法返回的就是
