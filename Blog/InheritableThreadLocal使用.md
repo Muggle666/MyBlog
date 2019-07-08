@@ -51,7 +51,7 @@ main线程  InheritableThreadLocal变量
 
 接下来，通过上面的例子结合 InheritableThreadLocal 源码分析。
 
-在第二行创建 InheritableThreadLocal 变量之后，接着在第九行调用父类 set() 方法设置 InheritableThreadLocal 的变量。
+在第 2 行创建 InheritableThreadLocal 变量之后，接着在第 9 行调用父类 set() 方法设置 InheritableThreadLocal 的变量。
 
 ```java
 1.     public void set(T value) {
@@ -64,4 +64,4 @@ main线程  InheritableThreadLocal变量
 8.     }
 ```
 
-进入父类的 set() 方法，第三行实际上是执行子类的getMap()方法，，而子类的 getMap() 方法返回的是 Thread.inheritableThreadLocals ，也就是Thread类的局部变量 inheritableThreadLocals 。由于 Thread.inheritableThreadLocals 未被初始化，所以值为 null ，set()方法进入第 7 行
+进入父类的 set() 方法，第三行实际上是执行子类的getMap()方法，，而子类的 getMap() 方法返回的是 Thread.inheritableThreadLocals ，也就是Thread类的局部变量 inheritableThreadLocals 。由于 Thread.inheritableThreadLocals 未被初始化，所以值为 null ，set()方法进入第 7 行，创建ThreadLocalMap
