@@ -27,4 +27,4 @@
         }
     } 
 ```
-首先初始化 ReentrantReadWriteLock 对象，并
+首先初始化 ReentrantReadWriteLock 对象，同时根据 ReentrantReadWriteLock 构造器传入的参数判断
