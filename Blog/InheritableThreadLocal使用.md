@@ -69,5 +69,29 @@ main线程  InheritableThreadLocal变量
 但是 InheritableThreadLocal 变量只是在 main 线程被初始化，那子线程怎么能访问父线程的局部变量呢？答案就是：**初始化子线程的时候，init()方法会获取父线程的局部变量并保存在本线程的栈帧。**
 
 ```java
+    public class Thread implements Runnable {
+        ThreadLocal.ThreadLocalMap inheritableThreadLocals = null;
 
+        public Thread() {
+            init(null, null, "Thread-" + nextThreadNum(), 0);
+        }
+
+        private void init(ThreadGroup g, Runnable target, String name,
+                          long stackSize) {
+            init(g, target, name, stackSize, null, true);
+        }
+
+        private void init(ThreadGroup g, Runnable target, String name,
+                          long stackSize, AccessControlContext acc,
+                          boolean inheritThreadLocals) {
+            // 省略了一些代码
+
+            Thread parent = currentThread();// 获取当前线程（由于子线程还没被初始化，所以获取的是父线程对象）
+
+            // 如果父线程的 inheritableThreadLocals 局部变量不是 null ，就证明父线程有设置变量可以让子线程访问
+            if (inheritThreadLocals && parent.inheritableThreadLocals != null)
+                this.inheritableThreadLocals =
+                        ThreadLocal.createInheritedMap(parent.inheritableThreadLocals);
+        }
+    }
 ```
