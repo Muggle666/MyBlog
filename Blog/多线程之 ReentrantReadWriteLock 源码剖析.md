@@ -514,7 +514,132 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
  NonfairSync 的源码。
 
 ```java
+// 非公平锁的同步器
+    static final class NonfairSync extends Sync {
+        private static final long serialVersionUID = -8159625535654395037L;
+        // 不需要阻塞，直接获取写锁
+        final boolean writerShouldBlock() {
+            return false;
+        }
+        // 如果第一个节点是写锁，则返回true，即当前线程阻塞
+        final boolean readerShouldBlock() {
+            return apparentlyFirstQueuedIsExclusive();
+        }
+    }
 
+    // 公平锁的同步器
+    static final class FairSync extends Sync {
+        private static final long serialVersionUID = -2274990926593161451L;
+        // 如果发现有线程等待获取锁返回true，即写锁需要阻塞
+        final boolean writerShouldBlock() {
+            return hasQueuedPredecessors();
+        }
+        // 如果发现有线程等待获取锁返回true，即读锁需要阻塞
+        final boolean readerShouldBlock() {
+            return hasQueuedPredecessors();
+        }
+    }
+
+    public static class ReadLock implements Lock, java.io.Serializable {
+        private static final long serialVersionUID = -5992448646407690164L;
+        private final Sync sync;
+
+        protected ReadLock(ReentrantReadWriteLock lock) {
+            sync = lock.sync;
+        }
+
+        public void lock() {
+            sync.acquireShared(1);// 调用 AQS 的 acquireShared 方法
+        }
+
+        // 尝试获取读锁，获取失败则排队等待读锁（可被中断）
+        public void lockInterruptibly() throws InterruptedException {
+            sync.acquireSharedInterruptibly(1);
+        }
+
+        // 尝试获取读锁
+        public boolean tryLock() {
+            return sync.tryReadLock();
+        }
+
+        // 在 timeout 时间内加读锁
+        public boolean tryLock(long timeout, TimeUnit unit)
+                throws InterruptedException {
+            return sync.tryAcquireSharedNanos(1, unit.toNanos(timeout));
+        }
+
+        // 释放读锁
+        public void unlock() {
+            sync.releaseShared(1);
+        }
+
+        // 读锁不支持Condition，会抛出异常
+        public Condition newCondition() {
+            throw new UnsupportedOperationException();
+        }
+
+        public String toString() {
+            int r = sync.getReadLockCount();
+            return super.toString() +
+                    "[Read locks = " + r + "]";
+        }
+    }
+
+    public static class WriteLock implements Lock, java.io.Serializable {
+        private static final long serialVersionUID = -4992448646407690164L;
+        private final Sync sync;
+
+        protected WriteLock(ReentrantReadWriteLock lock) {
+            sync = lock.sync;
+        }
+
+        // 获取写锁
+        public void lock() {
+            sync.acquire(1);
+        }
+
+        // 加写锁，可以被中断
+        public void lockInterruptibly() throws InterruptedException {
+            sync.acquireInterruptibly(1);
+        }
+
+        // 尝试获取写锁
+        public boolean tryLock( ) {
+            return sync.tryWriteLock();
+        }
+
+        // 在 timeout 时间内加写锁
+        public boolean tryLock(long timeout, TimeUnit unit)
+                throws InterruptedException {
+            return sync.tryAcquireNanos(1, unit.toNanos(timeout));
+        }
+
+        // 释放写锁
+        public void unlock() {
+            sync.release(1);
+        }
+
+        public Condition newCondition() {
+            return sync.newCondition();
+        }
+
+        public String toString() {
+            Thread o = sync.getOwner();
+            return super.toString() + ((o == null) ?
+                    "[Unlocked]" :
+                    "[Locked by thread " + o.getName() + "]");
+        }
+
+        // 写锁是否被当前线程持有
+        public boolean isHeldByCurrentThread() {
+            return sync.isHeldExclusively();
+        }
+
+        // 获取写锁的重入次数
+        public int getHoldCount() {
+            return sync.getWriteHoldCount();
+        }
+    }
 ```
 
 
