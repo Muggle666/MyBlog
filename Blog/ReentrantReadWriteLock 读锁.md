@@ -27,4 +27,4 @@
         }
     } 
 ```
-首先初始化 ReentrantReadWriteLock 对象，同时根据 ReentrantReadWriteLock 构造器传入的参数判断
+首先初始化 ReentrantReadWriteLock 对象，同时根据 ReentrantReadWriteLock 构造器传入的参数判断使用公平锁或者非公平锁，
