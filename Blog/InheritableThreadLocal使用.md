@@ -121,4 +121,5 @@ main线程  修改 inheritableThreadLocal 变量值
 13.     }
 ```
 
+
 当例子中的代码执行ThreadLocal.get()的时候，实际上
