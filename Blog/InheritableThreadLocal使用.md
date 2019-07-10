@@ -95,7 +95,7 @@ main线程  InheritableThreadLocal变量
             // 如果父线程的 inheritableThreadLocals 局部变量不是 null ，就证明父线程有设置变量可以让子线程访问
             if (inheritThreadLocals && parent.inheritableThreadLocals != null)
                 this.inheritableThreadLocals =
-                        ThreadLocal.createInheritedMap(parent.inheritableThreadLocals);
+                        ThreadLocal.createInheritedMap(parent.inheritableThreadLocals);// 创建 ThreadLocalMap 对象，赋值给线程的局部变量 inheritableThreadLocals
         }
     }
 ```
