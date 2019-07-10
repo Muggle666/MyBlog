@@ -80,7 +80,7 @@ main线程  修改 inheritableThreadLocal 变量值
         ThreadLocal.ThreadLocalMap inheritableThreadLocals = null;
 
         public Thread() {
-            ==ini==t(null, null, "Thread-" + nextThreadNum(), 0);
+            init(null, null, "Thread-" + nextThreadNum(), 0);
         }
 
         private void init(ThreadGroup g, Runnable target, String name,
@@ -122,4 +122,5 @@ main线程  修改 inheritableThreadLocal 变量值
 ```
 
 
-当例子中的代码执行ThreadLocal.get()的时候，实际上
+
+当例子中的代码执行ThreadLocal.get()的时候，
