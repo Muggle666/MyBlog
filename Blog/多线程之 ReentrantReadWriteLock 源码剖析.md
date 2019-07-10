@@ -508,6 +508,6 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 
 在 ReentrantReadWriteLock 类中大部分的代码都会涉及 state 值的判断，所以理解 state 值的设计思想很重要！
 
-
+### 3. ReentrantReadWriteLock类有 WriteLock 、 ReadLock 、FairSync 、 NonfairSync 和 Sync 这5个内部类。
 
 总结
