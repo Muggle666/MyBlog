@@ -1,12 +1,15 @@
+<a href="#ThreadLocalUse">ThreadLocal的基本使用</a>
+
+
 **前提：** 看ReentrantReadWriteLock源码的时候，发现其内部声明了一个内部类ThreadLocalHoldCounter，而这个内部类继承ThreadLocal类，后来粗读了ReentrantReadWriteLock的源码，发现ThreadLocalHoldCounter这个类发挥及其重要的作用，因此我决定将ThreadLocal类好好研究一番~
 
 
 ## <span style="color:red">什么是ThreadLocal</span>
 
 
-用ThreadLocal声明的变量可以在线程内部提供变量副本，线程彼此之间修改ThreadLocal声明的变量互不影响，这就不存在并发的情况了。
+用ThreadLocal声明的变量可以在线程内部提供变量副本，线程修改ThreadLocal声明的变量互不影响，这就不存在并发的情况了。
 
-也就是说，每创建一个线程，栈帧都会保存ThreadLocal声明的变量副本，随着线程的结束而销毁。如下图所示：
+从 JVM 角度来说，每创建一个线程， JVM 就会创建一个虚拟机栈。虚拟机栈会保存 ThreadLocal 声明的变量副本，变量的生命周期随着线程的结束而销毁。如下图所示：
 
 ![Demo](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal-demo.png)
 
@@ -16,15 +19,15 @@
 不需要共享的变量。比如Web中，每个用户的requestid不一样，使用ThreadLocal声明就可以有效的避免线程之间的竞争，无需采取同步措施，因此可以简单的理解为用空间换时间。
 
 
-## <span style="color:red">ThreadLocal的基本使用</span>
+## <a name="ThreadLocalUse"><span style="color:red">ThreadLocal的基本使用</span></a>
 
 先看下ThreadLocal的API有哪些方法。
 |方法名|用法|
 |-|-|
-|T get()|返回当前线程的局部变量副本的变量值|
-|void set(T value)|设置当前线程的局部变量副本的变量值为指定值|
-|void remove()|删除当前线程的局部变量副本的变量值|
-|static \<S> ThreadLocal\<S> withInitial(Supplier<? extends S> supplier)|返回当前线程的局部变量副本的变量初始值。|
+|T get()|返回当前线程局部变量副本的变量值|
+|void set(T value)|设置当前线程局部变量副本的变量值为指定值|
+|void remove()|删除当前线程局部变量副本的变量值|
+|static \<S> ThreadLocal\<S> withInitial(Supplier<? extends S> supplier)|返回当前线程局部变量副本的变量初始值。|
 
 实例：
 ```java
@@ -102,9 +105,8 @@ public class Thread implements Runnable {
 
 接下来看下ThreadLocal类的set()相关源码，值得注意的是，由于Entry对象是继承**WeakReference**，所以Entry对象是弱引用的，简单来说就是很容易被GC回收，所以在ThreadLocal类中，大部分方法都涉及判断对象是否为null，如果为null就要从数组中移除，避免内存溢出。虽然set方法涉及的源码很多，但理解核心的源码就可以了，就是**要知道ThreadLocal变量是在哪里保存，如何保存的**。
 
-为方便理解，结合以下源码画出流程图：
+为方便理解，结合以下源码画出流程图（背景色为绿色的是set方法主要的流程图，紫色背景是涉及方法的流程图）：
 ![ThreadLocal 类 set 方法的 UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal_set-UML.png)
-
 ```java
     public void set(T value) {
         Thread t = Thread.currentThread();
@@ -421,10 +423,131 @@ public class Thread implements Runnable {
 根据上面的源码，画出 get 方法的流程图如下（背景色为绿色的是get方法的主要流程，粉红背景色则是涉及到的方法流程图）：
 ![ThreadLocal类get方法的UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal_get-UML.png)
 
+## <span style="color:green">3.remove()相关的源码：</span>
+
+```java
+    public void remove() {
+        // 获取当前线程局部变量的ThreadLocalMap对象
+        ThreadLocalMap m = getMap(Thread.currentThread());
+        if (m != null)// 如果对象不是null则执行ThreadLocalMap内部类的remove方法
+            m.remove(this);
+    }
+
+    private void remove(ThreadLocal<?> key) {
+        Entry[] tab = table;
+        int len = tab.length;
+        // 通过哈希算法计算数组索引
+        int i = key.threadLocalHashCode & (len-1);
+        for (Entry e = tab[i];// 通过索引获取Entry对象
+             e != null;
+             e = tab[i = nextIndex(i, len)]) {
+            if (e.get() == key) {// 参数key与Entry对象的Key相同
+                e.clear();// 设置 e 对象为null
+                expungeStaleEntry(i);// 清除key为空的Entry,并将不为空的元素放到合适的位置
+                return;
+            }
+        }
+    }
+```
+根据上面的源码，画出 remove 方法的流程图如下（背景色为绿色的是remove方法的主要流程，紫色背景色则是涉及到的方法流程图）：
+
+![ThreadLocal类remove方法的UML](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ThreadLocal/ThreadLocal_remove-UML.png)
 
 
+## <span style="color:green">4.withInitial()相关的源码：</span>
+
+首先通过一个例子深入withInitial方法：
+```java
+1.         ThreadLocal threadLocal = ThreadLocal.withInitial(new Supplier<String>() {
+2.             @Override
+3.             public String get() {
+4.                 return "Init Value";
+5.             }
+6.         });
+7. 
+8.         System.out.println(threadLocal.get());
+9. 
+10.         // 使用lambda表示式简化
+11.         // ThreadLocal threadLocal = ThreadLocal.withInitial(()->"Init value");
+```
+第八行的输出结果就是：Init Value。
+
+那在ThreadLocal源码中，是怎么实现初始化ThreadLocal的值呢？
+
+```java
+    public static <S> ThreadLocal<S> withInitial(Supplier<? extends S> supplier) {
+        return new SuppliedThreadLocal<>(supplier);
+    }
+
+    static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {
+
+        private final Supplier<? extends T> supplier;
+
+        SuppliedThreadLocal(Supplier<? extends T> supplier) {
+            this.supplier = Objects.requireNonNull(supplier);
+        }
+
+        @Override
+        protected T initialValue() {
+            return supplier.get();
+        }
+    }
+```
+
+withInitial的参数类型是Supplier，这是一个标记接口，其作用就是返回一个特定类型的对象。
+```java
+@FunctionalInterface
+public interface Supplier<T> {
+    T get();
+}
+```
+例子第2～5行实现了接口get方法，其返回值就是我们自定义的初始化值。这个时候，初始化值其实并没有保存在线程的ThreadLocalMap对象中的，而是在调用ThreadLocal.get()的时候才会把初始值存储起来。下面通过源码展示这一流程：
+
+```java
+1.     public T get() {
+2.         Thread t = Thread.currentThread();
+3.         ThreadLocalMap map = getMap(t);
+4.         if (map != null) {
+5.             ThreadLocalMap.Entry e = map.getEntry(this);
+6.             if (e != null) {
+7.                 @SuppressWarnings("unchecked")
+8.                 T result = (T)e.value;
+9.                 return result;
+10.             }
+11.         }
+12.         return setInitialValue();
+13.     }
+14. 
+15.     private T setInitialValue() {
+16.         T value = initialValue();
+17.         Thread t = Thread.currentThread();
+18.         ThreadLocalMap map = getMap(t);
+19.         if (map != null)
+20.             map.set(this, value);
+21.         else
+22.             createMap(t, value);
+23.         return value;
+24.     }
+25. 
+26.     static final class SuppliedThreadLocal<T> extends ThreadLocal<T> {
+27. 
+28.         private final Supplier<? extends T> supplier;
+29. 
+30.         SuppliedThreadLocal(Supplier<? extends T> supplier) {
+31.             this.supplier = Objects.requireNonNull(supplier);
+32.         }
+33. 
+34.         @Override
+35.         protected T initialValue() {
+36.             return supplier.get();
+37.         }
+38.     }	
+```
+
+当执行ThreadLocal.get()方法的时候，虽然ThreadLocalMap对象不是null，但由于当前线程还没保存ThreadLocal对象，所以并不会执行6～10行的代码，而是执行第12行setInitialValue()方法，其目的就是要初始化当前线程局部变量ThreadLocalMap；接下来就会执行第16行，值得注意的是，当前ThreadLocal对象其实是SuppliedThreadLocal内部类初始化的，所以实际上执行initialValue()方法是执行SuppliedThreadLocal.initialValue()的方法，也就是第35行；继续往下执行第36行的supplier.get()方法，返回的值就是例子中，实现的get()方法return的值；接下来继续往下执行17～23行，这里就是设置当前线程的ThreadLocal的初始化值。
 
 
+## <span style="color:green">5.withInitial()相关的源码：</span>
 
 
 参考资料：

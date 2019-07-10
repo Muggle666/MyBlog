@@ -1,6 +1,18 @@
+# 简介
+
+ArrayList集合类是基于数组实现的，其数组容量的大小可以动态的变化，数组的元素可以为null。值得注意的是，ArrayList中所有的方法都是非线程安全的！在多线程环境下可以使用synchronized或者使用显式锁，当然还有一个更加便捷的方式，就是使用Collections.synchronizedList(List<T> list)方法，这样的话，使用所有的ArrayList方法都是线程安全的。
+
+```java
+List list = Collections.synchronizedList(new ArrayList());
+```
+
+## 源码剖析
+
+#### 1.ArrayList集合类的结构图
+![ArrayList结构图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/ArrayList/ArrayList%E7%BB%93%E6%9E%84%E5%9B%BE.png)
+
 ArrayList集合有3个构造函数：
 ```java
-<<<<<<< HEAD
 public class ArrayList<E> extends AbstractList<E>
         implements List<E>, RandomAccess, Cloneable, java.io.Serializable
 ```
@@ -11,9 +23,6 @@ ArrayList集合类继承了AbstractList抽象类和实现了List接口，拥有�
 #### 2.ArrayList集合类的构造函数：
 ```java
     //参数传入数组长度，可自定义数组大小
-=======
-    //参数传入数组长度
->>>>>>> 7ccf97860f7453ce492e0d1581bf0179c8709025
     public ArrayList(int initialCapacity) {
         if (initialCapacity > 0) {
             this.elementData = new Object[initialCapacity];
@@ -41,11 +50,8 @@ ArrayList集合类继承了AbstractList抽象类和实现了List接口，拥有�
         }
     }
 ```
-<<<<<<< HEAD
+
 #### 3.添加元素——add()方法的讲解和ArrayList动态扩容机制
-=======
-添加元素的方法有4个：
->>>>>>> 7ccf97860f7453ce492e0d1581bf0179c8709025
 ```java
 add(E e)
 add(int index, E element)
@@ -107,7 +113,7 @@ add(E e)方法相关的代码
 
 add(int index, E element)相关方法：
 ```java
-public void add(int index, E element) {
+    public void add(int index, E element) {
         rangeCheckForAdd(index);
         ensureCapacityInternal(size + 1);//上面有讲解，故省略
         System.arraycopy(elementData, index, elementData, index + 1,
@@ -123,13 +129,9 @@ public void add(int index, E element) {
     }
 ```
 
-<<<<<<< HEAD
-
 #### 4.删除元素——remove()
 删除的方法有以下3个：
-=======
-删除元素的方法有3个：
->>>>>>> 7ccf97860f7453ce492e0d1581bf0179c8709025
+
 ```java
 remove(int index)
 remove(Object o)
@@ -137,7 +139,7 @@ removeAll(Collection<?> c)
 ```
 
 ```java
-public E remove(int index) {
+    public E remove(int index) {
         rangeCheck(index);//判断是否超出索引长度
 
         modCount++;
@@ -219,7 +221,6 @@ public E remove(int index) {
 ```
 
 通过源码可以知道，删除元素都要进行数组的重组，而且当被删除的元素越靠近集合数组的前面，数组的重组开销就越大。
-<<<<<<< HEAD
 
 #### 5.获取元素——get()
 
@@ -526,47 +527,337 @@ public void clear() {
 
 #### 14.与Collection对象找交集——retainAll(Collection<?> c)
 
-看源码之前，先看下我写的示例：
+```java
+    public boolean retainAll(Collection<?> c) {
+        Objects.requireNonNull(c);
+        return batchRemove(c, true);
+    }
+
+    private boolean batchRemove(Collection<?> c, boolean complement) {
+        final Object[] elementData = this.elementData;
+        int r = 0, w = 0;
+        boolean modified = false;
+        try {
+            for (; r < size; r++)
+                if (c.contains(elementData[r]) == complement)
+                    elementData[w++] = elementData[r];
+        } finally {
+            // Preserve behavioral compatibility with AbstractCollection,
+            // even if c.contains() throws.
+            if (r != size) {
+                System.arraycopy(elementData, r,
+                                 elementData, w,
+                                 size - r);
+                w += size - r;
+            }
+            if (w != size) {
+                // clear to let GC do its work
+                for (int i = w; i < size; i++)
+                    elementData[i] = null;
+                modCount += size - w;
+                size = w;
+                modified = true;
+            }
+        }
+        return modified;
+    }
+```
+
+
+但有一点需要注意，我们不能够通过retainAll(Collection<?> c)的返回值判断两个集合是否有交集。为什么呢？
+
+示例：
 ```java
 public class Sample {
     public static void main(String[] args) {
-        ArrayList list = new ArrayList();
-        list.add(1);
-        list.add(2);
+        // 示例一
+        ArrayList list1 = new ArrayList();
+        list1.add(1);
+        list1.add(2);
 
-        LinkedList linkedList = new LinkedList();
-        linkedList.add(1);
-        linkedList.add(5);
+        LinkedList linkedList1 = new LinkedList();
+        linkedList1.add(1);
+        linkedList1.add(5);
 
         // 找出与linkedList交集
-        boolean flag = list.retainAll(linkedList);
-        System.out.println("执行retainAll()后的boolean值：" + flag);
+        boolean flag = list1.retainAll(linkedList1);
+        System.out.println("示例一：执行retainAll()后的boolean值：" + flag);
 
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
+        System.out.print("两个集合的交集为：");
+        for (int i = 0; i < list1.size(); i++) {
+            System.out.print("  " + list1.get(i));
+        }
+        System.out.println();
+
+        // 示例二
+        ArrayList list2 = new ArrayList();
+        list2.add(1);
+        list2.add(2);
+
+        LinkedList linkedList2 = new LinkedList();
+        linkedList2.add(1);
+        linkedList2.add(2);
+        linkedList2.add(3);
+
+        boolean flag2 = list2.retainAll(linkedList2);
+        System.out.println("示例二：执行retainAll()后的boolean值：" + flag2);
+
+        System.out.print("两个集合的交集为：");
+        for (int i = 0; i < list2.size(); i++) {
+            System.out.print("    " + list2.get(i));
         }
     }
 }
 ```
 输出结果：
 ```java
-执行retainAll()后的boolean值：true
-1
+示例一：执行retainAll()后的boolean值：true
+两个集合的交集为：  1
+示例二：执行retainAll()后的boolean值：false
+两个集合的交集为：    1    2
+```
+两个集合的关系图如下：
+
+![Collection-relation](https://raw.githubusercontent.com/MuggleLee/PicGo/master/ArrayList/Collection-relation.png)
+
+示例一和示例二中两个集合都有交集，但为什么示例二中的retainAll(Collection<?> c)返回值为false？其实retainAll(Collection<?> c)方法的作用是判断调用者是否有元素被移除。如果调用者的元素没有被移除证明 c 集合的元素包含调用者的全部元素。
+
+#### 15.ArrayList集合排序——sort(Comparator<? super E> c)
+```java
+    public void sort(Comparator<? super E> c) {
+        final int expectedModCount = modCount;
+        Arrays.sort((E[]) elementData, 0, size, c);
+        if (modCount != expectedModCount) {
+            throw new ConcurrentModificationException();
+        }
+        modCount++;
+    }
+```
+
+根据源码可以知道，使用sort()方法的时候需要传入一个Comparator的对象，那该怎么使用呢？
+
+示例：
+```java
+public class Sample {
+    public static void main(String[] args) {
+        ArrayList<Integer> list = new ArrayList();
+        list.add(1);
+        list.add(3);
+        list.add(5);
+        list.add(4);
+        list.add(2);
+
+        // 第一种方法：实现Comparator接口的compare方法
+        list.sort(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                if(o1 > o2){
+                    return 1;
+                }else {
+                    return -1;
+                }
+            }
+        });
+
+        // 第二种方式：使用lambda表达式
+        //list.sort((x, y) -> x > y ? 1 : -1);
+
+        // 第三种方式：使用JDK1.8中Comparator接口提供的排序方法。正叙：naturalOrder() 倒叙：reverseOrder()
+        //list.sort(Comparator.naturalOrder());
+
+        // 第四种方式：甚至可以不用传Comparator对象，直接传null也可以排序
+        //list.sort(null);
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(list.get(i) + "    ");
+        }
+    }
+}
+```
+输出结果：
+```java
+1    2    3    4    5    
+```
+使用ArrayList.sort()方法底层都是调用Arrays.sort()方法【】
+
+
+
+#### 16.多线程遍历集合——spliterator() 
+
+这个高大上的方法可以在集合数据量大的时候结合多线程遍历元素。先通过简单的例子了解是如何使用。
+```java
+
 ```
 
 
 
+#### 17.使用forEach(Consumer<? super E> action)迭代集合
 
-#### 15.sort
+```java
+    public void forEach(Consumer<? super E> action) {
+        Objects.requireNonNull(action);// 检查Comsumer对象是否为null
+        final int expectedModCount = modCount;
+        @SuppressWarnings("unchecked")
+        final E[] elementData = (E[]) this.elementData;// 获取集合的数组
+        final int size = this.size;// 数组长度
+        for (int i=0; modCount == expectedModCount && i < size; i++) {
+            action.accept(elementData[i]);// 数组元素作为accept的参数执行accept方法
+        }
+        if (modCount != expectedModCount) {
+            throw new ConcurrentModificationException();
+        }
+    }
+```
 
-#### 16.spliterator()  replaceAll
+##### *forEach(Consumer<? super E> action)的行为取决于accept()的实现
 
-#### 17.foreach()
+举个例子：
 
-#### 18.removeIf()
+```java
+public class Sample {
+    public static void main(String[] args) {
+        ArrayList<Integer> list = new ArrayList();
+        list.add(1);
+        list.add(3);
+        list.add(5);
+        list.add(4);
+        list.add(2);
 
-#### 19.subList()
+        // 第一种方式：实现Consumer接口的accept方法
+//        list.forEach(new Consumer<Integer>() {
+//            @Override
+//            public void accept(Integer integer) {
+//                System.out.println(integer);
+//            }
+//        });
 
+        // 第二种方式：使用lambda表达式
+        list.forEach(x -> System.out.print(x + " "));
+
+        System.out.println();
+
+        // 执行forEach()方法，将数组元素的值都扩大十倍
+        list.forEach(x -> System.out.print(x * 10 + " "));
+    }
+}
+```
+输出结果：
+```java
+1 3 5 4 2 
+10 30 50 40 20 
+```
+
+
+#### 18.移除符合条件的集合元素——removeIf()
+
+```java
+    public boolean removeIf(Predicate<? super E> filter) {
+        Objects.requireNonNull(filter);// 判断Predicate对象是否为null
+        int removeCount = 0;
+        final BitSet removeSet = new BitSet(size);// 可以简单理解为一个set集合，作用是记录使test()方法返回true的元素索引
+        final int expectedModCount = modCount;
+        final int size = this.size;
+        // 将test()方法返回true的元素索引set进removeSet里面
+        for (int i=0; modCount == expectedModCount && i < size; i++) {
+            @SuppressWarnings("unchecked")
+            final E element = (E) elementData[i];
+            if (filter.test(element)) {
+                removeSet.set(i);
+                removeCount++;
+            }
+        }
+        // 并发情况下可能会不相同，则抛出异常
+        if (modCount != expectedModCount) {
+            throw new ConcurrentModificationException();
+        }
+
+        // 如果removeCount大于0代表有集合元素使test()方法返回true，并将集合数组中使test()方法返回true的元素索引移除
+        final boolean anyToRemove = removeCount > 0;
+        if (anyToRemove) {
+            final int newSize = size - removeCount;
+            for (int i=0, j=0; (i < size) && (j < newSize); i++, j++) {
+                i = removeSet.nextClearBit(i);
+                elementData[j] = elementData[i];
+            }
+            for (int k=newSize; k < size; k++) {
+                elementData[k] = null;  // Let gc do its work
+            }
+            this.size = newSize;
+            if (modCount != expectedModCount) {
+                throw new ConcurrentModificationException();
+            }
+            modCount++;
+        }
+        return anyToRemove;
+    }
+```
+举个例子：
+```java
+public class Sample {
+    public static void main(String[] args) {
+        ArrayList<Integer> list = new ArrayList();
+        list.add(1);
+        list.add(3);
+        list.add(5);
+
+        // 第一种方式：实现Predicate接口的test方法
+//        list.removeIf(new Predicate<Integer>() {
+//            @Override
+//            public boolean test(Integer integer) {
+//                return integer == 1;
+//            }
+//        });
+
+        // 使用lambda表达式
+        list.removeIf(x -> x == 1);
+
+        list.forEach(x -> System.out.print(x + " "));
+    }
+}
+```
+输出结果：
+```java
+3 5
+```
+
+
+#### 19.返回集合区间内的所有元素——subList(int fromIndex, int toIndex)
+
+```java
+    public List<E> subList(int fromIndex, int toIndex) {
+        subListRangeCheck(fromIndex, toIndex, size);// 检查索引值的范围，如果索引值的范围有错直接抛异常
+        return new SubList(this, 0, fromIndex, toIndex);// 返回一个SubList的对象，这个对象与List的对象具有相同的实现，故不再赘述。
+    }
+```
+举个例子：
+```java
+public class Sample {
+    public static void main(String[] args) {
+        ArrayList<Integer> list = new ArrayList();
+        list.add(1);
+        list.add(3);
+        list.add(5);
+        list.add(4);
+
+        // 将list集合数组索引为1，2区间的元素赋值给新的集合，值得注意的是，执行subList()方法不会对原集合有影响
+        List subList = list.subList(1,2);
+        System.out.println("原集合：");
+        list.forEach(x-> System.out.print(x + " "));
+        System.out.println();
+        System.out.println("新的集合：");
+        subList.forEach(x-> System.out.print(x + " "));
+    }
+}
+```
+输出结果：
+```java
+原集合：
+1 3 5 4 
+新的集合：
+3 
+```
+
+20. replaceAll()
 
 
 参考资料：
@@ -574,11 +865,3 @@ public class Sample {
 [https://www.jianshu.com/p/dac220d3d314](https://www.jianshu.com/p/dac220d3d314)
 
 
-
-
-
-
-
-
-=======
->>>>>>> 7ccf97860f7453ce492e0d1581bf0179c8709025
