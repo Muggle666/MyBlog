@@ -73,14 +73,14 @@ main线程  修改 inheritableThreadLocal 变量值
 
 进入父类的 set() 方法，第三行实际上是执行子类的getMap()方法，而子类的 getMap() 方法返回的是 Thread.inheritableThreadLocals ，也就是Thread类的局部变量 inheritableThreadLocals 。由于 Thread.inheritableThreadLocals 未被初始化，所以值为 null ；接下来 set() 方法继续往下走进入第 7 行执行 createMap() 方法创建 ThreadLocalMap 对象，实际上执行的是子类 createMap() 方法，方法的实现是创建 ThreadLocalMap 对象赋值给 Thread.inheritableThreadLocals 。这时，InheritableThreadLocal 变量被初始化。
 
-但是 InheritableThreadLocal 变量只是在 main 线程被初始化，那子线程怎么能获取父线程的局部变量呢？答案就是：**初始化子线程的时候，init()方法会获取父线程的局部变量并保存在本线程的栈帧。**
+但是 InheritableThreadLocal 变量只是在 main 线程被初始化，那子线程怎么能获取父线程的局部变量呢？答案就是：**==初始化子线程的时候，init()方法会获取父线程的局部变量并保存在本线程的栈帧。==**
 
 ```java
     public class Thread implements Runnable {
         ThreadLocal.ThreadLocalMap inheritableThreadLocals = null;
 
         public Thread() {
-            init(null, null, "Thread-" + nextThreadNum(), 0);
+            ==ini==t(null, null, "Thread-" + nextThreadNum(), 0);
         }
 
         private void init(ThreadGroup g, Runnable target, String name,
