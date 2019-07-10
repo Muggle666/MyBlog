@@ -52,7 +52,7 @@ main线程  修改 inheritableThreadLocal 变量值
 ```
 
 由例子可以看出，使用 ThreadLocal 类的变量在子线程中是无法获取的，而
- InheritableThreadLocal 类的变量的确如上面所说，在子线程中可以获取父线程的变量。值得注意的是
+ InheritableThreadLocal 类的变量的确如上面所说，在子线程中可以获取父线程的变量。值得注意的是，InheritableThreadLocal 类的变量在子线程中只是保存父线程的
 
 接下来，通过上面的例子结合 InheritableThreadLocal 源码分析。
 
