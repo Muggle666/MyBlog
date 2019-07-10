@@ -123,4 +123,4 @@ main线程  修改 inheritableThreadLocal 变量值
 
 
 
-当例子中的代码执行ThreadLocal.get()的时候，
+当例子中的代码执行ThreadLocal.get()方法第三行的时候，getMap()方法实际上是调用
