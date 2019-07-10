@@ -133,7 +133,8 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 ###### ps.我在看源码的过程中，看到writeLock()和readLock()两个实现方法没有@Override注解，不禁提出了疑问，@Override这个注解可以省略的吗？后来经过实践和看大佬们的博客得知，@Override注解在程序中是可以省略的，@Override注解的作用可以理解为两个作用，第一是提高可读性，因为加上这个注解之后就可以知道是实现父类或者接口的抽象方法；第二就是可以在编译期间，IDE可以检验加上@Override的方法是否与父类或者接口方法一样。对Java注解不熟呀，抽时间出来系统学一下Java注解才行...
 
 
-上面的代码只保留ReentrantReadWriteLock类的实现方法和构造器，方便我们了解创建ReentrantReadWriteLock对象时，在底层是怎样运作的。
+上面的代码只保留 ReentrantReadWriteLock 类的实现方法和构造器，方便我们了解创建
+ ReentrantReadWriteLock 对象时，在底层是怎样运作的。
 
 ![创建ReentrantReadWriteLock对象的流程图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ReentrantReadWriteLock/ReentrantReadWriteLock-InitUML.png)
 
