@@ -96,4 +96,4 @@ main线程  InheritableThreadLocal变量
     }
 ```
 
-由 Thread 类的源码可以看出，在初始化 Thread 对象的时候，会
+由 Thread 类的源码可以看出，在初始化 Thread 对象的时候，会判断父线程是否有设置局部变量共享给子线程访问
