@@ -28,3 +28,5 @@
     } 
 ```
 首先初始化 ReentrantReadWriteLock 对象，同时根据 ReentrantReadWriteLock 构造器传入的参数判断使用公平锁或者非公平锁创建读锁和写锁。
+
+接下来获取读锁，并执行lock(0
