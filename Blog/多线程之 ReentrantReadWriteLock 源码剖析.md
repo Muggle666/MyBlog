@@ -89,16 +89,20 @@ class Score {
 emmm...好像好复杂，ReentrantReadWriteLock类有那么多内部类。
 
 
-从ReentrantReadWriteLock类图中，我可以知道以下几个信息：
-> 1. ReentrantReadWriteLock实现ReadWriteLock接口和Serializable接口；
-> 2. Sync 是 FairSync 和 NonfairSync 的父类；Sync 抽象类内部有 ThreadLocalHoldCounter 和 HoldCounter 这两个内部类；
->3. ReentrantReadWriteLock类有 WriteLock 、 ReadLock 、FairSync 、 NonfairSync 和 Sync 这5个内部类。
+从ReentrantReadWriteLock类图中，我们可以知道以下几个信息：
+```
+1. ReentrantReadWriteLock 实现 ReadWriteLock 接口和 Serializable 接口；
+2. Sync 是 FairSync 和 NonfairSync 的父类；Sync 抽象类内部有 ThreadLocalHoldCounter 和 HoldCounter 这两个内部类；
+3. ReentrantReadWriteLock类有 WriteLock 、 ReadLock 、FairSync 、 NonfairSync 和 Sync 这5个内部类。
+```
+
+
 
 
 接下来我就按照这3个信息，一步一步的剖析ReentrantReadWriteLock类源码吧！
 
 
-#### 1.ReentrantReadWriteLock实现ReadWriteLock接口和Serializable接口
+### <span style="color:red">1. ReentrantReadWriteLock 实现 ReadWriteLock 接口和 Serializable 接口。</span>
 
 ```java
 public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializable {
@@ -129,11 +133,12 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 ###### ps.我在看源码的过程中，看到writeLock()和readLock()两个实现方法没有@Override注解，不禁提出了疑问，@Override这个注解可以省略的吗？后来经过实践和看大佬们的博客得知，@Override注解在程序中是可以省略的，@Override注解的作用可以理解为两个作用，第一是提高可读性，因为加上这个注解之后就可以知道是实现父类或者接口的抽象方法；第二就是可以在编译期间，IDE可以检验加上@Override的方法是否与父类或者接口方法一样。对Java注解不熟呀，抽时间出来系统学一下Java注解才行...
 
 
-上面的代码只保留ReentrantReadWriteLock类的实现方法和构造器，方便我们了解创建ReentrantReadWriteLock对象时，在底层是怎样运作的。
+上面的代码只保留 ReentrantReadWriteLock 类的实现方法和构造器，方便我们了解创建
+ ReentrantReadWriteLock 对象时，在底层是怎样运作的。
 
 ![创建ReentrantReadWriteLock对象的流程图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ReentrantReadWriteLock/ReentrantReadWriteLock-InitUML.png)
 
-#### 2. Sync 是 FairSync 和 NonfairSync 的父类；Sync 抽象类内部有 ThreadLocalHoldCounter 和 HoldCounter 这两个内部类。
+### <span style="color:red">2. Sync 是 FairSync 和 NonfairSync 的父类；Sync 抽象类内部有 ThreadLocalHoldCounter 和 HoldCounter 这两个内部类。</span>
 
 ```java
     abstract static class Sync extends AbstractQueuedSynchronizer {
@@ -480,8 +485,9 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
     }
 ```
 当我看完Sync类的源码的时候，对 Doug Lea 的敬佩犹如滔滔江水绵延不绝，又有如黄河泛滥一发不可收拾...
-以下几处地方让我惊叹不已：
-#### 1.state变量为int数据类型，高16位代表读锁的重入次数，而低16位代表写锁的重入次数。
+
+让我惊叹不已的地方是 state 变量的巧妙使用：
+##### state 变量为 int 数据类型，高 16 位代表读锁的重入次数，而低 16 位代表写锁的重入次数。
 ```java
     static final int SHARED_UNIT = (1 << SHARED_SHIFT);// SHARED_UNIT == 65536
     int c = getState();// 获取state值
@@ -500,6 +506,141 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 
 ![State值的巧妙使用](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ReentrantReadWriteLock/ReentrantReadWriteLock%E7%9A%84state%E4%BD%BF%E7%94%A8.png)
 
+在 ReentrantReadWriteLock 类中大部分的代码都会涉及 state 值的判断，所以理解 state 值的设计思想很重要！
+
+### <span style="color:red">3. ReentrantReadWriteLock类有 WriteLock 、 ReadLock 、FairSync 、 NonfairSync 和 Sync 这5个内部类。</span>
+
+上面介绍了 Sync 类的源码，因此下面只展示 WriteLock 、 ReadLock 、FairSync 和
+ NonfairSync 的源码。
+
+```java
+// 非公平锁的同步器
+    static final class NonfairSync extends Sync {
+        private static final long serialVersionUID = -8159625535654395037L;
+        // 不需要阻塞，直接获取写锁
+        final boolean writerShouldBlock() {
+            return false;
+        }
+        // 如果第一个节点是写锁，则返回true，即当前线程阻塞
+        final boolean readerShouldBlock() {
+            return apparentlyFirstQueuedIsExclusive();
+        }
+    }
+
+    // 公平锁的同步器
+    static final class FairSync extends Sync {
+        private static final long serialVersionUID = -2274990926593161451L;
+        // 如果发现有线程等待获取锁返回true，即写锁需要阻塞
+        final boolean writerShouldBlock() {
+            return hasQueuedPredecessors();
+        }
+        // 如果发现有线程等待获取锁返回true，即读锁需要阻塞
+        final boolean readerShouldBlock() {
+            return hasQueuedPredecessors();
+        }
+    }
+
+    public static class ReadLock implements Lock, java.io.Serializable {
+        private static final long serialVersionUID = -5992448646407690164L;
+        private final Sync sync;
+
+        protected ReadLock(ReentrantReadWriteLock lock) {
+            sync = lock.sync;
+        }
+
+        public void lock() {
+            sync.acquireShared(1);// 调用 AQS 的 acquireShared 方法
+        }
+
+        // 尝试获取读锁，获取失败则排队等待读锁（可被中断）
+        public void lockInterruptibly() throws InterruptedException {
+            sync.acquireSharedInterruptibly(1);
+        }
+
+        // 尝试获取读锁
+        public boolean tryLock() {
+            return sync.tryReadLock();
+        }
+
+        // 在 timeout 时间内加读锁
+        public boolean tryLock(long timeout, TimeUnit unit)
+                throws InterruptedException {
+            return sync.tryAcquireSharedNanos(1, unit.toNanos(timeout));
+        }
+
+        // 释放读锁
+        public void unlock() {
+            sync.releaseShared(1);
+        }
+
+        // 读锁不支持Condition，会抛出异常
+        public Condition newCondition() {
+            throw new UnsupportedOperationException();
+        }
+
+        public String toString() {
+            int r = sync.getReadLockCount();
+            return super.toString() +
+                    "[Read locks = " + r + "]";
+        }
+    }
+
+    public static class WriteLock implements Lock, java.io.Serializable {
+        private static final long serialVersionUID = -4992448646407690164L;
+        private final Sync sync;
+
+        protected WriteLock(ReentrantReadWriteLock lock) {
+            sync = lock.sync;
+        }
+
+        // 获取写锁
+        public void lock() {
+            sync.acquire(1);
+        }
+
+        // 加写锁，可以被中断
+        public void lockInterruptibly() throws InterruptedException {
+            sync.acquireInterruptibly(1);
+        }
+
+        // 尝试获取写锁
+        public boolean tryLock( ) {
+            return sync.tryWriteLock();
+        }
+
+        // 在 timeout 时间内加写锁
+        public boolean tryLock(long timeout, TimeUnit unit)
+                throws InterruptedException {
+            return sync.tryAcquireNanos(1, unit.toNanos(timeout));
+        }
+
+        // 释放写锁
+        public void unlock() {
+            sync.release(1);
+        }
+
+        public Condition newCondition() {
+            return sync.newCondition();
+        }
+
+        public String toString() {
+            Thread o = sync.getOwner();
+            return super.toString() + ((o == null) ?
+                    "[Unlocked]" :
+                    "[Locked by thread " + o.getName() + "]");
+        }
+
+        // 写锁是否被当前线程持有
+        public boolean isHeldByCurrentThread() {
+            return sync.isHeldExclusively();
+        }
+
+        // 获取写锁的重入次数
+        public int getHoldCount() {
+            return sync.getWriteHoldCount();
+        }
+    }
+```
 
 
 总结
