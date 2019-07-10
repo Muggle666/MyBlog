@@ -510,6 +510,6 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 
 ### <span style="color:red">3. ReentrantReadWriteLock类有 WriteLock 、 ReadLock 、FairSync 、 NonfairSync 和 Sync 这5个内部类。</span>
 
-smia
+上面介绍了 Sync 类的源码，因此下面只展示
 
 总结
