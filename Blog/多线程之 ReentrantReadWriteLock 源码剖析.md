@@ -138,7 +138,7 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 
 ![创建ReentrantReadWriteLock对象的流程图](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ReentrantReadWriteLock/ReentrantReadWriteLock-InitUML.png)
 
-#### 2. Sync 是 FairSync 和 NonfairSync 的父类；Sync 抽象类内部有 ThreadLocalHoldCounter 和 HoldCounter 这两个内部类。
+### <span style="color:red">2. Sync 是 FairSync 和 NonfairSync 的父类；Sync 抽象类内部有 ThreadLocalHoldCounter 和 HoldCounter 这两个内部类。</sp
 
 ```java
     abstract static class Sync extends AbstractQueuedSynchronizer {
@@ -508,6 +508,6 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 
 在 ReentrantReadWriteLock 类中大部分的代码都会涉及 state 值的判断，所以理解 state 值的设计思想很重要！
 
-#### <span style>3. ReentrantReadWriteLock类有 WriteLock 、 ReadLock 、FairSync 、 NonfairSync 和 Sync 这5个内部类。
+### <span style="color:red">3. ReentrantReadWriteLock类有 WriteLock 、 ReadLock 、FairSync 、 NonfairSync 和 Sync 这5个内部类。</span>
 
 总结
