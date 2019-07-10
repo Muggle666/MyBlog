@@ -487,7 +487,7 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 当我看完Sync类的源码的时候，对 Doug Lea 的敬佩犹如滔滔江水绵延不绝，又有如黄河泛滥一发不可收拾...
 
 让我惊叹不已的地方是 state 变量的巧妙使用：
-#### state 变量为 int 数据类型，高 16 位代表读锁的重入次数，而低 16 位代表写锁的重入次数。
+##### state 变量为 int 数据类型，高 16 位代表读锁的重入次数，而低 16 位代表写锁的重入次数。
 ```java
     static final int SHARED_UNIT = (1 << SHARED_SHIFT);// SHARED_UNIT == 65536
     int c = getState();// 获取state值
@@ -508,6 +508,6 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 
 在 ReentrantReadWriteLock 类中大部分的代码都会涉及 state 值的判断，所以理解 state 值的设计思想很重要！
 
-### 3. ReentrantReadWriteLock类有 WriteLock 、 ReadLock 、FairSync 、 NonfairSync 和 Sync 这5个内部类。
+#### <span style>3. ReentrantReadWriteLock类有 WriteLock 、 ReadLock 、FairSync 、 NonfairSync 和 Sync 这5个内部类。
 
 总结
