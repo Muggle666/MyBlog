@@ -100,4 +100,4 @@ main线程  InheritableThreadLocal变量
     }
 ```
 
-由 Thread 类的源码可以看出，在初始化 Thread 对象的时候，会判断父线程是否有设置局部变量可以让子线程访问，如果有的话，则会设置栈帧的局部变量 inheritableThreadLocals 值为父线程的局部变量
+由 Thread 类的源码可以看出，在初始化 Thread 对象的时候，会判断父线程是否有设置局部变量可以让子线程访问，如果有的话，创建 ThreadLocalMap 对象，赋值给线程的局部变量 inheritableThreadLocals
