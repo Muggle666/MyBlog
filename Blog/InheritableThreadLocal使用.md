@@ -105,3 +105,20 @@ main线程  修改 inheritableThreadLocal 变量值
 
 由 Thread 类的源码可以看出，在初始化 Thread 对象的时候，会判断父线程是否有设置局部变量可以让子线程访问，如果有的话，创建 ThreadLocalMap 对象，赋值给子线程的局部变量 inheritableThreadLocals 。
 
+```java
+    public T get() {
+        Thread t = Thread.currentThread();
+        ThreadLocalMap map = getMap(t);
+        if (map != null) {
+            ThreadLocalMap.Entry e = map.getEntry(this);
+            if (e != null) {
+                @SuppressWarnings("unchecked")
+                T result = (T)e.value;
+                return result;
+            }
+        }
+        return setInitialValue();
+    }
+```
+
+当例子中的代码执行get()
