@@ -46,12 +46,13 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
 ```java
 main线程  ThreadLocal变量
 main线程  InheritableThreadLocal变量
+main线程  修改 inheritableThreadLocal 变量值
 子线程  null
 子线程  InheritableThreadLocal变量
 ```
 
 由例子可以看出，使用 ThreadLocal 类的变量在子线程中是无法获取的，而
- InheritableThreadLocal 类的变量的确如上面所说，在子线程中可以获取父线程的变量。
+ InheritableThreadLocal 类的变量的确如上面所说，在子线程中可以获取父线程的变量。值得注意的是
 
 接下来，通过上面的例子结合 InheritableThreadLocal 源码分析。
 
@@ -101,3 +102,4 @@ main线程  InheritableThreadLocal变量
 ```
 
 由 Thread 类的源码可以看出，在初始化 Thread 对象的时候，会判断父线程是否有设置局部变量可以让子线程访问，如果有的话，创建 ThreadLocalMap 对象，赋值给子线程的局部变量 inheritableThreadLocals 。
+
