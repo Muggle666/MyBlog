@@ -18,29 +18,29 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
 可以看出，InheritableThreadLocal类继承ThreadLocal类，并且重写了三个方法，在分析InheritableThreadLocal类之前，先通过例子看下子线程是不是真的可以获取父类的本地变量。
 
 ```java
-1. public class InheritableThreadLocalDemo {
-2. 
-3.     private static InheritableThreadLocal inheritableThreadLocal = new InheritableThreadLocal();
-4. 
-5.     private static ThreadLocal threadLocal = new ThreadLocal();
-6. 
-7.     public static void main(String[] args) throws InterruptedException {
-8.         threadLocal.set("ThreadLocal变量");
-9.         inheritableThreadLocal.set("InheritableThreadLocal变量");
-10. 
-11.         System.out.println(Thread.currentThread().getName() + "线程  " + threadLocal.get());
-12.         System.out.println(Thread.currentThread().getName() + "线程  " + inheritableThreadLocal.get());
-13. 
-14.         Thread thread = new Thread(() -> {
-15.             System.out.println(Thread.currentThread().getName() + "  " + threadLocal.get());
-16.             System.out.println(Thread.currentThread().getName() + "  " + inheritableThreadLocal.get());
-17.         },"子线程");
-18. 
-19.         inheritableThreadLocal.set("修改 inheritableThreadLocal 变量值");
-20.         System.out.println(Thread.currentThread().getName() + "线程  " + inheritableThreadLocal.get());
-21.         thread.start();
-22.     }
-23. }
+public class InheritableThreadLocalDemo {
+
+    private static InheritableThreadLocal inheritableThreadLocal = new InheritableThreadLocal();
+
+    private static ThreadLocal threadLocal = new ThreadLocal();
+
+    public static void main(String[] args) throws InterruptedException {
+        threadLocal.set("ThreadLocal变量");
+        inheritableThreadLocal.set("InheritableThreadLocal变量");
+
+        System.out.println(Thread.currentThread().getName() + "线程  " + threadLocal.get());
+        System.out.println(Thread.currentThread().getName() + "线程  " + inheritableThreadLocal.get());
+
+        Thread thread = new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + "  " + threadLocal.get());
+            System.out.println(Thread.currentThread().getName() + "  " + inheritableThreadLocal.get());
+        },"子线程");
+
+        inheritableThreadLocal.set("修改 inheritableThreadLocal 变量值");
+        System.out.println(Thread.currentThread().getName() + "线程  " + inheritableThreadLocal.get());
+        thread.start();
+    }
+}
 ```
 输出结果：
 ```java
@@ -95,7 +95,7 @@ main线程  InheritableThreadLocal变量
             // 如果父线程的 inheritableThreadLocals 局部变量不是 null ，就证明父线程有设置变量可以让子线程访问
             if (inheritThreadLocals && parent.inheritableThreadLocals != null)
                 this.inheritableThreadLocals =
-                        ThreadLocal.createInheritedMap(parent.inheritableThreadLocals);// 创建 ThreadLocalMap 对象，赋值给线程的局部变量 inheritableThreadLocals
+                        ThreadLocal.createInheritedMap(parent.inheritableThreadLocals);
         }
     }
 ```
