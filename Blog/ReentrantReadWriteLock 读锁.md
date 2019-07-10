@@ -34,4 +34,8 @@
         public void lock() {
             sync.acquireShared(1);
         }
+    public final void acquireShared(int arg) {
+        if (tryAcquireShared(arg) < 0)
+            doAcquireShared(arg);
+    }
 ```
