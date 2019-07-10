@@ -506,6 +506,6 @@ public class ReentrantReadWriteLock implements ReadWriteLock, java.io.Serializab
 
 ![State值的巧妙使用](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Concurrent/ReentrantReadWriteLock/ReentrantReadWriteLock%E7%9A%84state%E4%BD%BF%E7%94%A8.png)
 
-在 ReentrantReadWriteLock 类中大部分的代码都会
+在 ReentrantReadWriteLock 类中大部分的代码都会涉及 state 值的判断，所以理解
 
 总结
