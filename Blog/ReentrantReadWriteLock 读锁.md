@@ -18,5 +18,13 @@ private final ReentrantReadWriteLock.ReadLock readerLock;
         protected ReadLock(ReentrantReadWriteLock lock) {
             sync = lock.sync;
         }
+    }
+    public static class WriteLock implements Lock, java.io.Serializable {
+        private final Sync sync;
+
+        protected WriteLock(ReentrantReadWriteLock lock) {
+            sync = lock.sync;
+        }
+    } 
 
 ```
