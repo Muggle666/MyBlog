@@ -1,5 +1,5 @@
 ```java
-private final ReentrantReadWriteLock.ReadLock readerLock;
+    private final ReentrantReadWriteLock.ReadLock readerLock;
     private final ReentrantReadWriteLock.WriteLock writerLock;
 
     public ReentrantReadWriteLock() {
@@ -26,5 +26,4 @@ private final ReentrantReadWriteLock.ReadLock readerLock;
             sync = lock.sync;
         }
     } 
-
 ```
