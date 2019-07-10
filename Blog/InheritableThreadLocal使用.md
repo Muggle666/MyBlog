@@ -24,19 +24,23 @@ public class InheritableThreadLocal<T> extends ThreadLocal<T> {
 4. 
 5.     private static ThreadLocal threadLocal = new ThreadLocal();
 6. 
-7.     public static void main(String[] args) {
+7.     public static void main(String[] args) throws InterruptedException {
 8.         threadLocal.set("ThreadLocal变量");
 9.         inheritableThreadLocal.set("InheritableThreadLocal变量");
 10. 
 11.         System.out.println(Thread.currentThread().getName() + "线程  " + threadLocal.get());
 12.         System.out.println(Thread.currentThread().getName() + "线程  " + inheritableThreadLocal.get());
 13. 
-14.         new Thread(() -> {
+14.         Thread thread = new Thread(() -> {
 15.             System.out.println(Thread.currentThread().getName() + "  " + threadLocal.get());
 16.             System.out.println(Thread.currentThread().getName() + "  " + inheritableThreadLocal.get());
-17.         },"子线程").start();
-18.     }
-19. }
+17.         },"子线程");
+18. 
+19.         inheritableThreadLocal.set("修改 inheritableThreadLocal 变量值");
+20.         System.out.println(Thread.currentThread().getName() + "线程  " + inheritableThreadLocal.get());
+21.         thread.start();
+22.     }
+23. }
 ```
 输出结果：
 ```java
