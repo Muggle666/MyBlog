@@ -686,9 +686,54 @@ public class Sample {
 
 这个高大上的方法可以在集合数据量大的时候结合多线程遍历元素。先通过简单的例子了解是如何使用。
 ```java
+public class SpliteratorDemo {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
+        list.add("6");
+        list.add("7");
+        list.add("8");
+        Spliterator spliterator1 = list.spliterator();
+        Spliterator spliterator2 = spliterator1.trySplit();
+        Spliterator spliterator3 = spliterator1.trySplit();
+        Spliterator spliterator4 = spliterator2.trySplit();
+        System.out.println("spliterator1的长度为：" + spliterator1.estimateSize());
+        System.out.println("spliterator2的长度为：" + spliterator2.estimateSize());
+        System.out.println("spliterator3的长度为：" + spliterator3.estimateSize());
+        System.out.println("spliterator4的长度为：" + spliterator4.estimateSize());
+        spliterator1.forEachRemaining(x -> System.out.println("spliterator1对象："+x));
+        spliterator2.forEachRemaining(x -> System.out.println("spliterator2对象："+x));
+        spliterator3.forEachRemaining(x -> System.out.println("spliterator3对象："+x));
+        spliterator4.forEachRemaining(x -> System.out.println("spliterator4对象："+x));
+
+    }
+}
 
 ```
 
+
+输出结果：
+```java
+spliterator1的长度为：2
+spliterator2的长度为：2
+spliterator3的长度为：2
+spliterator4的长度为：2
+spliterator1对象：7
+spliterator1对象：8
+spliterator2对象：3
+spliterator2对象：4
+spliterator3对象：5
+spliterator3对象：6
+spliterator4对象：1
+spliterator4对象：2
+```
+由输出结果可以知道，通过list.spliterator()创建Spliteror对象，再调用trySplit()方法可以将集合数组平均分配。例子中将集合元素平均分配给4个Spliteror对象，调用forEachRemaining()方法可以遍历循环集合元素。
+
+在实际开发中，如果集合元素比较多，可以考虑使用Spliteror对象结合多线程并发遍历元素，可以提高效率！不过值得注意的是，使用多线程不一定会提高执行效率的，如果多线程执行的运算不高，CPU算法调度线程有可能将所有线程都分配在一个内核执行，实际上就是单核执行多线程，加上线程之间的上下文切换等时间，多线程的使用反而是降低系统运行效率的！【[可以参考我的另外一篇文章](https://www.jianshu.com/p/352caffd6366)】
 
 
 #### 17.使用forEach(Consumer<? super E> action)迭代集合
@@ -708,6 +753,8 @@ public class Sample {
         }
     }
 ```
+
+
 
 ##### *forEach(Consumer<? super E> action)的行为取决于accept()的实现
 
@@ -856,8 +903,6 @@ public class Sample {
 新的集合：
 3 
 ```
-
-20. replaceAll()
 
 
 参考资料：
