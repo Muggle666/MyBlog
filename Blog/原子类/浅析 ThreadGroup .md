@@ -1,12 +1,4 @@
-What 
-Why 
-Where
-How
-<a href="#summary">总结</a>
-<a href="#reference">参考资料</a>
-
-
-## <a name="3w1h">What:</a>
+## What:
 
 
 
@@ -37,6 +29,6 @@ Test:测试类
 ```
 
 
-# <a name="summary">总结</a>
+# 总结
 
-<a name="reference">参考资料:</a>
+参考资料:
