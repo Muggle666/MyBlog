@@ -113,6 +113,7 @@ V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionExcepti
         this.state = NEW;
     }
 ```
+第一个构造方法
 
 
 
