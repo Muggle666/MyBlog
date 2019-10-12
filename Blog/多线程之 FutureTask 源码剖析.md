@@ -66,7 +66,7 @@ V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionExcepti
 ```
 通过方法名很明显可以知道各个抽象方法的作用。
 
-实际上，submit() 方法将线程的执行结果封装成 RunnableFuture 接口对象
+实际上，submit() 方法将线程的执行结果封装成 FutureTask 对象
 
 
 # 总结
