@@ -5,7 +5,8 @@
 
 由类图可以知道，FutureTask 类是 Runnable 的实现类，所以可以通过线程池 submit() 或者直接 new Thread() 启动线程。
 
-举个栗子
+举个栗子：
+
 
 # 总结
 
