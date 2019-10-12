@@ -113,7 +113,7 @@ V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionExcepti
         this.state = NEW;
     }
 ```
-第一个构造方法
+第一个构造方法将参数的Callable对象赋值给 FutureTask 对象的
 
 
 
