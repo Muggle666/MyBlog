@@ -112,12 +112,12 @@ V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionExcepti
         this.callable = Executors.callable(runnable, result);
         this.state = NEW;
     }
-    public static <T> Callable<T> callable(Runnable task, T result) {
-        if (task == null)
-            throw new NullPointerException();
-        return new RunnableAdapter<T>(task, result);
-    }
 ```
+Executor
+```java
+
+```
+
 第一个构造方法将参数的Callable对象赋值给 FutureTask 对象的 callable 属性，并设置 state 变量为 NEW；第二个构造方法通过将
 
 
