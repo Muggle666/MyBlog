@@ -56,7 +56,7 @@ MuggleLee
 Future<?> submit(Runnable task);
 ```
 
-可以发现，
+可以发现，返回值类型都是Future接口。
 
 
 
