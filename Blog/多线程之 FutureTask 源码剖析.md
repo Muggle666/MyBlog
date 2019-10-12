@@ -66,7 +66,15 @@ V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionExcepti
 ```
 通过方法名很明显可以知道各个抽象方法的作用。
 
-实际上，submit() 方法将线程的执行结果封装成 FutureTask 对象
+实际上，submit() 方法将线程的执行结果封装成 FutureTask 对象返回的。
+```java
+public Future<?> submit(Runnable task) {
+        if (task == null) throw new NullPointerException();
+        RunnableFuture<Void> ftask = newTaskFor(task, null);
+        execute(ftask);
+        return ftask;
+    }
+```
 
 
 # 总结
