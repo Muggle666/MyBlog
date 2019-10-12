@@ -51,9 +51,9 @@ MuggleLee
 
 线程池的实现类 ThreadPoolExecutor 提供了3个 submit() 方法支持获取线程返回的结果。
 ```java
-<T> Future<T> submit(Callable<T> task);
-<T> Future<T> submit(Runnable task, T result);
 Future<?> submit(Runnable task);
+<T> Future<T> submit(Runnable task, T result);
+<T> Future<T> submit(Callable<T> task);
 ```
 
 可以发现，返回值类型都是 Future 接口。那继续看下 Future 接口有哪些抽象方法。
@@ -74,17 +74,23 @@ V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionExcepti
         execute(ftask);
         return ftask;
     }
+
     public <T> Future<T> submit(Runnable task, T result) {
         if (task == null) throw new NullPointerException();
         RunnableFuture<T> ftask = newTaskFor(task, result);
         execute(ftask);
         return ftask;
     }
+
     public <T> Future<T> submit(Callable<T> task) {
         if (task == null) throw new NullPointerException();
         RunnableFuture<T> ftask = newTaskFor(task);
         execute(ftask);
         return ftask;
+    }
+
+    protected <T> RunnableFuture<T> newTaskFor(Callable<T> callable) {
+        return new FutureTask<T>(callable);
     }
 ```
 
