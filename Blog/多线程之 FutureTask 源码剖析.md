@@ -68,9 +68,21 @@ V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionExcepti
 
 实际上，submit() 方法将线程的执行结果封装成 FutureTask 对象返回的。
 ```java
-public Future<?> submit(Runnable task) {
+    public Future<?> submit(Runnable task) {
         if (task == null) throw new NullPointerException();
         RunnableFuture<Void> ftask = newTaskFor(task, null);
+        execute(ftask);
+        return ftask;
+    }
+    public <T> Future<T> submit(Runnable task, T result) {
+        if (task == null) throw new NullPointerException();
+        RunnableFuture<T> ftask = newTaskFor(task, result);
+        execute(ftask);
+        return ftask;
+    }
+    public <T> Future<T> submit(Callable<T> task) {
+        if (task == null) throw new NullPointerException();
+        RunnableFuture<T> ftask = newTaskFor(task);
         execute(ftask);
         return ftask;
     }
