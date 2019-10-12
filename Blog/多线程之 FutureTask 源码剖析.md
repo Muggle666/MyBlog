@@ -135,7 +135,7 @@ Executor类部分源码：
 ```
 
 FutureTask 类的第一个构造方法将参数Callable对象赋值给 FutureTask 对象的 callable 属性，并设置 state 变量为 NEW；有意思的是第二个构造方法，该方法传 Runnable 对象给
- Executor 类的 callable()，实际
+ Executor 类的 callable()，实际上
 
 
 
