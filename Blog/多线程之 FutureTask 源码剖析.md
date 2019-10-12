@@ -66,7 +66,7 @@ V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionExcepti
 ```
 通过方法名很明显可以知道各个抽象方法的作用。
 
-实际上，返回的 Future 对象是由
+实际上，submit() 方法将
 
 
 # 总结
