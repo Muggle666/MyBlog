@@ -10,8 +10,8 @@
 ```language
 public class FutureTaskDemo {
     public static void main(String[] args) {
+        MyCallableDemo demo = new MyCallableDemo();
 //        // 1.直接通过new Thread()启动线程
-//        MyCallableDemo demo = new MyCallableDemo();
 //        FutureTask task = new FutureTask(demo);
 //        new Thread(task).start();
 //        try {
