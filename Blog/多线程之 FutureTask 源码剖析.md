@@ -8,8 +8,41 @@
 举个栗子：
 
 ```language
+public class FutureTaskDemo {
+    public static void main(String[] args) {
+        // 1.直接通过new Thread()启动线程
+        MyCallableDemo demo = new MyCallableDemo();
+        FutureTask task = new FutureTask(demo);
+        new Thread(task).start();
+        try {
+            System.out.println(task.get());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+//        // 2.通过线程池启动线程
+//        ExecutorService service = Executors.newSingleThreadExecutor();
+//
+//        Future<String> result = service.submit(demo);
+//        try {
+//            System.out.println(result.get());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            service.shutdown();
+//        }
+    }
+}
+
+class MyCallableDemo implements Callable {
+    @Override
+    public String call() throws Exception {
+        return "MuggleLee";
+    }
+}
 ```
+
+
 
 # 总结
 
