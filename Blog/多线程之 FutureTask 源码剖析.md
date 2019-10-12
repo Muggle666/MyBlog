@@ -47,7 +47,7 @@ class MyCallableDemo implements Callable {
 MuggleLee
 ```
 
-通过例子可以看出，使用FutureTask类可以接收线程完成后返回的结果。如果使用场景是需要接收线程的执行结果（无论是成功执行的结果还是异常返回的信息）
+通过例子可以看出，使用FutureTask类可以接收线程完成后返回的结果。如果使用场景是需要接收线程执行的结果（无论是成功执行的结果还是异常返回的信息），实现Callable接口结合FutureTask
 
 
 # 总结
