@@ -120,9 +120,21 @@ Executor类部分源码：
             throw new NullPointerException();
         return new RunnableAdapter<T>(task, result);
     }
+    static final class RunnableAdapter<T> implements Callable<T> {
+        final Runnable task;
+        final T result;
+        RunnableAdapter(Runnable task, T result) {
+            this.task = task;
+            this.result = result;
+        }
+        public T call() {
+            task.run();
+            return result;
+        }
+    }
 ```
 
-第一个构造方法将参数的Callable对象赋值给 FutureTask 对象的 callable 属性，并设置 state 变量为 NEW；第二个构造方法通过将
+FutureTask 类的第一个构造方法将参数Callable对象赋值给 FutureTask 对象的 callable 属性，并设置 state 变量为 NEW；第二个构造方法通过将
 
 
 
