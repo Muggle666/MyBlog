@@ -56,7 +56,7 @@ MuggleLee
 Future<?> submit(Runnable task);
 ```
 
-可以发现，返回值类型都是Future接口。
+可以发现，返回值类型都是 Future 接口。那继续看下 Future 接口
 
 
 
