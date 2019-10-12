@@ -64,7 +64,7 @@ boolean isDone();
 V get() throws InterruptedException, ExecutionException;
 V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException;
 ```
-通过方法名很明显可以知道
+通过方法名很明显可以知道各个抽象方法的作用。
 
 
 
