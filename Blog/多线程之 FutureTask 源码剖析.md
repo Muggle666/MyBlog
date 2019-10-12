@@ -89,6 +89,7 @@ V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionExcepti
         return ftask;
     }
 
+    // 
     protected <T> RunnableFuture<T> newTaskFor(Callable<T> callable) {
         return new FutureTask<T>(callable);
     }
