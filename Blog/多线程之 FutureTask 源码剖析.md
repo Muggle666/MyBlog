@@ -134,7 +134,7 @@ Executor类部分源码：
     }
 ```
 
-FutureTask 类的第一个构造方法将参数 Callable 对象赋值给 FutureTask 对象的 callable 属性，并设置 state 变量为 NEW（稍后再解释 callable 和 state 两个变量的作用）；有意思的是第二个构造方法，将第一个参数 Runnable 对象传给 Executor 类的 callable() 方法，再调用已经实现了 Callable 接口的 RunnableAdapter 适配器类，执行 Runnable 对象的 run() 方法。这是
+FutureTask 类的第一个构造方法将参数 Callable 对象赋值给 FutureTask 对象的 callable 属性，并设置 state 变量为 NEW（稍后再解释 callable 和 state 两个变量的作用）；有意思的是第二个构造方法，将第一个参数 Runnable 对象传给 Executor 类的 callable() 方法，再调用已经实现了 Callable 接口的 RunnableAdapter 适配器类，执行 Runnable 对象的 run() 方法。（）
 
 
 # 总结
