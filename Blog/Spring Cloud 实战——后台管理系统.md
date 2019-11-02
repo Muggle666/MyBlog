@@ -36,13 +36,13 @@ Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Redis5 、Rabbitmq、Docker
 
 项目结构：
 
-├─CommonModel：基础
-├─CommonUnits
-├─ConfigCenter
+├─CommonModel：基础Model
+├─CommonUnits：工具包
+├─ConfigCenter：配置中心
 ├─FileCenter：文件上传中心
 ├─GatewayCenter：网关中心
 ├─LogCenter：日志中心
-├─LogStarter
+├─LogStarter：日志中心配置
 ├─ManageBackend
 ├─MonitorCenter
 ├─NotificationCenter
