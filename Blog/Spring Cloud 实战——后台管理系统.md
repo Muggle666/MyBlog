@@ -43,10 +43,10 @@ Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Redis5 、Rabbitmq、Docker
 ├─GatewayCenter：网关中心
 ├─LogCenter：日志中心
 ├─LogStarter：日志中心配置
-├─ManageBackend
-├─MonitorCenter
-├─NotificationCenter
-├─OauthCenter
-├─RegisterCenter
-└─UserCenter
+├─ManageBackend：门户中心
+├─MonitorCenter：监控中心
+├─NotificationCenter：
+├─OauthCenter：权限中心
+├─RegisterCenter：注册中心
+└─UserCenter：用户中心
 
