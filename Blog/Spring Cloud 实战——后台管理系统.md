@@ -29,4 +29,4 @@
 - 14.头像修改
 
 技术实现：
-使用
+使用  JDK8 、Maven 、Mysql、Redis、Rabbitmq、
