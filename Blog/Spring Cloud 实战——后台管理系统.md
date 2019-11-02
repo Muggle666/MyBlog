@@ -28,5 +28,7 @@
 - 13.修改密码
 - 14.头像修改
 
-技术实现：
-使用 Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Redis5 、Rabbitmq、
+
+开发环境：
+Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Redis5 、Rabbitmq
+
