@@ -1,7 +1,8 @@
 当我看完《深入了解 Spring Cloud 与微服务构建》的时候，我就打算将所学习到的 Spring Cloud 组件使用到项目中做成一个小项目，加深理解。
 
 项目Demo：[http://mugglelee.nat300.top/api-b/login.html](http://mugglelee.nat300.top/api-b/login.html)
-账号：Tourist  密码：123456  
+账号：Tourist  
+密码：123456  
 （此账号设置了权限，不能对显示的信息删除或者修改，如有疑问，可在评论区与我一起探讨...）
 
 ## 项目简介：
