@@ -34,5 +34,552 @@
 系统：Windows10 —— 项目的子项目和运行环境都通过启动 Docker 镜像运行。详情可查看父项目的 docker-compose.yml 配置
 Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Redis5 、Rabbitmq、Docker
 
-
+├─CommonModel
+│  ├─src
+│  │  ├─main
+│  │  │  └─java
+│  │  │      └─com
+│  │  │          └─hao
+│  │  │              └─commonmodel
+│  │  │                  ├─common
+│  │  │                  ├─log
+│  │  │                  │  └─constants
+│  │  │                  ├─Mail
+│  │  │                  │  └─constants
+│  │  │                  ├─oauth
+│  │  │                  └─user
+│  │  │                      └─constants
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─hao
+│  │                  └─commonmodel
+│  └─target
+│      ├─classes
+│      │  └─com
+│      │      └─hao
+│      │          └─commonmodel
+│      │              ├─common
+│      │              ├─log
+│      │              │  └─constants
+│      │              ├─mail
+│      │              │  └─constants
+│      │              ├─oauth
+│      │              └─user
+│      │                  └─constants
+│      ├─generated-sources
+│      │  └─annotations
+│      ├─maven-archiver
+│      └─maven-status
+│          └─maven-compiler-plugin
+│              └─compile
+│                  └─default-compile
+├─CommonUnits
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │  └─com
+│  │  │  │      └─hao
+│  │  │  │          └─commonunits
+│  │  │  │              ├─constant
+│  │  │  │              └─utils
+│  │  │  └─resources
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─hao
+│  │                  └─commonunits
+│  └─target
+│      ├─classes
+│      │  └─com
+│      │      └─hao
+│      │          └─commonunits
+│      │              ├─constant
+│      │              └─utils
+│      ├─generated-sources
+│      │  └─annotations
+│      ├─maven-archiver
+│      └─maven-status
+│          └─maven-compiler-plugin
+│              └─compile
+│                  └─default-compile
+├─ConfigCenter
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │  └─com
+│  │  │  │      └─hao
+│  │  │  │          └─configcenter
+│  │  │  └─resources
+│  │  │      └─configs
+│  │  │          └─dev
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─hao
+│  │                  └─configcenter
+│  └─target
+│      ├─classes
+│      │  ├─com
+│      │  │  └─hao
+│      │  │      └─configcenter
+│      │  └─configs
+│      │      └─dev
+│      ├─docker
+│      ├─generated-sources
+│      │  └─annotations
+│      ├─maven-archiver
+│      ├─maven-status
+│      │  └─maven-compiler-plugin
+│      │      └─compile
+│      │          └─default-compile
+│      └─test-classes
+├─FileCenter
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │  └─com
+│  │  │  │      └─hao
+│  │  │  │          └─filecenter
+│  │  │  │              ├─config
+│  │  │  │              ├─controller
+│  │  │  │              ├─mapper
+│  │  │  │              ├─model
+│  │  │  │              ├─service
+│  │  │  │              └─utils
+│  │  │  └─resources
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─hao
+│  │                  └─filecenter
+│  └─target
+│      ├─classes
+│      │  └─com
+│      │      └─hao
+│      │          └─filecenter
+│      │              ├─config
+│      │              ├─controller
+│      │              ├─mapper
+│      │              ├─model
+│      │              ├─service
+│      │              └─utils
+│      ├─docker
+│      ├─generated-sources
+│      │  └─annotations
+│      ├─maven-archiver
+│      ├─maven-status
+│      │  └─maven-compiler-plugin
+│      │      └─compile
+│      │          └─default-compile
+│      └─test-classes
+├─GatewayCenter
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │  └─com
+│  │  │  │      └─hao
+│  │  │  │          └─gatewaycenter
+│  │  │  │              ├─config
+│  │  │  │              ├─controller
+│  │  │  │              ├─feign
+│  │  │  │              └─filter
+│  │  │  └─resources
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─hao
+│  │                  └─gateway
+│  └─target
+│      ├─classes
+│      │  └─com
+│      │      └─hao
+│      │          └─gatewaycenter
+│      │              ├─config
+│      │              ├─controller
+│      │              ├─feign
+│      │              └─filter
+│      ├─docker
+│      ├─generated-sources
+│      │  └─annotations
+│      ├─maven-archiver
+│      ├─maven-status
+│      │  └─maven-compiler-plugin
+│      │      └─compile
+│      │          └─default-compile
+│      └─test-classes
+├─LogCenter
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │  └─com
+│  │  │  │      └─hao
+│  │  │  │          └─logcenter
+│  │  │  │              ├─config
+│  │  │  │              ├─consumer
+│  │  │  │              ├─controller
+│  │  │  │              ├─mapper
+│  │  │  │              └─service
+│  │  │  └─resources
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─hao
+│  │                  └─logcenter
+│  └─target
+│      ├─classes
+│      │  └─com
+│      │      └─hao
+│      │          └─logcenter
+│      │              ├─config
+│      │              ├─consumer
+│      │              ├─controller
+│      │              ├─mapper
+│      │              └─service
+│      ├─docker
+│      ├─generated-sources
+│      │  └─annotations
+│      ├─maven-archiver
+│      ├─maven-status
+│      │  └─maven-compiler-plugin
+│      │      └─compile
+│      │          └─default-compile
+│      └─test-classes
+├─LogStarter
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │  └─com
+│  │  │  │      └─hao
+│  │  │  │          └─logstarter
+│  │  │  │              └─autoconfigure
+│  │  │  └─resources
+│  │  │      └─META-INF
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─hao
+│  │                  └─logstarter
+│  └─target
+│      ├─classes
+│      │  ├─com
+│      │  │  └─hao
+│      │  │      └─logstarter
+│      │  │          └─autoconfigure
+│      │  └─META-INF
+│      ├─generated-sources
+│      │  └─annotations
+│      ├─maven-archiver
+│      └─maven-status
+│          └─maven-compiler-plugin
+│              └─compile
+│                  └─default-compile
+├─ManageBackend
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │  └─com
+│  │  │  │      └─hao
+│  │  │  │          └─managebackend
+│  │  │  │              ├─config
+│  │  │  │              ├─consumer
+│  │  │  │              ├─controller
+│  │  │  │              ├─mapper
+│  │  │  │              ├─model
+│  │  │  │              └─service
+│  │  │  └─resources
+│  │  │      └─static
+│  │  │          ├─css
+│  │  │          │  ├─font-awesome
+│  │  │          │  │  ├─css
+│  │  │          │  │  └─fonts
+│  │  │          │  ├─treetable
+│  │  │          │  └─ztree
+│  │  │          │      └─zTreeStyle
+│  │  │          │          └─img
+│  │  │          │              └─diy
+│  │  │          ├─fonts
+│  │  │          ├─img
+│  │  │          │  ├─avatars
+│  │  │          │  ├─login
+│  │  │          │  └─logo
+│  │  │          ├─js
+│  │  │          │  ├─bootstrap
+│  │  │          │  ├─libs
+│  │  │          │  ├─my
+│  │  │          │  └─plugin
+│  │  │          │      ├─bootstraptree
+│  │  │          │      ├─bootstrapvalidator
+│  │  │          │      ├─datatable-responsive
+│  │  │          │      ├─datatables
+│  │  │          │      │  └─swf
+│  │  │          │      ├─jquery-nestable
+│  │  │          │      └─jquery-validate
+│  │  │          ├─layui
+│  │  │          │  ├─css
+│  │  │          │  │  └─modules
+│  │  │          │  │      ├─laydate
+│  │  │          │  │      │  └─default
+│  │  │          │  │      └─layer
+│  │  │          │  │          └─default
+│  │  │          │  ├─font
+│  │  │          │  ├─images
+│  │  │          │  │  └─face
+│  │  │          │  └─lay
+│  │  │          │      └─modules
+│  │  │          └─pages
+│  │  │              ├─blackIP
+│  │  │              ├─client
+│  │  │              ├─file
+│  │  │              ├─log
+│  │  │              ├─mail
+│  │  │              ├─menu
+│  │  │              ├─permission
+│  │  │              ├─role
+│  │  │              ├─sms
+│  │  │              ├─swagger
+│  │  │              ├─user
+│  │  │              └─wechat
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─hao
+│  │                  └─managebackend
+│  └─target
+│      ├─classes
+│      │  ├─com
+│      │  │  └─hao
+│      │  │      └─managebackend
+│      │  │          ├─config
+│      │  │          ├─consumer
+│      │  │          ├─controller
+│      │  │          ├─mapper
+│      │  │          ├─model
+│      │  │          └─service
+│      │  └─static
+│      │      ├─css
+│      │      │  ├─font-awesome
+│      │      │  │  ├─css
+│      │      │  │  └─fonts
+│      │      │  ├─treetable
+│      │      │  └─ztree
+│      │      │      └─zTreeStyle
+│      │      │          └─img
+│      │      │              └─diy
+│      │      ├─fonts
+│      │      ├─img
+│      │      │  ├─avatars
+│      │      │  ├─login
+│      │      │  └─logo
+│      │      ├─js
+│      │      │  ├─bootstrap
+│      │      │  ├─libs
+│      │      │  ├─my
+│      │      │  └─plugin
+│      │      │      ├─bootstraptree
+│      │      │      ├─bootstrapvalidator
+│      │      │      ├─datatable-responsive
+│      │      │      ├─datatables
+│      │      │      │  └─swf
+│      │      │      ├─jquery-nestable
+│      │      │      └─jquery-validate
+│      │      ├─layui
+│      │      │  ├─css
+│      │      │  │  └─modules
+│      │      │  │      ├─laydate
+│      │      │  │      │  └─default
+│      │      │  │      └─layer
+│      │      │  │          └─default
+│      │      │  ├─font
+│      │      │  ├─images
+│      │      │  │  └─face
+│      │      │  └─lay
+│      │      │      └─modules
+│      │      └─pages
+│      │          ├─blackIP
+│      │          ├─client
+│      │          ├─file
+│      │          ├─log
+│      │          ├─mail
+│      │          ├─menu
+│      │          ├─permission
+│      │          ├─role
+│      │          ├─sms
+│      │          ├─swagger
+│      │          ├─user
+│      │          └─wechat
+│      ├─docker
+│      ├─generated-sources
+│      │  └─annotations
+│      ├─maven-archiver
+│      ├─maven-status
+│      │  └─maven-compiler-plugin
+│      │      └─compile
+│      │          └─default-compile
+│      └─test-classes
+├─MonitorCenter
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │  └─com
+│  │  │  │      └─hao
+│  │  │  │          └─monitorcenter
+│  │  │  └─resources
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─hao
+│  │                  └─monitorcenter
+│  └─target
+│      ├─classes
+│      │  └─com
+│      │      └─hao
+│      │          └─monitorcenter
+│      ├─docker
+│      ├─generated-sources
+│      │  └─annotations
+│      ├─maven-archiver
+│      ├─maven-status
+│      │  └─maven-compiler-plugin
+│      │      └─compile
+│      │          └─default-compile
+│      └─test-classes
+├─NotificationCenter
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │  └─com
+│  │  │  │      └─hao
+│  │  │  │          └─notificationcenter
+│  │  │  │              ├─config
+│  │  │  │              ├─controller
+│  │  │  │              ├─mapper
+│  │  │  │              ├─model
+│  │  │  │              ├─service
+│  │  │  │              └─utils
+│  │  │  └─resources
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─hao
+│  │                  └─notificationcenter
+│  └─target
+│      ├─classes
+│      │  └─com
+│      │      └─hao
+│      │          └─notificationcenter
+│      │              ├─config
+│      │              ├─controller
+│      │              ├─mapper
+│      │              ├─model
+│      │              ├─service
+│      │              └─utils
+│      ├─docker
+│      ├─generated-sources
+│      │  └─annotations
+│      ├─maven-archiver
+│      ├─maven-status
+│      │  └─maven-compiler-plugin
+│      │      └─compile
+│      │          └─default-compile
+│      └─test-classes
+├─OauthCenter
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │  └─com
+│  │  │  │      └─hao
+│  │  │  │          └─oauthcenter
+│  │  │  │              ├─config
+│  │  │  │              ├─controller
+│  │  │  │              ├─feigin
+│  │  │  │              └─service
+│  │  │  └─resources
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─hao
+│  │                  └─oauthcenter
+│  └─target
+│      ├─classes
+│      │  └─com
+│      │      └─hao
+│      │          └─oauthcenter
+│      │              ├─config
+│      │              ├─controller
+│      │              ├─feigin
+│      │              └─service
+│      ├─docker
+│      ├─generated-sources
+│      │  └─annotations
+│      ├─maven-archiver
+│      ├─maven-status
+│      │  └─maven-compiler-plugin
+│      │      └─compile
+│      │          └─default-compile
+│      └─test-classes
+├─RegisterCenter
+│  ├─src
+│  │  ├─main
+│  │  │  ├─java
+│  │  │  │  └─com
+│  │  │  │      └─hao
+│  │  │  │          └─registercenter
+│  │  │  └─resources
+│  │  └─test
+│  │      └─java
+│  │          └─com
+│  │              └─hao
+│  │                  └─registercenter
+│  └─target
+│      ├─classes
+│      │  └─com
+│      │      └─hao
+│      │          └─registercenter
+│      ├─docker
+│      ├─generated-sources
+│      │  └─annotations
+│      ├─maven-archiver
+│      ├─maven-status
+│      │  └─maven-compiler-plugin
+│      │      └─compile
+│      │          └─default-compile
+│      └─test-classes
+└─UserCenter
+    ├─src
+    │  ├─main
+    │  │  ├─java
+    │  │  │  └─com
+    │  │  │      └─hao
+    │  │  │          └─usercenter
+    │  │  │              ├─config
+    │  │  │              ├─controller
+    │  │  │              ├─feign
+    │  │  │              ├─mapper
+    │  │  │              └─service
+    │  │  └─resources
+    │  └─test
+    │      └─java
+    │          └─com
+    │              └─hao
+    │                  └─usercenter
+    └─target
+        ├─classes
+        │  └─com
+        │      └─hao
+        │          └─usercenter
+        │              ├─config
+        │              ├─controller
+        │              ├─feign
+        │              ├─mapper
+        │              └─service
+        ├─docker
+        ├─generated-sources
+        │  └─annotations
+        ├─maven-archiver
+        ├─maven-status
+        │  └─maven-compiler-plugin
+        │      └─compile
+        │          └─default-compile
+        └─test-classes
 
