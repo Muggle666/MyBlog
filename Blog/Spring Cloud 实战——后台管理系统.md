@@ -3,7 +3,8 @@
 项目Demo：[http://mugglelee.nat300.top/api-b/login.html](http://mugglelee.nat300.top/api-b/login.html)
 账号：Tourist  
 密码：123456  
-（此账号设置了权限，不能对显示的信息删除或者修改，如有疑问，可在评论区与我一起探讨...）
+注意：此账号设置了权限，不能对显示的信息删除或者修改，如有疑问，可在评论区与我一起探讨...
+
 
 ## 项目简介：
 
