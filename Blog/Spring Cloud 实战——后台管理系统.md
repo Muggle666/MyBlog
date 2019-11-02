@@ -30,5 +30,6 @@
 
 
 开发环境：
-Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Redis5 、Rabbitmq
+Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Redis5 、Rabbitmq、Docker
+
 
