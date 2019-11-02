@@ -51,4 +51,4 @@ Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Redis5 、Rabbitmq、Docker
 └─UserCenter：用户中心
 └─buildImage：将所有子项目都打包后构建成镜像
 └─docker-compose.yml：构建容器
-└─Starting Se
+└─Starting Sequence.md：查看子项目的启动顺序
