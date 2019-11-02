@@ -29,4 +29,4 @@
 - 14.头像修改
 
 技术实现：
-使用 Spring Cloud (Finchley)、JDK8、Maven、Mysql、Redis、Rabbitmq、
+使用 Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Redis5 、Rabbitmq、
