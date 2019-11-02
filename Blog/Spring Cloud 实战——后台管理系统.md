@@ -30,6 +30,6 @@
 
 
 开发环境：
+系统：Windows10 项目的子项目和
 Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Redis5 、Rabbitmq、Docker
-
 
