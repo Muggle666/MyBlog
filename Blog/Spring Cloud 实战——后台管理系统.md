@@ -32,7 +32,7 @@
 
 ### 开发环境：
 系统：Windows10 —— 项目的子项目和运行环境都通过启动 Docker 镜像运行。详情可查看父项目的 docker-compose.yml 配置
-Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Redis5 、Rabbitmq、Docker
+Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Mybatis-Plus、Redis5 、Rabbitmq、Docker
 
 ### 项目结构：
 
@@ -48,7 +48,7 @@ Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Redis5 、Rabbitmq、Docker
 ├─NotificationCenter：通知中心
 ├─OauthCenter：权限中心
 ├─RegisterCenter：注册中心
-└─UserCenter：用户中心
-└─buildImage：将所有子项目都打包后构建成镜像
-└─docker-compose.yml：构建容器
-└─Starting Sequence.md：查看子项目的启动顺序
+├─UserCenter：用户中心
+├─buildImage：将所有子项目都打包后构建成镜像
+├─docker-compose.yml：构建容器
+├─Starting Sequence.md：查看子项目的启动顺序
