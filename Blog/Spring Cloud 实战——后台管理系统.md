@@ -34,8 +34,7 @@
 系统：Windows10 —— 项目的子项目和运行环境都通过启动 Docker 镜像运行。详情可查看父项目的 docker-compose.yml 配置
 
 ### 技术实现：
-使用 Spring Cloud (Finchley) 搭建
-Spring Cloud (Finchley)、JDK8、Maven、Mysql 5.6、Mybatis-Plus、Redis5 、Rabbitmq、Docker
+Spring Cloud (Finchley)、Spring SecurityJDK8、Maven、Mysql 5.6、Mybatis-Plus、Redis5 、Rabbitmq、Docker
 
 ### 项目结构：
 
