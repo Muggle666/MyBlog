@@ -62,7 +62,7 @@ Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-P
 
 ##### 注册中心：Eureka 
 常用的注册中心有：Eureka，Zookeeper，Consul。那为什么选择使用 Eureka ？（没有实际项目支持说法，如有理解错误望帮助我改正）
-我觉得有以下几点：1.Eureka是Spring Cloud首选推荐的服务注册和发现组件，可以和其它组件无缝对接；2.分布式系统CAP理论指出
+我觉得有以下几点：1.Eureka是Spring Cloud首选推荐的服务注册和发现组件，可以和其它组件无缝对接；2.分布式系统CAP理论指出三种特性只能选其二，而P（分区容错性）是分布式系统必须保证，因此注册
 ##### 网关中心：
 ##### 配置中心：
 ##### 断路器：
