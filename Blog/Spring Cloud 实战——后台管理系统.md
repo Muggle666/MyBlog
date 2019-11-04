@@ -57,4 +57,4 @@ Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-P
 
 ### 技术选型：
 
-Spring Boot 结合 Spring Cloud 各个组件能够快速的搭建微服务项目。使用 Spring Boot 2.0（Finchley版本）
+Spring Boot 结合 Spring Cloud 各个组件能够快速的搭建微服务项目。使用 Spring Boot 2.0（Finchley版本），项目运用到 Eureka 作为注册中心，Config 作为配置中心，Gateway 作为网关仲喺
