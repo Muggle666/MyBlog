@@ -55,7 +55,7 @@
 ### 技术实现：
 Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-Plus、Redis5、Rabbitmq、Docker
 
-### 技术选型：
+## **技术选型：**
 
 搭建框架：Spring Boot + Spring Cloud 2.0（Finchley版本）
 好处：由于Spring Boot 默认大于配置的原则，可以快速搭建 Spring Cloud 微服务。
@@ -70,7 +70,8 @@ Zookeeper属于CP，所以对于Zookeeper来说，一致性高于可用性，优
 Eureka属于AP，使用Eureka则不会因为几个节点挂掉而影响其他节点，但缺点也很明显，Eureka不保证强一致性，所以可能其他节点查询的信息并不是最新的。
 ```
 
-当前项目我并没有部署集群，也不必要为了能够与其他Spring Cloud组件无缝对接，我选择使用Eureka。
+当前项目我并没有部署集群，也不必要保证当前的节点信息是最新的，另外为了能够与其他Spring Cloud组件无缝对接，我选择使用Eureka。
+
 ##### 网关中心：
 ##### 配置中心：
 ##### 断路器：
