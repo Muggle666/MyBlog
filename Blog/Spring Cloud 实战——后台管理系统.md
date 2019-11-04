@@ -57,4 +57,4 @@ Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-P
 
 ### 技术选型：
 
-Spring Boot 其“默认大于配置”的原则结合 Spring Cloud 各个组件能够快速的搭建微服务项目
+Spring Boot 结合 Spring Cloud 各个组件能够快速的搭建微服务项目
