@@ -56,3 +56,5 @@
 Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-Plus、Redis5、Rabbitmq、Docker
 
 ### 技术选型：
+
+使用Spring Boot 结合 
