@@ -60,14 +60,14 @@ Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-P
 搭建框架：Spring Boot + Spring Cloud 2.0（Finchley版本）
 好处：由于Spring Boot 默认大于配置的原则，可以快速搭建 Spring Cloud 微服务。
 
-注册中心：Eureka 
-常用的注册中心有：Eureka，Zookeeper，Consul。
-网关中心：
-配置中心：
-断路器：
-消息队列：
-数据库：
-持久层框架：
+##### 注册中心：Eureka 
+常用的注册中心有：Eureka，Zookeeper，Consul。由于没有实战过，也不太清楚
+##### 网关中心：
+##### 配置中心：
+##### 断路器：
+##### 消息队列：
+##### 数据库：
+##### 持久层框架：
 
 
 
