@@ -66,6 +66,7 @@ Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-P
 断路器：
 消息队列：
 数据库：
+持久层框架：
 
 
 
