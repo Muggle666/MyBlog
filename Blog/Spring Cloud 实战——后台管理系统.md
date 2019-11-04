@@ -61,7 +61,7 @@ Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-P
 好处：由于Spring Boot 默认大于配置的原则，可以快速搭建 Spring Cloud 微服务。
 
 注册中心：Eureka 
-常用的注册中心有：Eureka，Zookeeper，
+常用的注册中心有：Eureka，Zookeeper，Consul。
 网关中心：
 配置中心：
 断路器：
