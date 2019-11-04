@@ -64,7 +64,7 @@ Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-P
 常用的注册中心有：Eureka，Zookeeper，Consul。那为什么选择使用 Eureka ？（没有实际项目支持说法，如有理解错误望帮助我改正）
 我觉得有以下几点：
 1.Eureka是Spring Cloud首选推荐的服务注册和发现组件，可以和其它组件无缝对接；
-2.分布式系统CAP（Consistency，Availability，Partition tolerance）理论指出三种特性只能选其二，而P（分区容错性）是分布式系统必须保证，因此注册中心就分为AP和CP。Zookeeper属于CP，所以对于Zookeeper来说，一致性高于可用性，当master节点故障会导致重新选举，而选举过程太长可能会导致整个zk集群不可用，导致瘫痪；使用Eureka则不会因为几个节点挂掉而影响其他节点
+2.分布式系统CAP（Consistency，Availability，Partition tolerance）理论指出三种特性只能选其二，而P（分区容错性）是分布式系统必须保证，因此注册中心就分为AP和CP。Zookeeper属于CP，所以对于Zookeeper来说，一致性高于可用性，当master节点故障会导致重新选举，而选举过程太长可能会导致整个zk集群不可用，导致瘫痪；使用Eureka则不会因为几个节点挂掉而影响其他节点，但缺点也很明显，Eureka不保证强一致性，所以可能其他节点查询的信息
 ##### 网关中心：
 ##### 配置中心：
 ##### 断路器：
