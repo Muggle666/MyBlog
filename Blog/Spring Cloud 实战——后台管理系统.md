@@ -65,11 +65,11 @@ Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-P
 我觉得有以下两点：
 ```
 1.Eureka是Spring Cloud首选推荐的服务注册和发现组件，可以和其它组件无缝对接；
-2.分布式系统CAP（Consistency，Availability，Partition tolerance）理论指出三种特性只能选其二，因为不能既满足一致性，又满足可用性。
+2.分布式系统CAP（Consistency，Availability，Partition tolerance）理论指出三种特性只能选其二。
 Zookeeper属于CP，所以对于Zookeeper来说，一致性高于可用性，优点是可以保证当前的节点信息是最新的，但当master节点故障会导致重新选举，而选举过程太长可能会导致整个zk集群不可用，导致瘫痪；
 Eureka属于AP，使用Eureka则不会因为几个节点挂掉而影响其他节点，但缺点也很明显，Eureka不保证强一致性，所以可能其他节点查询的信息并不是最新的。
 ```
-ps.常见的服务注册组件还有Consul，其属于
+ps.常见的服务注册组件还有Consul，其属于CA，但对于
 当前项目我并没有部署集群，也不必要保证当前的节点信息是最新的，另外为了能够与其他Spring Cloud组件无缝对接，我选择使用Eureka。
 
 ##### 配置中心：Config
