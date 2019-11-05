@@ -33,24 +33,28 @@
 ### 开发环境：
 系统：Windows10 —— 项目的子项目和运行环境都通过启动 Docker 镜像运行。详情可查看父项目的 docker-compose.yml 配置
 
+### 技术实现：
+Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-Plus、Redis5、Rabbitmq、Docker
+
 ### 项目结构：
 
-├─CommonModel：基础Model
-├─CommonUnits：工具包
-├─ConfigCenter：配置中心
-├─FileCenter：文件上传中心
-├─GatewayCenter：网关中心
-├─LogCenter：日志中心
-├─LogStarter：日志配置
-├─ManageBackend：门户中心
-├─MonitorCenter：监控中心
-├─NotificationCenter：通知中心
-├─OauthCenter：权限中心
-├─RegisterCenter：注册中心
-├─UserCenter：用户中心
-├─buildImage：将所有子项目都打包后构建成镜像
-├─docker-compose.yml：构建容器
-├─Starting Sequence.md：查看子项目的启动顺序
+├─CommonModel：基础Model<br>
+├─CommonUnits：工具包<br>
+├─ConfigCenter：配置中心<br>
+├─FileCenter：文件上传中心<br>
+├─GatewayCenter：网关中心<br>
+├─LogCenter：日志中心<br>
+├─LogStarter：日志配置<br>
+├─ManageBackend：门户中心<br>
+├─MonitorCenter：监控中心<br>
+├─NotificationCenter：通知中心<br>
+├─OauthCenter：权限中心<br>
+├─RegisterCenter：注册中心<br>
+├─UserCenter：用户中心<br>
+├─buildImage：将所有子项目都打包后构建成镜像<br>
+├─docker-compose.yml：构建容器<br>
+├─Starting Sequence.md：查看子项目的启动顺序<br>
+
 
 ### 技术实现：
 Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-Plus、Redis5、Rabbitmq、Docker
@@ -60,7 +64,7 @@ Spring Cloud (Finchley)、Spring Security、JDK8、Maven、Mysql 5.6、Mybatis-P
 搭建框架：Spring Boot + Spring Cloud 2.0（Finchley版本）
 好处：由于Spring Boot 默认大于配置的原则，可以快速搭建 Spring Cloud 微服务。
 
-##### 注册中心：Eureka 
+#### 注册中心：Eureka 
 常用的注册中心有：Eureka，Zookeeper。那为什么选择使用 Eureka ？（没有实际项目支持说法，如有理解错误望帮助我改正...）
 我觉得有以下两点：
 ```
@@ -72,14 +76,13 @@ Eureka属于AP，使用Eureka则不会因为几个节点挂掉而影响其他节
 ###### ps.常见的服务注册组件还有Consul，其属于CA，但对此组件了解不多，因此也不作过多解释...
 当前项目我并没有部署集群，也不必要保证当前的节点信息是最新的，另外为了能够与其他Spring Cloud组件无缝对接，我选择使用Eureka。
 
-##### 配置中心：Config
-##### 网关中心：
+#### 配置中心：Config
+#### 网关中心：Gateway
 
-##### 断路器：
-##### 消息队列：
-##### 数据库：
-##### 持久层框架：
-
-
-
-Spring Boot 结合 Spring Cloud 各个组件能够快速的搭建微服务项目。使用 Spring Boot 2.0（Finchley版本），项目运用到 Eureka 作为注册中心，Config 作为配置中心，Gateway 作为网关中心，
+#### 断路器：
+#### 消息队列：Rabbitmq
+#### 数据库：Mysql5.6
+#### 持久层框架：Mybatis-Plus
+项目一开始是使用Mybatis作为持久层框架，项目完成之后看到一些文章介绍Mybatis的升级版——Mybatis-Plus。
+打开[Mybatis-Plus的官网](Mybatis-Plus的官网)
+，最吸引眼球的就是其slogan——“为简化开发而生”。原先的Mybatis框架虽然能够很灵活的操作SQL语句，但弊端是要创建大量的XML文件，后期也不容易维护。而Mybatis-Plus不再需要创建XML文件，只需要定义一些接口，直接调用CRUD的方法，也很方便的使用注释自定义SQL语句，热加载、代码生成、分页、性能分析等功能一应俱全。不仅如此，Mybatis-Plus还有函数式编程的特性，可以发现项目中大量的使用Steam流，拼装对象属性和CRUD不再是几十行冗长的代码，而是简简单单的几行甚至一行代码就能搞掂，大大提高了开发效率！更多Mybatis-Plus使用参考官方。（力推学习！）
