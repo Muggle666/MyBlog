@@ -84,7 +84,7 @@ Eureka属于AP，使用Eureka则不会因为几个节点挂掉而影响其他节
 
 ||RabbitMQ|RocketMQ|Kafka|ActiveMQ|
 |-|-|-|-|-|
-|content1|content2|content3|column3|
+|社区活跃度|content2|content3|Apache下的一个开源项目，已经存在很久了，是非常老牌和成熟的项目，现在社区已经不怎么活跃了。|
 |content1|content2|content3|column3|
 |content1|content2|content3|column3|
 |content1|content2|content3|column3|
