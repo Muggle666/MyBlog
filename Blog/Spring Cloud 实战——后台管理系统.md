@@ -81,6 +81,12 @@ Eureka属于AP，使用Eureka则不会因为几个节点挂掉而影响其他节
 
 #### 断路器：
 #### 消息队列：Rabbitmq
+
+|column1|RabbitMQ|RocketMQ|Kafka|
+|-|-|-|
+|content1|content2|content3|column3|
+
+
 #### 数据库：Mysql5.6
 #### 持久层框架：Mybatis-Plus
 项目一开始是使用Mybatis作为持久层框架，项目完成之后看到一些文章介绍Mybatis的升级版——**Mybatis-Plus**。
