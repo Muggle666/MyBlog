@@ -87,7 +87,7 @@ Eureka属于AP，使用Eureka则不会因为几个节点挂掉而影响其他节
 |社区活跃度|content2|content3|column3|Apache 的一个开源项目，已经存在很久了，是非常老牌和成熟的项目，但现在社区活跃度很低。|
 |使用复杂度|轻量级的消息队列，非常容易部署和使用|content3|column3|
 |content1|content2|content3|column3|
-|优点|轻量级的消息队列，非常容易部署和使用|阿里开源的消息中间件，社区活跃度较高，经历过|column3|
+|优点|轻量级的消息队列，非常容易部署和使用|阿里开源的消息中间件，有活跃的|column3|
 |缺点|content2|content3|column3|
 
 
