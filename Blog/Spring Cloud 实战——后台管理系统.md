@@ -82,8 +82,12 @@ Eureka属于AP，使用Eureka则不会因为几个节点挂掉而影响其他节
 #### 断路器：
 #### 消息队列：Rabbitmq
 
-|column1|RabbitMQ|RocketMQ|Kafka|ActiveMQ|
-|-|-|-|
+||RabbitMQ|RocketMQ|Kafka|ActiveMQ|
+|-|-|-|-|-|
+|content1|content2|content3|column3|
+|content1|content2|content3|column3|
+|content1|content2|content3|column3|
+|content1|content2|content3|column3|
 |content1|content2|content3|column3|
 
 
