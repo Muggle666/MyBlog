@@ -32,7 +32,7 @@ docker run -p 8082:8082 --name slave2 -d -v /root/redis/slave2/data:/data -v /ro
 >-p:Redis服务端口映射到外网可访问的端口（譬如slave1服务设置的端口是8081，所以设置对外服务的端口命令为 对外的端口:8081）
 -d:后台运行
 -v:挂载宿主机的目录
---port:Redis的启动命令，设置启动的端口
+--port:Redis的启动命令，设置Redis服务的端口
 --appendonly yes:开启Redis持久化方式为AOF
 
 我在学习Sentinel集群时候的一个误区，我看到很多博客，文章提到启动Redis设置的对外端口命令为 **对外端口:6379**，这是在没有使用Redis的--port命令的情况下，默认使用Redis服务的6379端口。一旦手动设置Redis服务端口，在docker容器设置端口映射的时候要注意设置为你改后的端口！
