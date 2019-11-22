@@ -17,7 +17,7 @@ Redis为什么如此高可用呢？这一篇文章就来介绍基于Docker容器
 ### 使用Docker搭建Redis集群
 
 
-##### 1.首先使用docker下载最新版本的redis
+##### 1.首先使用docker下载最新版本的Redis
 >docker pull redis
 
 
@@ -29,13 +29,13 @@ docker run -p 8082:8082 --name slave2 -d -v /root/redis/slave2/data:/data -v /ro
 图片...
 
 简单解释docker命令吧。
->-p: Redis 服务端口映射到外网可访问的端口（譬如 slave1 服务设置的端口是8081，所以设置对外服务的端口命令为 对外的端口:8081）
--d:后台运行
--v:挂载宿主机的目录
---port: Redis 的启动命令，设置 Redis 服务的端口
---appendonly yes:开启Redis持久化方式为AOF
+>-p：Redis 服务端口映射到外网可访问的端口（譬如 slave1 服务设置的端口是8081，所以设置对外服务的端口命令为 对外的端口:8081）
+-d：后台运行
+-v：挂载宿主机的目录
+--port：Redis 的启动命令，设置 Redis 服务的端口
+--appendonly yes：开启 Redis 持久化方式为 AOF
 
-我在学习Sentinel集群时候的一个误区，我看到很多博客，文章提到启动Redis设置的对外端口命令为 **对外端口:6379**，这是在没有使用Redis的--port命令的情况下，默认使用Redis服务的6379端口。一旦手动设置Redis服务端口，在docker容器设置端口映射的时候要注意设置为你改后的端口！
+我在学习Sentinel集群时候的一个误区，我看到很多博客，文章提到启动Redis设置的对外端口命令为 **对外端口:6379**，这是在没有使用Redis的--port命令的情况下，默认使用Redis服务的6379端口。一旦手动设置 Redis 服务端口，在 Docker 容器设置端口映射的时候要注意设置为你改后的端口！
 
 3.下载redis.conf文件，用来配置Sentinel服务
 >mkdir /redis
@@ -48,13 +48,13 @@ sentinel down-after-milliseconds 主机别名 30000
 sentinel parallel-syncs 主机别名 1
 sentinel failover-timeout 主机别名 180000
 
-**sentinel monitor**：指当前监控主节点，最后的“2”代表当主机宕机后至少需要两个Sentinel节点投票同意
-**sentinel down-after-milliseconds**：如果当前主节点超过设定的时间没有回复，则判断主节点不可用
-**sentinel parallel-syncs**：限制从节点向新的主节点发起复制的个数。若发起复制的从节点过多，那么可能会造成主节点阻塞。若发起复制的从节点过少，可能会造成数据在复制期间不一致的情况。
+**sentinel monitor**：指当前监控主节点，最后的“2”代表当主服务器宕机后至少需要两个从服务器投票同意
+**sentinel down-after-milliseconds**：如果当前主服务器超过设定的时间没有回复，则判断主服务器不可用
+**sentinel parallel-syncs**：限制从服务器向新的主服务器发起复制的个数。若发起复制的从服务器过多，那么可能会造成主服务器阻塞。若发起复制的从服务器过少，可能会造成数据在复制期间不一致的情况。
 **sentinel failover-timeout**：故障转移的时间
 
 **除了上面的配置之外，redis.conf还有几项配置需要更改！**
-###### ps.一定要知道为什么要更改这些配置，否则参照别人的配置胡乱更改，启动有可能出现各种情况
+###### ps.一定要知道为什么要更改这些配置，否则参照别人的配置胡乱更改，启动后有可能出现各种情况！
 
 4.1.注释bind配置
 打开redis.conf文件，查找到一项配置为 ***bind 127.0.0.1*** ，这个配置说明只可以在本机访问Redis服务；注释后可以接收任意ip的连接，这样的话，可以接收到监控的节点回复。
@@ -71,11 +71,10 @@ sentinel failover-timeout 主机别名 180000
 5.使用 -v 命令将Sentinel容器配置文件挂载到自定义的redis.conf文件，启动Sentinel服务后就可以监控Redis的服务啦！
 >docker run --name sentinel -p 9001:6379 -v /redis.conf:/etc/redis/redis.conf -v /root/redis/sentinel/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes --sentinel
 
-查看sentinel容器日志，如果日志可以知道sentinel启动后监控了主从服务器。
+查看sentinel容器日志，通过日志可以知道sentinel启动后监控了主从服务器。
 图片...
 
-
-
+模拟
 
 参考资料
 [https://www.cnblogs.com/kevingrace/p/9004460.html](https://www.cnblogs.com/kevingrace/p/9004460.html)
