@@ -48,7 +48,7 @@ sentinel down-after-milliseconds 主机别名 30000
 sentinel parallel-syncs 主机别名 1
 sentinel failover-timeout 主机别名 180000
 
-**sentinel monitor**：指当前监控主节点，最后的“2”代表当主服务器宕机后至少需要两个从服务器投票同意
+**sentinel monitor**：指当前监控主节点，最后的“2”代表当主服务器宕机后至少需要两个sentinel服务投票同意
 **sentinel down-after-milliseconds**：如果当前主服务器超过设定的时间没有回复，则判断主服务器不可用
 **sentinel parallel-syncs**：限制从服务器向新的主服务器发起复制的个数。若发起复制的从服务器过多，那么可能会造成主服务器阻塞。若发起复制的从服务器过少，可能会造成数据在复制期间不一致的情况。
 **sentinel failover-timeout**：故障转移的时间
