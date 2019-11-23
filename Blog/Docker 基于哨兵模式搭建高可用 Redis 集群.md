@@ -79,10 +79,10 @@ sentinel failover-timeout 主机别名 180000
 图片...
 
 进入sentinel容器执行sentinel masters可以看到监控的主服务器信息；执行sentinel slaves  
- your master name 可以看到从服务器的信息。
+master 可以看到从服务器的信息。
 >docker exec -it sentinel redis-cli
 sentinel masters
-sentinel slaves master #譬如我的主服务器的名称是master
+sentinel slaves master
 
 图片...
 
@@ -92,7 +92,13 @@ sentinel slaves master #譬如我的主服务器的名称是master
 
 关闭master容器，模拟主服务器宕机，再次进入sentinel容器执行sentinel masters查看主服务器的信息，经过设定的故障转移时间，你会发现slave1或者slave2成为了主服务器。
 
-再次启动master容器，进入sentinel容器执行sentinel masters查看主服务器的信息可以发现主服务器的信息不变，执行sentinel slaves 
+图片...
+
+再次启动master容器，进入sentinel容器执行sentinel masters查看主服务器的信息可以发现主服务器的信息不变，执行sentinel slaves master 可以发现重新上线的服务器成为了从服务器。
+
+图片...
+
+好了，以上就是
 
 参考资料
 [https://www.cnblogs.com/kevingrace/p/9004460.html](https://www.cnblogs.com/kevingrace/p/9004460.html)
