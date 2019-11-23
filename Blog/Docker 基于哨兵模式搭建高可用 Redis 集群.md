@@ -87,7 +87,9 @@ sentinel slaves master
 
 
 模拟主服务器故障，从服务器成为主服务器的操作。
+>docker stop master
 
+关闭主服务器master容器
 
 参考资料
 [https://www.cnblogs.com/kevingrace/p/9004460.html](https://www.cnblogs.com/kevingrace/p/9004460.html)
