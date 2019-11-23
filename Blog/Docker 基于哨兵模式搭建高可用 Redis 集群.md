@@ -78,7 +78,8 @@ sentinel failover-timeout 主机别名 180000
 再次打开挂载的redis.conf文件，可以发现配置文件的底部记录了主从服务器的信息，也就是说成功的监控各个服务器！
 图片...
 
-进入sentinel容器执行sentinel masters可以看到监控的主服务器信息；执行sentinel slaves master 可以看到从服务器的信息。
+进入sentinel容器执行sentinel masters可以看到监控的主服务器信息；执行sentinel slaves  
+ <your master name> 可以看到从服务器的信息。
 >docker exec -it sentinel redis-cli
 sentinel masters
 sentinel slaves master
