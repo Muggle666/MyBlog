@@ -98,7 +98,7 @@ sentinel slaves master
 
 图片...
 
-好了，以上就是
+好了，以上就是使用 Docker 搭建 Redis 哨兵模式
 
 参考资料
 [https://www.cnblogs.com/kevingrace/p/9004460.html](https://www.cnblogs.com/kevingrace/p/9004460.html)
