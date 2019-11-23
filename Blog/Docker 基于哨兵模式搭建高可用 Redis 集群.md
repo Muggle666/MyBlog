@@ -40,7 +40,7 @@ docker run -p 8082:8082 --name slave2 -d -v /root/redis/slave2/data:/data -v /ro
 3.下载redis.conf文件，用来配置Sentinel服务
 >mkdir /redis
 cd /redis
-wget https://raw.githubusercontent.com/antirez/redis/4.0/redis.conf -O redis.conf
+wget https://raw.githubusercontent.com/antirez/redis/5.0/redis.conf -O redis.conf
 
 4.配置redis.conf文件：执行vim redis.conf后在最下面添加以下配置
 >sentinel monitor 主机别名 主机ip 主机端口 2
@@ -68,13 +68,26 @@ sentinel failover-timeout 主机别名 180000
 默认daemonize为no，将daemonize注释可以让Redis服务后台运行。
 >#daemonize no
 
-5.使用 -v 命令将Sentinel容器配置文件挂载到自定义的redis.conf文件，启动Sentinel服务后就可以监控Redis的服务啦！
->docker run --name sentinel -p 9001:6379 -v /redis.conf:/etc/redis/redis.conf -v /root/redis/sentinel/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes --sentinel
+5.使用 -v 命令将Sentinel容器配置文件挂载到自定义的redis.conf文件，启动Sentinel服务后就可以监控Redis的服务啦！（注意redis.conf的权限，权限不够的话会报Permission denied）
+>docker run --name sentinel -p 9001:6379 -v /redis/redis.conf:/etc/redis/redis.conf -v /root/redis/sentinel/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes --sentinel
 
 查看sentinel容器日志，通过日志可以知道sentinel启动后监控了主从服务器。
+
 图片...
 
-模拟
+再次打开挂载的redis.conf文件，可以发现配置文件的底部记录了主从服务器的信息，也就是说成功的监控各个服务器！
+图片...
+
+进入sentinel容器执行sentinel masters可以看到监控的主服务器信息；执行sentinel slaves master 可以看到从服务器的信息。
+>docker exec -it sentinel redis-cli
+sentinel masters
+sentinel slaves master
+
+图片...
+
+
+模拟主服务器故障，从服务器成为主服务器的操作。
+
 
 参考资料
 [https://www.cnblogs.com/kevingrace/p/9004460.html](https://www.cnblogs.com/kevingrace/p/9004460.html)
