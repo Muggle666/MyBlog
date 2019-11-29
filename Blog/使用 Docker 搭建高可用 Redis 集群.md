@@ -43,3 +43,8 @@ Redis 3.0提供的分布式数据库解决方案——Redis Cluster。不仅可�
 
 如无意外的话，最后显示 [OK] All 16384 slots covered. 则代表集群创建成功！
 
+
+模拟主节点故障
+
+
+
