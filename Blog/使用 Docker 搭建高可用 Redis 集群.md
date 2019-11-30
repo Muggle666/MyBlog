@@ -23,12 +23,9 @@ Redis 3.0提供的分布式数据库解决方案——Redis Cluster。不仅可�
 
 #### 3.获取各个容器的内外ip
 
->for port in 'seq 8081 8089'; do echo -n "\$(docker inspect --format '{{ (index .NetworkSettings.Networks "bridge").IPAddress }}' "redis-\${port}")":${port} ' ' ; done
+>for port in 'seq 8081 8089'; do echo -n "\$(docker inspect --format '{{ (index .NetworkSettings.Networks "bridge").IPAddress }}' "redis-\${port}")":\${port} ' ' ; done
 
 复制打印出来的ip和端口
-
-
-
 
 #### 4.创建集群
 
