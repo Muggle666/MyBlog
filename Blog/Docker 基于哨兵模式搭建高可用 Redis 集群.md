@@ -7,7 +7,7 @@ Redis为什么如此高可用呢？这一篇文章就来介绍基于Docker容器
 
 哨兵机制就是开启一个或多个进程作为哨兵（Sentinel），监控着所有的主从服务器，定时的ping服务器。当主服务器宕机或者网络中断，Sentinel实例无法ping成功，Sentinel实例会**选举**一个从服务器作为主服务器；如果宕机后的服务器重新上线或者原先的主服务器网络恢复，会作为新的主服务器的从服务器。很绕口是吧？看下面的图就清楚了。
 
-图片...
+![Sentinel](https://upload-images.jianshu.io/upload_images/17362740-0e6944f1d66538ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 使用Sentinel的好处有以下几点：
 > 监控（Monitoring）： Sentinel 会不断地检查你的主服务器和从服务器是否运作正常。
@@ -26,7 +26,7 @@ Redis为什么如此高可用呢？这一篇文章就来介绍基于Docker容器
 docker run -p 8081:8081 --name slave1 -d -v /root/redis/slave1/data:/data -v /root/redis/slave1/conf/redis.conf:/etc/redis/redis.conf redis --port 8081 --appendonly yes --slave-read-only yes --slaveof 主服务器ip 8080
 docker run -p 8082:8082 --name slave2 -d -v /root/redis/slave2/data:/data -v /root/redis/slave2/conf/redis.conf:/etc/redis/redis.conf redis --port 8082 --appendonly yes --slave-read-only yes --slaveof 主服务器ip 8080
 
-图片...
+![启动主从服务](https://upload-images.jianshu.io/upload_images/17362740-2b7a5e45ee8f4d71.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 简单解释docker命令吧。
 >-p：Redis 服务端口映射到外网可访问的端口（譬如 slave1 服务设置的端口是8081，所以设置对外服务的端口命令为 对外的端口:8081）
@@ -58,7 +58,7 @@ sentinel failover-timeout 主机别名 180000
 
 4.1.注释bind配置
 打开redis.conf文件，查找到一项配置为 ***bind 127.0.0.1*** ，这个配置说明只可以在本机访问Redis服务；注释后可以接收任意ip的连接，这样的话，可以接收到监控的节点回复。
-> #bind 127.0.0.1
+> \#bind 127.0.0.1
 
 4.2.修改protected-mode配置
 默认的protected-mode为yes,将yes设置为no，此时外部网络可以直接访问
@@ -66,17 +66,17 @@ sentinel failover-timeout 主机别名 180000
 
 4.3.修改daemonize配置
 默认daemonize为no，将daemonize注释可以让Redis服务后台运行。
->#daemonize no
+>\#daemonize no
 
 5.使用 -v 命令将Sentinel容器配置文件挂载到自定义的redis.conf文件，启动Sentinel服务后就可以监控Redis的服务啦！（注意redis.conf的权限，权限不够的话会报Permission denied）
 >docker run --name sentinel -p 9001:6379 -v /redis/redis.conf:/etc/redis/redis.conf -v /root/redis/sentinel/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes --sentinel
 
 查看sentinel容器日志，通过日志可以知道sentinel启动后监控了主从服务器。
 
-图片...
+![运行sentinel容器](https://upload-images.jianshu.io/upload_images/17362740-e6d5769b12e65b40.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 再次打开挂载的redis.conf文件，可以发现配置文件的底部记录了主从服务器的信息，也就是说成功的监控各个服务器！
-图片...
+![启动Sentinel后配置文件](https://upload-images.jianshu.io/upload_images/17362740-7322651047977086.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 进入sentinel容器执行sentinel masters可以看到监控的主服务器信息；执行sentinel slaves  
 master 可以看到从服务器的信息。
@@ -84,7 +84,7 @@ master 可以看到从服务器的信息。
 sentinel masters
 sentinel slaves master
 
-图片...
+![进入sentinel容器](https://upload-images.jianshu.io/upload_images/17362740-ae0ab0411fc10217.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 模拟主服务器故障，从服务器成为主服务器的操作。
@@ -92,11 +92,11 @@ sentinel slaves master
 
 关闭master容器，模拟主服务器宕机，再次进入sentinel容器执行sentinel masters查看主服务器的信息，经过设定的故障转移时间，你会发现slave1或者slave2成为了主服务器。
 
-图片...
+![选举新主服务器](https://upload-images.jianshu.io/upload_images/17362740-0b19eb385ea38d91.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 再次启动master容器，进入sentinel容器执行sentinel masters查看主服务器的信息可以发现主服务器的信息不变，执行sentinel slaves master 可以发现重新上线的服务器成为了从服务器。
 
-图片...
+![重启原先主服务器成为从服务器](https://upload-images.jianshu.io/upload_images/17362740-23f1b3e613f43893.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 好了，以上就是使用 Docker 搭建 Redis 哨兵模式。
 
