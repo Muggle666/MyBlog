@@ -19,7 +19,7 @@ Redis 3.0提供的分布式数据库解决方案——Redis Cluster。不仅可�
 
 >for port in `seq 8081 8089`; do docker run -d -ti -p ${port}:${port} -p 1${port}:1${port} -v /cluster-docker/${port}/conf/redis.conf:/etc/redis/redis.conf -v /cluster-docker/${port}/data:/data --restart always --name redis-${port} --net redis-net --sysctl net.core.somaxconn=1024 redis:5.0 redis-server /etc/redis/redis.conf; done
 
-图片：docker ps
+![docker ps ](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Redis%E5%9B%BE/%E9%9B%86%E7%BE%A4/docker%20ps.jpg)
 
 #### 3.获取各个容器的内外ip
 
