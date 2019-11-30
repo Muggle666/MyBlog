@@ -11,17 +11,17 @@ Redis 3.0提供的分布式数据库解决方案——Redis Cluster。不仅可�
 
 接下来主要介绍如何使用 Docker 搭建Redis Cluster
 
-1.创建集群目录，存放各个节点的配置目录（/conf/redis.conf和数据目录（/data）
+#### 1.创建集群目录，存放各个节点的配置目录（/conf/redis.conf和数据目录（/data）
 
 >for port in `seq 8081 8089`; do mkdir -p ./${port}/conf && PORT=${port} envsubst < ./redis-cluster.tmpl > ./${port}/conf/redis.conf  && mkdir -p ./${port}/data; done
 
-2.运行端口为8081~8089的容器
+#### 2.运行端口为8081~8089的容器
 
 >for port in `seq 8081 8089`; do docker run -d -ti -p ${port}:${port} -p 1${port}:1${port} -v /cluster-docker/${port}/conf/redis.conf:/etc/redis/redis.conf -v /cluster-docker/${port}/data:/data --restart always --name redis-${port} --net redis-net --sysctl net.core.somaxconn=1024 redis:5.0 redis-server /etc/redis/redis.conf; done
 
 图片：docker ps
 
-3.获取各个容器的内外ip
+#### 3.获取各个容器的内外ip
 
 >for port in `seq 8081 8089`; do echo -n "$(docker inspect --format '{{ (index .NetworkSettings.Networks "bridge").IPAddress }}' "redis-${port}")":${port} ' ' ; done
 
@@ -30,7 +30,7 @@ Redis 3.0提供的分布式数据库解决方案——Redis Cluster。不仅可�
 
 
 
-4.创建集群
+#### 4.创建集群
 
 随便进入一个redis容器，譬如
 >docker exec -it redis-8081 /bin/bash
