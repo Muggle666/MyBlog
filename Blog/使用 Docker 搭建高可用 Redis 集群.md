@@ -39,7 +39,8 @@ Redis 3.0提供的分布式数据库解决方案——Redis Cluster。不仅可�
 
 显示 Can I set the above configuration? (type 'yes' to accept): 的时候，输入yes
 
-如无意外的话，最后显示 [OK] All 16384 slots covered. 则代表集群创建成功！如果输入yes之后一直显示
+如无意外的话，最后显示 [OK] All 16384 slots covered. 则代表集群创建成功！如果输入yes之后一直显示 `Waiting for the cluster to join...` 请参考我另外一篇拙作 [搭建Redis集群遇到的问题：Waiting for the cluster to join...](https://www.jianshu.com/p/250f5da36b49)
+
 
 ![成功搭建集群](https://raw.githubusercontent.com/MuggleLee/PicGo/master/Redis%E5%9B%BE/%E9%9B%86%E7%BE%A4/%E6%88%90%E5%8A%9F%E6%90%AD%E5%BB%BA%E9%9B%86%E7%BE%A4.jpg)
 
